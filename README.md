@@ -1,6 +1,6 @@
 # codenvy-docs
 
-This repository houses documentation for Codenvy ([repo](https://github.com/codenvy/codenvy) / [site](https://codenvy.com/)). Content is held in markdown files in the `_docs` directory. Images should be placed in `/assets/imgs`.
+This repository houses documentation for Codenvy ([repo](https://github.com/codenvy/codenvy) / [site](https://codenvy.com/)). Content is held in markdown files in the `/src/main/_docs` directory. Images should be placed in `/src/main/assets/imgs`.
 
 Docs are built using Jekyll and the output is static HTML that is hosted at [codenvy.com/docs](https://codenvy.com/docs) and in the product at `{codenvy-domain}/docs`.
 

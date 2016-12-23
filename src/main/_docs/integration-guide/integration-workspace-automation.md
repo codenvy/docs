@@ -81,14 +81,15 @@ A Factory configuration is a JSON snippet either stored within Codenvy or as a `
 
 ```json  
 factory : {
-  v         : 4.0,            // Version of configuration format
-  workspace : {},             // Identical to workspace:{} object for Eclipse Che
-  policies  : {},             // (Optional) Restrictions that limit behaviors
-  ide       : {},             // (Optional) Trigger IDE UI actions tied to workspace events
-  creator   : {},             // (Optional) Identifying information of author
-  button    : {}              // (Optional) Style dynamic button for Factory URL
+  "v"         : 4.0,   // Version of configuration format
+  "workspace" : {},    // Identical to workspace:{} object for Eclipse Che
+  "policies"  : {},    // (Optional) Restrictions that limit behaviors
+  "ide"       : {},    // (Optional) Trigger IDE UI actions tied to workspace events
+  "creator"   : {},    // (Optional) Identifying information of author
+  "button"    : {}     // (Optional) Style dynamic button for Factory URL
 }
 ```
+
 The `factory.workspace` is identical to the `workspace:{}` object for Eclipse Che and contains the structure of the workspace. Learn more about [the workspace JSON object]().
 
 Codenvy maintains object compatibility with the workspace definition from Eclipse Che. You can export Eclipse Che workspaces and then reuse the workspace definition within a Factory. Codenvy workspaces are composed of 0..n projects, 0..n environments which contain machine stacks to run the code, 0..n commands to perform against the code, and a type.
@@ -128,7 +129,9 @@ factory.workspace.project : {
   },
 
   "source" : {
-    "type"       : "git\n    "location"   : "https://github.com/codenvy/che.git\n    "parameters" : {
+    "type"       : "git",
+    "location"   : "https://github.com/codenvy/che.git",
+    "parameters" : {
       "keepVcs" : "true"
     }
   }
@@ -141,21 +144,19 @@ Policies are a way to send instructions to the automation engine about the numbe
 
 ```json  
 factory.policies : {
-  type      : [named | temp],  // Default = named        
-  location  : [acceptor |      // Default = acceptor. Where workspace lives
-               owner],    
-  resources : {},              // Resource grant for newly created workspace
-  referer   : STRING,          // Works only for clients from referer
-  since     : EPOCHTIME,       // Factory works only after this date
-  until     : EPOCHTIME,       // Factory works only before this date
-  create     : [perClick |      // Create one workpace per click, user or account
-               perUser]     
+  "type"      : [named | temp],       // Default = named        
+  "location"  : [acceptor | owner],   // Default = acceptor. Where workspace lives
+  "resources" : {},                   // Resource grant for newly created workspace
+  "referer"   : STRING,               // Works only for clients from referer
+  "since"     : EPOCHTIME,            // Factory works only after this date
+  "until"     : EPOCHTIME,            // Factory works only before this date
+  "create"    : [perClick | perUser]  // Create one workpace per click, user or account
 }
 ```
-
+<br>
 ```json  
 factory.policies.resources : {
-  ram : INTEGER                // RAM in MB for workspace default environment
+  "ram" : INTEGER                     // RAM in MB for workspace default environment
 }
 ```
 
@@ -182,13 +183,13 @@ How many workspaces should be created?  If `count : perClick` then every click o
 
 ## factory.ide Object
 ```json  
-factory.ide.{event} : {        // {event}: onAppLoaded, onProjectsLoaded, onAppClosed
-  actions : [{}]               // List of IDE actions to execute when event triggered
+factory.ide.{event} : {          // event = onAppLoaded, onProjectsLoaded, onAppClosed
+  "actions" : [{}]               // List of IDE actions to execute when event triggered
 }
 
 factory.ide.{event}.actions : [{
-  id         : String,         // Action for IDE to perform when event triggered
-  properties : {}              // Properties to customize action behavior
+  "id"         : String,         // Action for IDE to perform when event triggered
+  properties : {}                // Properties to customize action behavior
 }]\
 ```
 You can instruct the Factory to invoke a series of IDE actions based upon events in the lifecycle of the workspace.
@@ -199,40 +200,46 @@ You can instruct the Factory to invoke a series of IDE actions based upon events
 This is an example that associates a variety of actions with all of the events.
 ```json  
 "ide" : {  
-  "onProjectsLoaded" : {            // Actions triggered when a project is opened
+  "onProjectsLoaded" : {                // Actions triggered when a project is opened
     "actions" : [{  
-      "id" : "openFile\            // Opens a file in editor. Open addl files by repeating
-      "properties" : {              // Specifies which file to open (include project name)
+      "id" : "openFile",                // Opens a file in editor. Open addl files by repeating
+      "properties" : {                  // Specifies which file to open (include project name)
         "file" : "/my-project/pom.xml"
       }
     }, {  
-      "id" : "findReplace\         // Find and replace values in source code
+      "id" : "findReplace",             // Find and replace values in source code
       "properties" : {  
-        "in"          : "(pom\\.xm.*)|(test\\..*)\  // Which files?
-        "find"        : "GROUP_ID\                  // What to replace?
-        "replace"     : "Codenvy\                   // Replace with?
+        "in"          : "(pom\\.xm.*)|(test\\..*)",  // Which files?
+        "find"        : "GROUP_ID",                  // What to replace?
+        "replace"     : "Codenvy",                   // Replace with?
         "replaceMode" : "text_multipass"
       }
     }, {  
-      "id" : "runCommand\          // Launch command after IDE opens
+      "id" : "runCommand",              // Launch command after IDE opens
       "properties" : {    
         "name" : "MCI"
       }
     }
   ]},
 
-  "onAppLoaded" : {                 // Actions to be triggered after IDE is loaded
+  "onAppLoaded" : {                     // Actions to be triggered after IDE is loaded
     "actions" : [{  
-      "id" : "openWelcomePage\     // Show a custom welcome panel and message
+      "id" : "openWelcomePage",         // Show a custom welcome panel and message
       "properties" : {  
-        "authenticatedContentUrl"    : "http://media.npr.org/images/picture-show-flickr-promo.jpg\n        "authenticatedIconUrl"       : "https://codenvy.com/wp-content/uploads/2014/01/icon-android.png\n        "authenticatedTitle"         : "Welcome, John\n        "authenticatedNotification"  : "We are glad you are back!\n        "nonAuthenticatedContentUrl" : "http://media.npr.org/images/picture-show-flickr-promo.jpg\n        "nonAuthenticatedIconUrl"    : "https://codenvy.com/wp-content/uploads/2014/01/icon-android.png\n        "nonAuthenticatedTitle"      : "Welcome, Anonymous"
+        "authenticatedContentUrl"    : "http://media.npr.org/images/picture-show-flickr-promo.jpg",
+        "authenticatedIconUrl"       : "https://codenvy.com/wp-content/uploads/2014/01/icon-android.png",
+        "authenticatedTitle"         : "Welcome, John",
+        "authenticatedNotification"  : "We are glad you are back!",
+        "nonAuthenticatedContentUrl" : "http://media.npr.org/images/picture-show-flickr-promo.jpg",
+        "nonAuthenticatedIconUrl"    : "https://codenvy.com/wp-content/uploads/2014/01/icon-android.png",
+        "nonAuthenticatedTitle"      : "Welcome, Anonymous"
       }
     }
   ]},
 
-  "onAppClosed" : {                 // Actions to be triggered when IDE is closed
+  "onAppClosed" : {                     // Actions to be triggered when IDE is closed
     "actions" : [{  
-      "id" : "warnOnClose\         // Show warning when closing browser tab
+      "id" : "warnOnClose"              // Show warning when closing browser tab
     }]
   }
 }
@@ -263,7 +270,8 @@ Each event type has a set of actions that can be triggered. There is no ordering
 This action will open a file as a tab in the editor. You can provide this action multiple times to have multiple files open. The file property is a relative reference to a file in the project’s source tree. The `file` parameter is the relative path within the workspace to the file that should be opened by the editor. Note that projects are located in the workspaces `/projects` folder.
 ```json  
 {  
-  "id" : "openFile\n  "properties" : {  
+  "id" : "openFile",
+    "properties" : {  
     "file" : "/my-project/pom.xml"
   }
 }
@@ -277,11 +285,11 @@ Parameterization works by replacing templated variables in the source code with 
 ```json  
 "onProjectOpened" : {                          
   "actions" : [{  
-      "id" : "findReplace\            
+      "id" : "findReplace",            
       "properties" : {  
-        "in"          : "(pom\\.xm.*)|(test\\..*)\  // Which files?
-        "find"        : "GROUP_ID\                  // What to find?
-        "replace"     : "Codenvy\                   // Replace with?
+        "in"          : "(pom\\.xm.*)|(test\\..*)",  // Which files?
+        "find"        : "GROUP_ID",                  // What to find?
+        "replace"     : "Codenvy",                   // Replace with?
         "replaceMode" : "test_multipass"
       }
     }]
@@ -301,27 +309,26 @@ It is possible to combine two replacement methods. Priority is given to singlepa
 This object has meta information that you can embed within the Factory. These attributes do not affect the automation behavior or the behavior of the generated workspace.
 ```json  
 factory.creator : {
-  name      : STRING,          // Name of author of this configuration file
-  email     : STRING,          // Email address of author
-  created   : EPOCHTIME,       // Set by the system
-  userId    : STRING           // Set by the system
-}\
+  "name"      : STRING,                // Name of author of this configuration file
+  "email"     : STRING,                // Email address of author
+  "created"   : EPOCHTIME,             // Set by the system
+  "userId"    : STRING                 // Set by the system
+}
 ```
 ## factory.button Object
 ```json  
 # Defines a visual button or logo that can front the Factory URL
 factory.button : {
-  type       : [logo |         // Sets whether button contains user's logo
-                nologo],
-  attributes : {}              // Properties of the button
+  "type"       : [logo | nologo],      // Sets whether button contains user's logo
+  "attributes" : {}                    // Properties of the button
 }
 
 factory.button.attributes : {
-  color   : [gray | white],    // Background color. Ignored if type = logo
-  counter : [false | true],    // Adds counter for clicks, updated daily
-  logo    : URL,               // Button image URL. Ignored if type = nologo
-  style   : [horizontal |      // Counter direction. Ignored if type = logo
-             vertical]      
+  "color"   : [gray | white],          // Background color. Ignored if type = logo
+  "counter" : [false | true],          // Adds counter for clicks, updated daily
+  "logo"    : URL,                     // Button image URL. Ignored if type = nologo
+  "style"   : [horizontal | vertical]  // Counter direction. Ignored if type = logo
+                   
 }\
 ```
 We provide three button types with animations that execute when you hover over them.  You can save the button configuration with the Factory by filling in the `factory.button` object with the Factory configuration.  You can also use our button formats directly within Markdown and HTML using a JavaScript snippet.
@@ -364,8 +371,8 @@ The `gray` style will cause the small dark animation button to load. The `white`
 
 ### Markdown Button
 ```markdown  
-[![alt](https://codenvy.com/factory/resources/factory-white.png)](URL)
-[![alt](https://codenvy.com/factory/resources/factory-dark.png)](URL)\
+![alt](https://codenvy.com/factory/resources/factory-white.png)](URL)
+![alt](https://codenvy.com/factory/resources/factory-dark.png)](URL)
 ```
 ### Button Examples
 ```html  
@@ -375,11 +382,10 @@ The `gray` style will cause the small dark animation button to load. The `white`
     style   = "advanced"
     counter = "horizontal"
     url     = "https://codenvy.com"
-    logo    = "http://bit.ly/1CjqxdR"
-        >
+    logo    = "http://bit.ly/1CjqxdR">
 </script>
 ```
 
 ```markdown  
-[![alt](https://codenvy.com/factory/resources/factory-white.png)](https://codenvy.io/f?id=s38eam174ji42vty)\
+![alt](https://codenvy.com/factory/resources/factory-white.png)](https://codenvy.io/f?id=s38eam174ji42vty)
 ```

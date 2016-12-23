@@ -21,7 +21,7 @@ If you'd like to speak to us about an integrations between Codenvy and another C
 
 ### Set up Plugins  
 Go to **Manage Jenkins - Manage Plugins** and install GitHub and Email Extension Template Plugins.
-![plugins.png]({{base}}/assets/imgs/codenvy/integration-guide/continuous-integration/plugins.png)
+![plugins.png]({{base}}/assets/imgs/codenvy/plugins.png)
 
 ### Create a Jenkins Job  
 (Skip this step if you have your Jenkins job already set up.)
@@ -33,7 +33,7 @@ Once a Jenkins job is set up you need to make sure that an email is sent out whe
 In your Jenkins job configuration, define the message content as:
 
 `${JELLY_SCRIPT,template="html-factory"}`
-![postbuild.png]({{base}}/assets/imgs/codenvy/integration-guide/continuous-integration/postbuild.png)
+![postbuild.png]({{base}}/assets/imgs/codenvy/postbuild.png)
 
 ### Create a Codenvy Factory  
 You need a Codenvy Factory configured to use the project you want associated with your Jenkins job. This Factory will be modified by the plugin and injected into Jenkins job emails. See: [Factories]({{base}}/docs/integration-guide/workspace-automation/index.html).

@@ -1,8 +1,8 @@
 # codenvy-docs
 
-This repository houses documentation for Codenvy ([repo](https://github.com/codenvy/codenvy) / [site](https://codenvy.com/)). Content is held in markdown files in the `_docs` directory.
+This repository houses documentation for Codenvy ([repo](https://github.com/codenvy/codenvy) / [site](https://codenvy.com/)). Content is held in markdown files in the `_docs` directory. Images should be placed in `/assets/imgs`.
 
-Docs are built using Jekyll and the output is static HTML that is hosted at [codenvy.com/docs](https://codenvy.com/docs) and in the product at {codenvy-domain}/docs. Images should be placed in /assets/imgs.
+Docs are built using Jekyll and the output is static HTML that is hosted at [codenvy.com/docs](https://codenvy.com/docs) and in the product at `{codenvy-domain}/docs`.
 
 # Linking to Docs and Images
 Because the docs are generated into static HTML linking to docs and images is a bit unusual:
@@ -11,7 +11,7 @@ Because the docs are generated into static HTML linking to docs and images is a 
   - `/integration-guide` is the directory where the .md file is in the repo
   - `/workspace-automation` is the name of the .md file without the .md extension
   - `/index.html` is always required at the end
-- Link to a section in a docs page: ``[Codenvy Factories]({{base}}/docs/integration-guide/workspace-automation/index.html#try-a-factory)`
+- Link to a section in a docs page: `[Codenvy Factories]({{base}}/docs/integration-guide/workspace-automation/index.html#try-a-factory)`
   - `#try-a-factory` is the section heading name with spaces replaced by dashes
 - Link to an image: `![mypic.png]({{base}}/assets/imgs/mypic.png)`
 

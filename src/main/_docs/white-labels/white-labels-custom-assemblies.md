@@ -5,6 +5,9 @@ excerpt: "Build your own Codenvy binaries"
 layout: docs
 permalink: /:categories/custom-assemblies/
 ---
+{% include base.html %}
+
+
 You can create new assemblies for Codenvy. An assembly can contain Eclipse Che extensions, custom stacks, and templates that appear in the dashboard and IDE.  You create the binary from Codenvy source code and then use the embedded Puppet system to update Codenvy with your new binary.
 
 # Get Codenvy Source Code
@@ -12,13 +15,7 @@ You can create new assemblies for Codenvy. An assembly can contain Eclipse Che e
 You will need a source code packet that matches the current version of Codenvy that you are running.
 
 ```shell  
-# Get Codenvy version with the CLI:
-codenvy im-version
-
-# Download source code bundle
-https://install.codenvycorp.com/codenvy/
-
-# Or clone the source directly from our repository
+# Clone the source directly from our repository
 git clone http://github.com/codenvy/codenvy
 git checkout <tag-version>\
 ```
@@ -52,7 +49,7 @@ $ puppet agent -t
 ```
 
 # Add Custom Eclipse Che Extensions  
-You can create bundles that include your own Eclipse Che extensions, stacks and templates. You will need to have build those extensions and compiled them into JAR and ZIP files. There are numerous docs for [writing extensions and customizing stacks](https://eclipse-che.readme.io/docs/introduction-1).
+You can create bundles that include your own Eclipse Che extensions, stacks and templates. You will need to have build those extensions and compiled them into JAR and ZIP files. There are numerous docs for [writing extensions and customizing stacks]().
 
 Maven's default enforcement rules require that every extension that you add be listed as a dependency in Codenvy's parent `pom.xml`. You can skip enforcement by using `-Denforcer.skip=true` argument when performing a `mvn clean install`.
 
@@ -63,7 +60,7 @@ Otherwise, you must add your extension as a dependency to Codenvy.  First, add t
 	<groupId>{groupid-of-extension}</groupId>
 	<artifactId>{artifactid-of-extension}</artifactId>
   <version>${project.version}</version>
-</dependency>\
+</dependency>
 ```
 After adding a dependency, you need to sort maven with `mvn sortpom:sort`.
 
@@ -76,11 +73,11 @@ Second, if your extension is an IDE extension, add your extension as a dependenc
 	<groupId>{groupid-of-extension}</groupId>
 	<artifactId>{artifactid-of-extension}</artifactId>
   <version>${project.version}</version>
-</dependency>\
+</dependency>
 ```
 
 ```xml  
-<inherits name='{package-name-of-your-ide-extension}'/>\
+<inherits name='{package-name-of-your-ide-extension}'/>
 ```
 Third, if your extension is a server-side workspace extension, add your extension as a dependency to the workspace master:
 
@@ -89,7 +86,7 @@ Third, if your extension is a server-side workspace extension, add your extensio
 	<groupId>{groupid-of-extension}</groupId>
 	<artifactId>{artifactid-of-extension}</artifactId>
   <version>${project.version}</version>
-</dependency>\
+</dependency>
 ```
 If you deployed your server-side extension as a REST service, it will then be available at `/api/{your-custom-path}`
 
@@ -100,5 +97,5 @@ Fourth, if your extension is a server-side workspace agent extension, which is d
 	<groupId>{groupid-of-extension}</groupId>
 	<artifactId>{artifactid-of-extension}</artifactId>
   <version>${project.version}</version>
-</dependency>\
+</dependency>
 ```

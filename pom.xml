@@ -66,7 +66,53 @@
         </pluginRepository>
     </pluginRepositories>
     <build>
-        <plugins>
+        <plugins>      
+            <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>copy-resources</id>
+                <phase>validate</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/codenvy-docs-src/src/main</outputDirectory>
+                  <resources>          
+                    <resource>
+                      <directory>${project.basedir}/src/main</directory>
+                      <filtering>true</filtering>
+                    </resource>
+                  </resources>              
+                </configuration>            
+              </execution>
+            </executions>
+          </plugin>
+            <plugin>
+             <groupId>org.apache.maven.plugins</groupId>
+             <artifactId>maven-dependency-plugin</artifactId>
+             <executions>
+               <execution>
+                 <id>unpack</id>
+                 <phase>process-resources</phase>
+                 <goals>
+                   <goal>unpack</goal>
+                 </goals>
+                 <configuration>
+                   <artifactItems>
+                     <artifactItem>
+                       <groupId>org.eclipse.che.docs</groupId>
+                       <artifactId>che-docs-src</artifactId>
+                       <version>5.0.0-SNAPSHOT</version>
+                       <type>jar</type>
+                       <overWrite>false</overWrite>
+                       <outputDirectory>${project.build.directory}/codenvy-docs-src</outputDirectory>
+                     </artifactItem>
+                   </artifactItems>
+                 </configuration>
+               </execution>
+             </executions>
+           </plugin>
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
@@ -97,12 +143,13 @@
                         </goals>
                         <configuration>
                             <target>
-                                <exec dir="${project.basedir}/src/main" executable="jekyll" failonerror="true">
+                                <mkdir dir="${project.build.directory}/_site" />
+                                <exec dir="${project.build.directory}/codenvy-docs-src/src/main" executable="jekyll" failonerror="true">
                                     <arg value="build" />
                                     <arg value="--config" />
-                                    <arg value="${project.basedir}/src/main/_config.yml" />
+                                    <arg value="${project.build.directory}/codenvy-docs-src/src/main/_config.yml" />
                                     <arg value="--destination" />
-                                    <arg value="${project.basedir}/target" />
+                                    <arg value="${project.build.directory}/_site" />
                                 </exec>
                             </target>
                         </configuration>
@@ -116,9 +163,12 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <webResources>
                         <resource>
-                            <directory>target/docs</directory>
+                            <directory>target/_site</directory>
                         </resource>
                     </webResources>
+                    <packagingExcludes>
+                      *.xml
+                    </packagingExcludes>
                 </configuration>
             </plugin>
         </plugins>

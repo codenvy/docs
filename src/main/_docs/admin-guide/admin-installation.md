@@ -300,4 +300,4 @@ Codenvy's runtime launches a group of Docker containers in a compose relationshi
  
 Production installs have a Codenvy master node separated from 1..n workspace nodes which run the developer workspaces.
  
-![codenvy-architecture-scalable.png]({{base}}/assets/imgs/codenvy/codenvy-architecture-scalable.png)
+![codenvy-architecture-scalable.png]({{base}}/docs/assets/imgs/codenvy/codenvy-architecture-scalable.png)

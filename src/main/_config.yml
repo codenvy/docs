@@ -91,7 +91,7 @@ defaults:
     scope:
       path: "_docs/tutorials"
     values:
-      categories: [ "tutorials" ]
+      categories: [ "docs" , "tutorials" ]
   -
     scope:
       path: "_docs/user-guide"
@@ -116,4 +116,4 @@ defaults:
     scope:
       path: "_docs/che/tutorials"
     values:
-      categories: [ "tutorials" ]
+      categories: [ "docs" , "tutorials" ]

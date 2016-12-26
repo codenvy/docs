@@ -15,30 +15,30 @@
 
 - title: User Tutorials
   tutorials:
-  - multi-machine
-  - maven
-  - gradle
-  - java
-  - swing
-  - nodejs
-  - meteor
-  - wordpress
-  - php
-  - android
-  - spring-boot
-  - rails
-  - laravel
-  - tomee
-  - che-in-che
-  - gae
-  - che-and-appfog
-  - subversion
-  - ftpsftp
-  - cuba
-  - sourcegraph
-  - vaadin
-  - platformio
-  - one-click-docker-environments
+  - tutorial-multi-machine
+  - tutorial-maven
+  - tutorial-gradle
+  - tutorial-java
+  - tutorial-swing
+  - tutorial-nodejs
+  - tutorial-meteor
+  - tutorial-wordpress
+  - tutorial-php
+  - tutorial-android
+  - tutorial-spring-boot
+  - tutorial-rails
+  - tutorial-laravel
+  - tutorial-tomee
+  - tutorial-che-in-che
+  - tutorial-gae
+  - tutorial-che-and-appfog
+  - tutorial-subversion
+  - tutorial-ftpsftp
+  - tutorial-cuba
+  - tutorial-sourcegraph
+  - tutorial-vaadin
+  - tutorial-platformio
+  - tutorial-one-click-docker-environments
 #  - teams-and-collaboration
 #  - workspace-administration
   

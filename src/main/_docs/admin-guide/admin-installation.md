@@ -298,6 +298,6 @@ docker rmi -f codenvy/cli
 # System Architecture
 Codenvy's runtime launches a group of Docker containers in a compose relationship. Once running, Codenvy's containers can be accessed on the command line from within a browser.
  
- ![Architecture](https://cloud.githubusercontent.com/assets/5337267/19623944/f2366c74-989d-11e6-970b-db0ff41f618a.png)
-
-
+Production installs have a Codenvy master node separated from 1..n workspace nodes which run the developer workspaces.
+ 
+![codenvy-architecture-scalable.png]({{base}}/assets/imgs/codenvy/codenvy-architecture-scalable.png)

@@ -29,7 +29,7 @@ The Codenvy agile workflow with Atlassian JIRA requires:
 - Atlassian JIRA issue management system.
 - Codenvy Plug-in for Atlassian JIRA
 - GitHub or other git-based repo with webhooks for push and pull requests.
-![jira-github-jenkins-integration.png]({{base}}/assets/imgs/codenvy/jira-github-jenkins-integration.png)
+![jira-github-jenkins-integration.png]({{base}}/docs/assets/imgs/codenvy/jira-github-jenkins-integration.png)
 
 The VCS Factory Plug-In updates Codenvy Factories in response to GitHub webhooks for push events and pull request events.
 
@@ -94,7 +94,7 @@ Log into JIRA and choose one of the project types that you have Factory-enabled.
 
 ## Using the Plug-In for JIRA  
 When a developer is ready to start work on an issue they click the Develop link.  They are brought into a developer workspace that is isolated to them and includes project sources and the build / run / debug environments needed for the project.  The definition of the [project's parent Factory]({{base}}/docs/integration-guide/workspace-automation/index.html) defines pre- and post-load behaviors.
-![webhook-vcs-integration-flow.png]({{base}}/assets/imgs/codenvy/webhook-vcs-integration-flow.png)
+![webhook-vcs-integration-flow.png]({{base}}/docs/assets/imgs/codenvy/webhook-vcs-integration-flow.png)
 The git webhooks ensure that as the repository changes the JIRA issue Factory is kept up to date. For example, if a branch associated with the Factory is merged then the Factory will be updated to point to the commitID on the branch that was merged-to.
 
 ## Plug-In for JIRA User Data Usage and Privacy  
@@ -113,7 +113,7 @@ The Codenvy agile workflow with Microsoft Visual Studio Team Services requires:
 - A Codenvy installation with the VCS Factory Plug-In installed.
 - A Microsoft Visual Studio Team Services installation with a git-based repo.
 - The Codenvy Agile Plugin for VSTS
-![microsoft-vsts-integration.png]({{base}}/assets/imgs/codenvy/microsoft-vsts-integration.png)
+![microsoft-vsts-integration.png]({{base}}/docs/assets/imgs/codenvy/microsoft-vsts-integration.png)
 
 ## Installing the Extension for VSTS   
 The Codenvy extension for Microsoft VSTS is available from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=codenvy.codenvy-extension)
@@ -163,6 +163,6 @@ Log into Microsoft VSTS and choose one of the project types that you have Factor
 ## Using the Codenvy Extension for Microsoft VSTS  
 When a developer is ready to start work on a work item they click the Develop link.  They are brought into a developer workspace that is isolated to them and includes project sources and the build / run / debug environments needed for the project.  The definition of the [project's parent Factory]({{base}}/docs/integration-guide/workspace-automation/index.html) defines pre- and post-load behaviors.
 
-![webhook-vcs-integration-flow.png]({{base}}src/main/assets/imgs/codenvy/webhook-vcs-integration-flow.png)
+![webhook-vcs-integration-flow.png]({{base}}src/main/docs/assets/imgs/codenvy/webhook-vcs-integration-flow.png)
 
 The git webhooks ensure that as the repository changes the Microsoft VSTS work item Factory is kept up to date. For example, if a branch associated with the Factory is merged then the Factory will be updated to point to the commitID on the branch that was merged-to.

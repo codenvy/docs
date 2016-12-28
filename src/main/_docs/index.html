@@ -38,13 +38,13 @@ permalink: /docs/
   <div class="unit whole center-on-mobiles">
     <table>
       <tr>
-        <th>Codenvy Version</th>
+        <th>Other Codenvy Versions</th>
       </tr>
       <tr>
-        <td><a href="docs/">5.0.0</a></td>
+        <td><a href="https://codenvy.com/docs-versions/5.0.0/docs/">5.0.0</a></td>
       </tr>
       <tr>
-        <td><a href="">Nightly</a></td>
+        <td><a href="https://codenvy.com/docs-versions/nightly/docs/">Nightly</a></td>
       </tr>
       <tr>
         <td><a href="http://codenvy.readme.io/">5.0.0-M8 (pre-release)</a></td>
@@ -108,3 +108,49 @@ permalink: /docs/
   </div> <!-- /grid -->
 </section> <!-- /features -->
 
+
+
+=======
+
+=======
+  <script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<span class=\"sr-only\">Permalink</span><i class=\"fa fa-link\"></i>";
+    anchor.title = "Permalink";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("news")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+
+  
+
+
+
+
+</body>
+</html>

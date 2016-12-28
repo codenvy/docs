@@ -64,7 +64,7 @@ password=yourCodenvyPassword
 # username and password should be for the user that created a base Factory
 ```   
 
-**3. A GitHub or BitBucket Properties File:**
+**3. A GitHub or BitBucket Server Properties File:**
 
 For GitHub: `github-webhooks.properties`
 
@@ -73,7 +73,7 @@ webhook1=github,https://github.com/orgName/web-java-spring,factory7nfrelk0v8b77f
 [webhook-name],[GitHub-URL],[Factory-id]
 ```   
 
-For BitBucket: `bitbucketserver-webhooks.properties`
+For BitBucket Server: `bitbucketserver-webhooks.properties`
 ```text  
 webhook1=bitbucketserver,http://owner@bitbucketserver.host/scm/projectkey/repository.git,factoryId
 [webhook-name],[repository-url],[factory-id];[factory-id];...;[factory-id]
@@ -85,7 +85,7 @@ In your GitHub repo settings, configure the following webhook:
 
 `http(s)://$codenvyURL/api/github-webhook`
 
-#### For BitBucket
+#### For BitBucket Server
 - Log into the Bitbucket Server as an Admin
 - Install Post-Receive WebHooks plugin.
 - In repo settings, configure the plugin to use Bitbucket Server webhook: `http(s)://$codenvyURL/api/bitbucketserver-webhook`

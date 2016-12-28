@@ -41,6 +41,15 @@
         <version.license.header.groupid>com.codenvy.resources</version.license.header.groupid>
         <version.license.header.version>14</version.license.header.version>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.eclipse.che.docs</groupId>
+                <artifactId>che-docs</artifactId>
+                <version>5.0.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <repositories>
         <repository>
             <id>codenvy-public-repo</id>

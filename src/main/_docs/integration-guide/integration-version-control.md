@@ -39,6 +39,7 @@ $ openssl pkcs8 -topk8 -inform pem -outform pem -nocrypt -in private.pem -out pr
 ```
 #### 2. Setup Codenvy in BitBucket Server
 In the Bitbucket Server as an Admin:
+
 1. Go to Administration -> Application Links
 1. Enter your Codenvy URL in the 'application url' field and press the 'Create new link' button.
 1. When  the 'Configure Application URL' window appears press the 'Continue' button.
@@ -59,6 +60,7 @@ In the following screen press the pencil icon to edit and select the 'Incoming A
 - Consumer Callback : {your Codenvy URL>}/api/oauth/1.0/callback
 
 #### 4. Configure Codenvy Properties
+In the `codenvy.pp` file add (or change if they already exist):
 - bitbucket_consumer_key : the consumer key you have entered before
 - bitbucket_private_key : the key from privatepkcs8.pem file 
 - (The key must not contain ‘----BEGIN PRIVATE KEY-----’ and ‘-----END PRIVATE KEY-----’ rows) (The key must be specified as a single raw)

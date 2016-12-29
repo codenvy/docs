@@ -48,33 +48,49 @@ where the URL in quotes is the Factory URL to be used with the Jenkins job.
 ### Configure Property Files 
 SSH into your Codenvy instance, navigate to `/home/codenvy` and create 3 `.properties` files:
 
-**First file:** `connectors.properties`
+**1. A Connectors File:** `connectors.properties`
 
 ```text  
 jenkins1=jenkins,factory7nfrelk0v8b77fek,http://userName:password@jenkins.codenvy-dev.com:8080,EvgenTestn
 
-[connector-name],[factory-ID],[$protocol://$userName:$password@$jenkinsURL],[jenkins-job-name]\
+[connector-name],[factory-ID],[$protocol://$userName:$password@$jenkinsURL],[jenkins-job-name]
 ```   
 
-**Second file:** `credentials.properties`
+**2. A Credentials File:** `credentials.properties`
 
 ```text  
 username=yourCodenvyUsername
 password=yourCodenvyPassword
-# username and password should be for the user that created a base Factory\
+# username and password should be for the user that created a base Factory
 ```   
 
-**Third file:** `github-webhooks.properties`
+**3. A GitHub or BitBucket Server Properties File:**
+
+For GitHub: `github-webhooks.properties`
 
 ```text  
 webhook1=github,https://github.com/orgName/web-java-spring,factory7nfrelk0v8b77fekn
-[webhook-name],[GitHub-URL],[Factory-id]\
+[webhook-name],[GitHub-URL],[Factory-id]
 ```   
 
-### Configure GitHub Webhooks  
+For BitBucket Server: `bitbucketserver-webhooks.properties`
+```text  
+webhook1=bitbucketserver,http://owner@bitbucketserver.host/scm/projectkey/repository.git,factoryId
+[webhook-name],[repository-url],[factory-id];[factory-id];...;[factory-id]
+```
+
+### Configure Repo Webhooks  
+#### For GitHub
 In your GitHub repo settings, configure the following webhook:
 
 `http(s)://$codenvyURL/api/github-webhook`
+
+#### For BitBucket Server
+- Log into the Bitbucket Server as an Admin
+- Install Post-Receive WebHooks plugin.
+- In repo settings, configure the plugin to use Bitbucket Server webhook: `http(s)://$codenvyURL/api/bitbucketserver-webhook`
+- Configure `bitbucket_endpoint` property with the URL of your Bitbucket Server
+
 
 
 ## Test Integration  

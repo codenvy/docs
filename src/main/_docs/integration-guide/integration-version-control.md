@@ -69,9 +69,6 @@ In the `codenvy.pp` file add (or change if they already exist):
 #### 5. Restart Codenvy
 Restart your Codenvy server to enable the integration.
 
-### Using BitBucket Server oAuth
-With oAuth setup you can perform all git actions with the repo, including commits and pushes. You can also use the Codenvy pull request panel (found on the far right of pull-request enabled workspaces).
-
 ## GitHub oAuth
 ### Setup oAuth at GitHub
 1. Register an application in your GitHub account. Refer to [Setup oAuth at GitHub]() for additional information.

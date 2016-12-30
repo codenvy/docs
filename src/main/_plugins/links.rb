@@ -3,11 +3,7 @@ module Reading
     def generate(site)
       begin
           docs = site.docs_to_write
-          
-          
-          
           entries = {}
-          
           site.collections["docs"].filtered_entries.each do |entry|
             page = ""
             site.config["defaults"].each do |default|
@@ -25,7 +21,6 @@ module Reading
                     end
                 end
             end
-              
             depth = page.split('/').size - 1
             base = ''
             if depth <= 1
@@ -39,7 +34,6 @@ module Reading
             end
             entries[entry]=base+page 
           end
-          
           collections = {}
           site.config["collections"].each do |collection|
             if collection[0] != "posts"

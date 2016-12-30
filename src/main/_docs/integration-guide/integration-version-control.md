@@ -26,7 +26,7 @@ For other git-based or SVN-based repository providers, please refer to their doc
 Currently it's not possible for Codenvy to use oAuth integration with GitLab. Although GitLab supports oAuth for clone operations, pushes are not supported. You can track [this GitLab issue](https://gitlab.com/gitlab-org/gitlab-ce/issues/18106) in their issue management system.
 
 ## BitBucket Server oAuth
-### Setup oAuth for BitBucket Server
+You can setup oAuth to a dedicated BitBucket Server.
 #### 1. Generate Keys
 SSH to your BitBucket Server instance and generate RSA key-pairs
 ```shell
@@ -41,9 +41,9 @@ $ openssl pkcs8 -topk8 -inform pem -outform pem -nocrypt -in private.pem -out pr
 In the Bitbucket Server as an Admin:
 
 1. Go to Administration -> Application Links
-1. Enter your Codenvy URL in the 'application url' field and press the 'Create new link' button.
-1. When  the 'Configure Application URL' window appears press the 'Continue' button.
-1. In the ‘Link applications’ window fill in the following fields and press the 'Continue' button:
+2. Enter your Codenvy URL in the 'application url' field and press the 'Create new link' button.
+3. When  the 'Configure Application URL' window appears press the 'Continue' button.
+4. In the ‘Link applications’ window fill in the following fields and press the 'Continue' button:
   - Application Name : Codenvy
   - Service Provider Name : Codenvy
   - Consumer key : {added by you} (Save this string, you will need it later)

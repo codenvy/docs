@@ -9,13 +9,10 @@ module Reading
             site.config["defaults"].each do |default|
                 scope = default["scope"]
                 path = scope["path"]
-                #puts path
                 full_path = "_docs/" + entry
-                #puts entry
                 if full_path.include? path
                     value = default["values"]
                     categories = value["categories"]
-                    
                     categories.each do |category|
                         page=page+"/"+category
                     end

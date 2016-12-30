@@ -41,14 +41,17 @@ module Reading
           end
           
           collections = {}
-          collections=collections.merge(get_col(site,"docs",entries))
-          collections=collections.merge(get_col(site,"tutorials",entries))      
-          # puts collections
+          site.config["collections"].each do |collection|
+            if collection[0] != "posts"
+              collections=collections.merge(get_col(site,collection[0],entries))
+            end
+          end     
+          puts collections
           site.config["links"] = collections
       rescue 
           red = "\033[0;31m"
           puts red + "Jekyll> There is an error in the ruby plugin file _plugins/links.rb." 
-          puts red + "Jekyll> Check data files 'docs.yml' and 'tutorials.yml' under _data/ folder are formatted correctly."
+          puts red + "Jekyll> Check collection files such ass 'docs.yml' and 'tutorials.yml' under _data/ folder are formatted correctly."
           puts ""
           raise
       end

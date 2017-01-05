@@ -60,7 +60,7 @@ In the following screen press the pencil icon to edit and select the 'Incoming A
 - Consumer Callback : {your Codenvy URL>}/api/oauth/1.0/callback
 
 #### 4. Configure Codenvy Properties
-In the `codenvy.pp` file add (or change if they already exist):
+In the `codenvy.env` file add (or change if they already exist):
 - bitbucket_consumer_key : the consumer key you have entered before
 - bitbucket_private_key : the key from privatepkcs8.pem file 
 - (The key must not contain ‘----BEGIN PRIVATE KEY-----’ and ‘-----END PRIVATE KEY-----’ rows) (The key must be specified as a single raw)
@@ -72,7 +72,7 @@ Restart your Codenvy server to enable the integration.
 ## GitHub oAuth
 ### Setup oAuth at GitHub
 1. Register an application in your GitHub account. Refer to [Setup oAuth at GitHub]() for additional information.
-2. Update the `codenvy.pp` with secret, ID and callback:
+2. Update the `codenvy.env` with secret, ID and callback:
 ```text  
 oauth.github.clientid=yourClientID
 oauth.github.clientsecret=yourClientSecret

@@ -22,7 +22,7 @@ kramdown:
   smart_quotes:   lsquo,rsquo,ldquo,rdquo
   input:          GFM
 
-repository: https://github.com/codenvy/codenvy
+repository: https://github.com/codenvy/codenvy/
 
 timezone: America/Los_Angeles
 
@@ -64,6 +64,8 @@ exclude:
   - _docs/che/chedir-portable-workspaces
   - _docs/che/che-data-model
   - _docs/che/artik-ide-plugin
+  - _docs/che/assets
+  - _docs/che/intro.md
   
 # The following are used to define markdown permalinks
 defaults:

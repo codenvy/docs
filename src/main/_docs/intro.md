@@ -3,7 +3,7 @@ tag: [ "codenvy" ]
 title: Introduction
 excerpt: "Welcome to Codenvy!"
 layout: docs
-permalink: /:categories/introduction/
+permalink: /docs/
 ---
 {% include base.html %}
 

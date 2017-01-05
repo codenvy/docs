@@ -5,13 +5,14 @@ excerpt: "Create workspaces with production runtimes containing your source code
 layout: tutorials
 permalink: /:categories/one-click-docker-environments/
 ---
+{% include base.html %}
 
 # Integrate Your Repo  
 You need to generate SSH key to be able to clone private repositories.
 
 For GitHub SSH keys are generated and uploaded automatically at Profile > Preferences > SSH > VCS.
 
-![github-button.png](../../docs/assets/imgs/codenvy/github-button.png)
+![github-button.png]({{base}}/docs/assets/imgs/codenvy/github-button.png)
 
 For other Git hosting providers SSH key should be generated and manually saved to profile settings of git hosting settings. Find more details on how to do that in the [Eclipse Che Git docs](https://eclipse-che.readme.io/docs/git#section-other-git-hosting-providers).
 # Integrate Your Registry  
@@ -36,7 +37,6 @@ docker.registry.auth.your_registry_name.password=user-password
 # You can add as many registries as you need, e.g.:
 docker.registry.auth.registry1.url
 docker.registry.auth.registry2.url
-\
 ```  
 
 
@@ -53,32 +53,9 @@ When users create their workspace, they must reference the custom image in your 
 FROM <repository>/<image>:<tag>
 
 # Where repository is the hostname:port of your registry:
-FROM my.registry.url:9000/image:latest\
+FROM my.registry.url:9000/image:latest
 ```
 
 To add a private registry, perform steps documented above (either adding  a registry to global configuration or in User Dashboard).
 #### Custom Images
 To get your custom image into a private registry, you will need to build it, tag it with the registry repository name, and push it into the registry. When tagging images into a private registry, they are always tagged with the fully qualified hostname of the registry that will host them. So it is not uncommon to see an image named `ops.codenvy.org:9000/myimage`.  
-
-
-# Test with a Default Stack  
-
-# Build a Custom Stack  
-## Create a Custom Environment Recipe  
-### Single Machine Environment  
-
-### Multi-Machine Environment  
-
-
-## Create a Custom Stack  
-
-
-## Add a Custom Code Template
-
-# Add Workspace Automation (Factories)  
-### Create the Factory  
-
-
-### Insert the URL in Your Toolchain  
-
-# Integrate Codenvy with Issue Management  

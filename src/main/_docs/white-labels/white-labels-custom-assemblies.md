@@ -17,7 +17,7 @@ You will need a source code packet that matches the current version of Codenvy t
 ```shell  
 # Clone the source directly from our repository
 git clone http://github.com/codenvy/codenvy
-git checkout <tag-version>\
+git checkout <tag-version>
 ```
 
 Navigate to `assembly` module. This is a packaging module for On-Premises binaries, i.e. where all the plugins are packaged into a Tomcat server. This is where you will add references to your extensions that Maven will pick up when re-compiling all the sub-modules.
@@ -30,7 +30,7 @@ mvn clean install
 
 # This will generate a new binary in a zip file:
 cd onpremises-ide-packaging-tomcat-codenvy-allinone\target\
-onpremises-ide-packaging-tomcat-codenvy-allinone-${version}.zip\
+onpremises-ide-packaging-tomcat-codenvy-allinone-${version}.zip
 ```
 
 # Update Codenvy

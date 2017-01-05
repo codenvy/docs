@@ -26,7 +26,8 @@ $ docker run codenvy/cli start
 This command will give you additional instructions on how to run the Codenvy CLI while setting your hostname, configuring volume mounts, and testing your Docker setup.
 
 
-## Where To Go Next
+## Where To Go Next  
+
 | I am a...   | Consider going to... |
 | --- | --- |
 | **Developer** who will be using Codenvy for my projects. | [*The User Guide*]({{base}}/docs/getting-started/admin-intro/index.html). This will teach you how to configure and use workspaces so that they bend to your magical programming will. |

@@ -163,6 +163,6 @@ Log into Microsoft VSTS and choose one of the project types that you have Factor
 ## Using the Codenvy Extension for Microsoft VSTS  
 When a developer is ready to start work on a work item they click the Develop link.  They are brought into a developer workspace that is isolated to them and includes project sources and the build / run / debug environments needed for the project.  The definition of the [project's parent Factory]({{base}}/docs/integration-guide/workspace-automation/index.html) defines pre- and post-load behaviors.
 
-![webhook-vcs-integration-flow.png]({{base}}src/main/docs/assets/imgs/codenvy/webhook-vcs-integration-flow.png)
+![webhook-vcs-integration-flow.png]({{base}}/docs/assets/imgs/codenvy/webhook-vcs-integration-flow.png)
 
 The git webhooks ensure that as the repository changes the Microsoft VSTS work item Factory is kept up to date. For example, if a branch associated with the Factory is merged then the Factory will be updated to point to the commitID on the branch that was merged-to.

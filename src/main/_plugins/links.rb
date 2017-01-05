@@ -1,5 +1,5 @@
 #
-#  2012-2016 Codenvy, S.A.
+#  2012-2017 Codenvy, S.A.
 #  All Rights Reserved.
 #
 # NOTICE:  All information contained herein is, and remains
@@ -19,6 +19,8 @@ module Reading
       begin
           docs = site.docs_to_write
           entries = {}
+          collections = {}
+          
           site.collections["docs"].filtered_entries.each do |entry|
             page = ""
             site.config["defaults"].each do |default|
@@ -31,28 +33,23 @@ module Reading
                     categories.each do |category|
                         page=page+"/"+category
                     end
+                    page=page+"/"
+                end
+                if full_path.include? "assets/"
+                    image_name = entry.split('/').pop
+                    collections[image_name]="/docs/"+entry
                 end
             end
-            depth = page.split('/').size - 1
-            base = ''
-            if depth <= 1
-                base = '..'
-            elsif depth == 2
-                base = '../..'
-            elsif depth == 3
-                base = '../../..'
-            elsif depth == 4
-                base = '../../../..'      
-            end
-            entries[entry]=base+page 
+            
+            entries[entry]=page 
           end
-          collections = {}
+          
           site.config["collections"].each do |collection|
             if collection[0] != "posts"
               collections=collections.merge(get_col(site,collection[0],entries))
             end
           end     
-          # puts collections
+          #puts collections
           site.config["links"] = collections
       rescue 
           red = "\033[0;31m"
@@ -62,7 +59,6 @@ module Reading
           raise
       end
     end
-    
     def get_col(site,col_name, entries)
         collections = {}
         hash1 = site.data
@@ -77,7 +73,7 @@ module Reading
                     parse = parse.join('-')
                     entries.keys.any? {|k| 
                         if k.include? file 
-                            collections[file]=entries[k]+"/"+parse+"/index.html"
+                            collections[file]=entries[k]+parse+"/index.html"
                         end
                         }
                 end

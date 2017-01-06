@@ -4,12 +4,13 @@ excerpt: "Running a production Codenvy system"
 layout: docs
 permalink: /docs/admin-guide/runbook/
 ---
+{% include base.html %}
 
 Applies To: Codenvy on-premises installs.
 
 ---
 
-This article provides specific performance and security guidance for Codenvy on-premises installations based on our experience running codenvy.io hosted SaaS. For general information on managing a Codenvy on-premises instance see the [managing]() docs page.
+This article provides specific performance and security guidance for Codenvy on-premises installations based on our experience running codenvy.io hosted SaaS. For general information on managing a Codenvy on-premises instance see the [managing]({{base}}{{site.links["admin-managing"]}}) docs page.
 
 ## Dockerized Codenvy
 ### Recommended Docker Versions

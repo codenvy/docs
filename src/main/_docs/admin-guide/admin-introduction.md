@@ -5,6 +5,7 @@ excerpt: ""
 layout: docs
 permalink: /:categories/introduction/
 ---
+{% include base.html %}
 
 **Applies To**: Codenvy on-premises installs.
 
@@ -39,4 +40,4 @@ We want everyone to have a great experience installing and running Codenvy. If y
 - output of `docker version` command
 - output of `docker info` command
 - the full `docker run ...` syntax you used on the command line
-- the output of `cli.log` - see [CLI Reference]({{base}}/docs/admin-guide/cli/index.html)
+- the output of `cli.log` - see [CLI Reference]({{base}}{{site.links["admin-cli"]}})

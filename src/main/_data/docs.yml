@@ -37,6 +37,7 @@
   - ide-build # Che use-che-as-an-ide
   - ide-run # Che use-che-as-an-ide
   - ide-debug # Che use-che-as-an-ide
+  - ide-sync # Che use-che-as-an-ide
   - user-sharing-permissions
   - user-using-desktop-ides 
 - title: Admin Guide
@@ -55,5 +56,5 @@
   - integration-continuous-integration
 - title: White Label Guide
   docs:
-  - white-labels-introduction-white-labels
-  - white-labels-custom-assemblies
+  - labels-introduction-white-labels
+  - labels-custom-assemblies

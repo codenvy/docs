@@ -5,7 +5,7 @@ excerpt: "Techniques for configuring Codenvy"
 layout: docs
 permalink: /:categories/configuration/
 ---
-
+{% include base.html %}
 **Applies To**: Codenvy on-premises installs.
 
 ---
@@ -69,7 +69,7 @@ CODENVY_GOOGLE_SECRET=yourSecret
 ```
 
 ## LDAP
-You can configure Codenvy to synchronize the user database to your LDAP installation. The [LDAP guide]({{base}}/docs/admin-guide/ldap/index.html) has the configuration and examples.
+You can configure Codenvy to synchronize the user database to your LDAP installation. The [LDAP guide]({{base}}{{site.links["admin-ldap"]}}) has the configuration and examples.
 
 ## Development Mode
 For Codenvy developers that are building and customizing Codenvy from its source repository, you can run Codenvy in development mode where your local assembly is used instead of the one that is provided in the default containers downloaded from DockerHub. This allows for a rapid edit / build / run cycle.
@@ -99,7 +99,7 @@ CODENVY_DEBUG_PORT=8000
 Codenvy starts with a Fair Source 3 license, which gives you up to three users and full functionality of the system with limited liabilities and warranties. You can request a trial license from Codenvy for more than 3 users or purchase one from our friendly sales team (your mother would approve). Once you gain the license, start Codenvy and then apply the license in the admin dashboard that is accessible with your login credentials.
 
 ## Hostname
-See the [installation page]({{base}}/docs/admin-guide/installation/index.html) for details on setting hostname.
+See the [installation page]({{base}}{{site.links["admin-installation"]}}) for details on setting hostname.
 
 ## HTTP/S
 By default Codenvy runs over HTTP as this is simplest to install. There are two requirements for configuring HTTP/S:  
@@ -135,7 +135,7 @@ You can place limits on how users interact with the system to control overall sy
 You can also set limits on Docker's allocation of CPU to workspaces, which may be necessary if you have a very dense workspace population where users are competing for limited physical resources.
 
 ## Docker
-Workspace runtimes are powered by one or more Docker containers. When a user creates a workpace, they do so from a [stack]() which includes a Dockerfile or reference to a Docker image which will be used to create the containers for the workspace runtimes. Stacks can pull that image from a public registry, like DockerHub, or a private registry. Images in a registry can be publicly visible or private, which require user credentials to access. You can also set up a private registry to act as a mirror to Docker Hub.  And, if you are running Codenvy behind a proxy, you can configure the Docker daemon registry to operate behind a proxy.
+Workspace runtimes are powered by one or more Docker containers. When a user creates a workpace, they do so from a [stack]({{base}}{{site.links["ws-stacks"]}}) which includes a Dockerfile or reference to a Docker image which will be used to create the containers for the workspace runtimes. Stacks can pull that image from a public registry, like DockerHub, or a private registry. Images in a registry can be publicly visible or private, which require user credentials to access. You can also set up a private registry to act as a mirror to Docker Hub.  And, if you are running Codenvy behind a proxy, you can configure the Docker daemon registry to operate behind a proxy.
 
 ### Private Images  
 When users create a workspace, they must select a Docker image (stack) to power the workspace. We provide ready-to-go stacks which reference images hosted at the public Docker Hub, which do not require any authenticated access to pull. You can provide your own images that are stored in a local private registry or at Docker Hub. The images may be publicly or privately visible, even if they are part of a private registry.
@@ -183,7 +183,7 @@ Your workspaces are powered by a set of runtime environments. The default runtim
 
 To use your custom Dockerfiles, you can:
 
-1. Create a [custom stack](), which includes a [recipe]() with your Dockerfile. 
+1. Create a [custom stack]({{base}}{{site.links["ws-stacks"]}}#custom-stack), which includes a [recipe]({{base}}{{site.links["ws-recipes"]}}) with your Dockerfile. 
 2. Or, users can create a custom recipe when creating a workspace that references your registry.
 
 ### Privileged Mode

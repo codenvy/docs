@@ -5,3 +5,4 @@ excerpt: ""
 layout: tutorials
 permalink: /:categories/workspace-administration/
 ---
+{% include base.html %}

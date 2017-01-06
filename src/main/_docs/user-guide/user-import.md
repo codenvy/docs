@@ -5,6 +5,7 @@ excerpt: ""
 layout: docs
 permalink: /:categories/import/
 ---
+{% include base.html %}
 There are several ways to import a project:
 * `IDE > Import Project`
 * `Dashboard > Create Project`
@@ -21,7 +22,7 @@ In the user dashboard click the "+" button in the upper-right to enter the New P
 * Enter your credentials to connect Codenvy to your GitHub account
 * Enter the URL of your source code ZIP file
 
-In the "Select Workspace" section select a [ready-to-go stack](../../docs/stacks#section-ready-to-go-stacks) that matches your project's language and runtime or create a [custom stack](../../docs/stacks#custom-stacks-for-che) based on the Eclipse Che open standard.
+In the "Select Workspace" section select a [ready-to-go stack]({{base}}{{site.links["ws-stacks"]}}#ready-to-go-stacks) that matches your project's language and runtime or create a [custom stack]({{base}}{{site.links["ws-stacks"]}}#custom-stack) based on the Eclipse Che open standard.
 
 To import from an SVN repo create a workspace by selecting "Workspaces" in the left-hand nav and hitting the "+" sign in the upper-right. Once your workspace is started use the instructions in the "From the IDE" section below to import from SVN.
 # From the IDE  

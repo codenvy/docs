@@ -11,7 +11,7 @@
  }
 
 body {
-  font: 300 16px 'HelveticaNeueLT-Light', Open Sans, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font: 300 16px Helvetica, Arial, sans-serif;
   color: #393939;
   line-height: 1.5em;
   background-color: #1d2e55;
@@ -168,6 +168,7 @@ nav {
   font-size: 0.8em;
   @include transition(opacity 0.2s ease-in-out 0.1s);
 }
+h1:hover .header-link,
 h2:hover .header-link,
 h3:hover .header-link,
 h4:hover .header-link,
@@ -307,7 +308,6 @@ footer {
 .features {
   background-color: #fff;
 }
-
 
 /* Code */
 
@@ -460,7 +460,7 @@ article {
 
 @media (min-width: 768px) {
   article {
-    padding: 40px 40px 30px;
+    padding: 20px 50px 50px 50px;
     font-size: 16px;
   }
 }
@@ -472,6 +472,7 @@ aside {
   line-height: 1.2em;
 
   h4 {
+    margin-bottom: -5px;
     text-transform: uppercase;
     font-size: 14px;
     color: #fbb84d;
@@ -608,7 +609,7 @@ aside {
 }
 
 .improve {
-  padding-top: 25px;
+  padding-top: 40px;
   font-size: 12px;
   a {
     color: #999;
@@ -720,6 +721,10 @@ code {
   //border: 1px solid #cacaca;
 }
 
+.highlighter-rouge-td {
+    width: 100%
+}
+
 @media (min-width: 768px) {
   pre, code { font-size: 14px; }
 }
@@ -736,7 +741,7 @@ h5 > code,
   color: #000;
   max-width: 100%;
   overflow-x: auto;
-  vertical-align: middle;
+  vertical-align: sub;
   @include border-radius(3px);
 }
 
@@ -762,7 +767,7 @@ h5 > code,
 
 .highlighter-rouge .highlight {
   @extend .highlight;
-  margin: 0;
+  margin: 0px 0px 10px 0px;
   padding: 10px 0.5em;
   color: #fff;
   background-color: #444;
@@ -772,10 +777,8 @@ h5 > code,
 /* HTML Elements */
 
 h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    padding-top: 15px;
-    line-height: 1.5em;
-    font-weight: normal;
+  font-weight: 600;
+  color: #4c4c4c;
 }
 
 h1 {
@@ -801,6 +804,8 @@ strong { font-weight: 700; }
 
 p {
   line-height: 1.5em;
+  margin-top: 0;
+  margin-bottom: 15px;
 }
 
 .left { float: left; }
@@ -813,14 +818,21 @@ p {
 
 article {
 
-  h2, h3, h4, h5, h6 {
-    margin-top: 0;
-    margin-bottom: 0px;
-    margin-left: 0;
-    margin-right: 0;
+  h1, h2, h3, h4, h5 {
+    padding-bottom: 0.1em;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    line-height: 1.25em;
+    text-transform: capitalize;
   }
 
-  h4 { font-weight: 500; }
+  h6 {
+    padding-bottom: 0.1em;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    line-height: 1.25em;
+  }
+
 
   ul li {
 
@@ -857,6 +869,7 @@ table {
   width: 100%;
   background-color: #fff;
   margin: .5em 0;
+  margin-bottom: 16px;
   border-collapse: collapse;
   //border-spacing: 0;
 }
@@ -888,14 +901,15 @@ th {
   text-transform: capitalize;
   font-size: 16px;
   padding: .5em .75em;
-  color: #888;
+  color: #444;
   text-align: left;
 }
 
 tbody td {
+  font: 300 16px Helvetica, Arial, sans-serif;
 
   p {
-    font-size: 18px;
+    font-size: 16px;
 
     code { font-size: 16px; }
   }

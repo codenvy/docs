@@ -5,3 +5,4 @@ excerpt: ""
 layout: tutorials
 permalink: /:categories/teams-and-collaboration/
 ---
+{% include base.html %}

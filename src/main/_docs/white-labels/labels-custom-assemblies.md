@@ -49,7 +49,7 @@ $ puppet agent -t
 ```
 
 # Add Custom Eclipse Che Extensions  
-You can create bundles that include your own Eclipse Che extensions, stacks and templates. You will need to have build those extensions and compiled them into JAR and ZIP files. There are numerous docs for [writing extensions and customizing stacks]().
+You can create bundles that include your own Eclipse Che extensions, stacks and templates. You will need to have build those extensions and compiled them into JAR and ZIP files. There are numerous docs for [writing extensions and customizing stacks](https://www.eclipse.org/che/docs/plugins/introduction/index.html).
 
 Maven's default enforcement rules require that every extension that you add be listed as a dependency in Codenvy's parent `pom.xml`. You can skip enforcement by using `-Denforcer.skip=true` argument when performing a `mvn clean install`.
 

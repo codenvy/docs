@@ -90,7 +90,7 @@ factory : {
 }
 ```
 
-The `factory.workspace` is identical to the `workspace:{}` object for Eclipse Che and contains the structure of the workspace. Learn more about [the workspace JSON object]().
+The `factory.workspace` is identical to the `workspace:{}` object for Eclipse Che and contains the structure of the workspace. Learn more about [the workspace JSON object](https://www.eclipse.org/che/docs/server/create-workspaces/index.html).
 
 Codenvy maintains object compatibility with the workspace definition from Eclipse Che. You can export Eclipse Che workspaces and then reuse the workspace definition within a Factory. Codenvy workspaces are composed of 0..n projects, 0..n environments which contain machine stacks to run the code, 0..n commands to perform against the code, and a type.
 
@@ -105,7 +105,7 @@ A mixin adds additional behaviors to a project as a set of new project type attr
 <br>
 The `pullrequest` mixin requires additional configuration from the `attributes` object of the project.  If present, Codenvy will use the project attributes as defined in the Factory. If not provided, Codenvy will set defaults for the attributes.
 <br>
-Learn more about other mixins, on [`project : {}` object for Eclipse Che]()
+Learn more about other mixins, on [`project : {}` object for Eclipse Che](https://www.eclipse.org/che/docs/server/rest-api/index.html)
 
 ## Pull Request Mixin Attributes
 Project attributes alter the behavior of the IDE or workspace.
@@ -337,9 +337,9 @@ We have three types of buttons.
 
 | Button Type   | Sample   
 | --- | ---
-| White: 76 x 20 pixels  | [![alt](https://codenvy.io/factory/resources/factory-white.png)]()
-| Dark: 76 x 20 pixels  | [![alt](https://codenvy.io/factory/resources/factory-dark.png)]()
-| Logo: 104 x 104 image of your logo with our hover animation layered on top  | [![alt](https://files.readme.io/zolQfjkhT4KKn3P1xBdc_logo.PNG)]()   
+| White: 76 x 20 pixels  | ![alt](https://codenvy.io/factory/resources/factory-white.png)
+| Dark: 76 x 20 pixels  | ![alt](https://codenvy.io/factory/resources/factory-dark.png)
+| Logo: 104 x 104 image of your logo with our hover animation layered on top  | ![alt](https://files.readme.io/zolQfjkhT4KKn3P1xBdc_logo.PNG)   
 
 
 #### Button Animation

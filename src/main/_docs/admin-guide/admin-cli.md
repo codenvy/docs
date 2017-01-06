@@ -5,6 +5,7 @@ excerpt: "Manage your Codenvy installation on the command line."
 layout: docs
 permalink: /:categories/cli/
 ---
+{% include base.html %}
 
 **Applies To**: Codenvy on-premises installs.
 

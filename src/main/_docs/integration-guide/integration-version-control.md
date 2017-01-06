@@ -15,9 +15,9 @@ Codenvy is powered by the open Eclipse Che project. You will see references to E
 Public or private repositories are used to import projects into workspaces, to use the Git / Subversion menus, and to use and create [Factories]({{base}}/docs/integration-guide/workspace-automation/index.html). Some repository tasks such as git push and access to private repositories require setting up SSH or oAuth authentication mentioned below.
 
 # Using SSH  
-Setup of an SSH keypair is done inside each user's workspace. Refer to [Eclipse Che git docs]() for additional information. Setting up SSH keypairs inside a workspace must be done prior to being able to use private repository URLs.
+Setup of an SSH keypair is done inside each user's workspace. Refer to [git docs]({{base}}{{site.links["ide-git-svn"]}}) for additional information. Setting up SSH keypairs inside a workspace must be done prior to being able to use private repository URLs.
 
-Refer to specific [GitHub]() and [GitLab]() SSH examples on how to upload public keys to these repository providers.
+Refer to specific [GitHub]({{base}}{{site.links["ide-git-svn"]}}#github-example) and [GitLab]({{base}}{{site.links["ide-git-svn"]}}#gitlab-example)) SSH examples on how to upload public keys to these repository providers.
 
 For other git-based or SVN-based repository providers, please refer to their documentation for adding SSH public keys.
 
@@ -71,14 +71,14 @@ Restart your Codenvy server to enable the integration.
 
 ## GitHub oAuth
 ### Setup oAuth at GitHub
-1. Register an application in your GitHub account. Refer to [Setup oAuth at GitHub]() for additional information.
+1. Register an application in your GitHub account. Refer to [Setup oAuth at GitHub]({{base}}{{site.links["ide-git-svn"]}}#github-oauth) for additional information.
 2. Update the `codenvy.env` with secret, ID and callback:
 ```text  
 oauth.github.clientid=yourClientID
 oauth.github.clientsecret=yourClientSecret
 oauth.github.authuri=https://github.com/login/oauth/authorize
 oauth.github.tokenuri=https://github.com/login/oauth/access_token
-oauth.github.redirecturis=http://$hostname/wsmaster/api/oauth/callback\
+oauth.github.redirecturis=http://$hostname/wsmaster/api/oauth/callback
 ```
 After the above steps, execute `puppet agent -t`.
 

@@ -5,6 +5,7 @@ excerpt: "White labeling is for embedding, distributing, or hosting Codenvy as p
 layout: docs
 permalink: /:categories/introduction-white-labels/
 ---
+{% include base.html %}
 A white label of Codenvy allows embedding of Codenvy into another brand or within another product. You may add plugins with custom functionality, remove some of the default plugins which aren't needed by your customer base, modify the user interface and wire it up to your own product systems.
 
 **White labelling requires an OEM license.** Our standard license does not provide redistribution rights. Please [contact sales@codenvy.com](https://codenvy.com/contact/sales/) for more information and to request a white label license.
@@ -26,7 +27,7 @@ All branding is located in the `dashboard/src/assets/branding` folder:
 - `codenvy-logo.svg` is used in loading screens.
 - `codenvy-logo-text.svg` is displayed in the left navbar's menu at the top.
 
-To change the logo replace those two files with your organization's logo (match the size of the existing codenvy.svg files to avoid resizing issues). Then set the links to them in [product.json](dashboard/src/assets/branding/product.json) file:
+To change the logo replace those two files with your organization's logo (match the size of the existing codenvy.svg files to avoid resizing issues). Then set the links to them in [product.json](#{%assign docs_todo="need location or add"%}) file:
 
 ```json  
 "logoFile": "my-corp-logo.svg\n"logoTextFile": "my-corp-logo-text.svg"
@@ -66,7 +67,7 @@ To remove the "Make a Wish" widget in the footer, remove the `che-support-email`
 #remove this section
 <che-footer id="codenvyfooter" che-support-help-path="{{branding.helpPath}}" che-support-help-title="{{branding.helpTitle}}" che-support-email="{{branding.supportEmail}}" che-product-name="Codenvy" ng-show="waitingLoaded && !showIDE"></che-footer>
 ```
-Alternatively you can leave the widget but change the link to point to your own organization's email by changing the `helpPath` and `supportEmail` attributes in the [product.json](dashboard/src/assets/branding/product.json) file.
+Alternatively you can leave the widget but change the link to point to your own organization's email by changing the `helpPath` and `supportEmail` attributes in the [product.json](#{%assign docs_todo="need location or add"%}) file.
 
 # Creating Custom Assemblies  
-See the [custom assemblies documentation](../../docs/custom-assemblies/) in this section.
+See the [custom assemblies documentation](#{%assign docs_todo="need location or add"%}) in this section.

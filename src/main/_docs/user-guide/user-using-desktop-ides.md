@@ -5,6 +5,7 @@ excerpt: ""
 layout: docs
 permalink: /:categories/using-desktop-ides/
 ---
+{% include base.html %}
 # Standard SSH Connection  
 It's possible to establish SSH connection between your desktop IDE and a remote Codenvy workspace.
 

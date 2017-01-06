@@ -120,7 +120,7 @@
                      <artifactItem>
                        <groupId>org.eclipse.che.docs</groupId>
                        <artifactId>che-docs</artifactId>
-                       <version>5.0.0-SNAPSHOT</version>
+                       <version>${che.docs.version}</version>
                        <classifier>sources</classifier>
                        <type>jar</type>
                        <overWrite>false</overWrite>

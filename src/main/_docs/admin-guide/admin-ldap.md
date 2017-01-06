@@ -5,6 +5,7 @@ excerpt: ""
 layout: docs
 permalink: /:categories/ldap/
 ---
+{% include base.html %}
 
 **Applies To**: Codenvy on-premises installs.
 

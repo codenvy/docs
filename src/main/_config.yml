@@ -27,7 +27,8 @@ repository: https://github.com/codenvy/codenvy/
 timezone: America/Los_Angeles
 
 product_name: "CODENVY"
-product_mini_name:  "codenvy"
+product_mini_name:  "Codenvy"
+product_mini_cli: "codenvy"
 product_formal_name: "Codenvy"
 
 collections:

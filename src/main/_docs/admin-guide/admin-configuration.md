@@ -21,6 +21,7 @@ If you run `codenvy config` Codenvy runs puppet to transform your puppet templat
 Administration teams that want to version control your Codenvy configuration should save `codenvy.env`. This is the only file that should be saved with version control. It is not necessary, and even discouraged, to save the other files. If you were to perform a `codenvy upgrade` we may replace these files with templates that are specific to the version that is being upgraded. The `codenvy.env` file maintains fidelity between versions and we can generate instance configurations from that.
 
 The version control sequence would be:
+
 1. `codenvy init` to get an initial configuration for a particular version.
 2. Edit `codenvy.env` with your environment-specific configuration.
 3. Save `codenvy.env` to version control.
@@ -71,30 +72,6 @@ CODENVY_GOOGLE_SECRET=yourSecret
 ## LDAP
 You can configure Codenvy to synchronize the user database to your LDAP installation. The [LDAP guide]({{base}}{{site.links["admin-ldap"]}}) has the configuration and examples.
 
-## Development Mode
-For Codenvy developers that are building and customizing Codenvy from its source repository, you can run Codenvy in development mode where your local assembly is used instead of the one that is provided in the default containers downloaded from DockerHub. This allows for a rapid edit / build / run cycle.
-
-Dev mode is activated by volume mounting the Codenvy git repository to `:/repo` in your Docker run command.
-```
-docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock \
-                    -v <local-path>:/data \
-                    -v <local-repo>:/repo \
-                       codenvy/cli:<version> [COMMAND]
-```
-Dev mode will use files from your host repository:
-
-1. During the `codenvy config` phase, the source repository's `/dockerfiles/init/modules` and `/dockerfiles/init/manifests` will be used instead of the ones that are included in the `codenvy/init` container.
-2. During the `codenvy start` phase, a local assembly from `assembly/onpremises-ide-packaging-tomcat-codenvy-allinone/target/onpremises-ide-packaging-tomcat-codenvy-allinone` is mounted into the `codenvy/codenvy` runtime container. You must `mvn clean install` the `assembly/onpremises-ide-packaging-tomcat-codenvy-allinone/` folder prior to activated development mode.
-
-To activate jpda suspend mode for debugging codenvy server initialization, in the `codenvy.env`:
-```
-CODENVY_DEBUG_SUSPEND=true
-```
-To change codenvy debug port, in the `codenvy.env`:
-```
-CODENVY_DEBUG_PORT=8000
-```
-
 ## Licensing
 Codenvy starts with a Fair Source 3 license, which gives you up to three users and full functionality of the system with limited liabilities and warranties. You can request a trial license from Codenvy for more than 3 users or purchase one from our friendly sales team (your mother would approve). Once you gain the license, start Codenvy and then apply the license in the admin dashboard that is accessible with your login credentials.
 
@@ -102,7 +79,8 @@ Codenvy starts with a Fair Source 3 license, which gives you up to three users a
 See the [installation page]({{base}}{{site.links["admin-installation"]}}) for details on setting hostname.
 
 ## HTTP/S
-By default Codenvy runs over HTTP as this is simplest to install. There are two requirements for configuring HTTP/S:  
+By default Codenvy runs over HTTP as this is simplest to install. There are two requirements for configuring HTTP/S: 
+
 1. You must bind Codenvy to a valid DNS name. The HTTP mode of Codenvy allows us to operate over IP addresses. HTTP/S requires certificates that are bound to a DNS entries that you purchase from a DNS provider.  
 2. A valid SSL certificate.  
 
@@ -207,3 +185,27 @@ If you'd like your users to work with projects which have their own Docker image
 These two tactics will allow user workspaces to perform `docker` commands from within their workspace to create and work with Docker containers that will be outside the workspace. In other words, this makes your user's workspace feel like their laptop where they would normally be performing `docker build` and `docker run` commands.
 
 You will need to make sure that your user's workspaces are powered from a stack that has a Docker client installed inside of it. Our defalt stacks do not have a Docker client installed, but we have sample stacks from Che-in-Che that have examples for how to handle this.
+
+## Development Mode
+For Codenvy developers that are building and customizing Codenvy from its source repository, you can run Codenvy in development mode where your local assembly is used instead of the one that is provided in the default containers downloaded from DockerHub. This allows for a rapid edit / build / run cycle.
+
+Dev mode is activated by volume mounting the Codenvy git repository to `:/repo` in your Docker run command.
+```
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock \
+                    -v <local-path>:/data \
+                    -v <local-repo>:/repo \
+                       codenvy/cli:<version> [COMMAND]
+```
+Dev mode will use files from your host repository:
+
+1. During the `codenvy config` phase, the source repository's `/dockerfiles/init/modules` and `/dockerfiles/init/manifests` will be used instead of the ones that are included in the `codenvy/init` container.
+2. During the `codenvy start` phase, a local assembly from `assembly/onpremises-ide-packaging-tomcat-codenvy-allinone/target/onpremises-ide-packaging-tomcat-codenvy-allinone` is mounted into the `codenvy/codenvy` runtime container. You must `mvn clean install` the `assembly/onpremises-ide-packaging-tomcat-codenvy-allinone/` folder prior to activated development mode.
+
+To activate jpda suspend mode for debugging codenvy server initialization, in the `codenvy.env`:
+```
+CODENVY_DEBUG_SUSPEND=true
+```
+To change codenvy debug port, in the `codenvy.env`:
+```
+CODENVY_DEBUG_PORT=8000
+```

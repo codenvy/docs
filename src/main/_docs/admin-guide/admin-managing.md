@@ -130,6 +130,32 @@ However, when you do a `codenvy backup`, we do copy the Postgres data from the c
 # Migration
 It is possible to migrate your configuration and user data from a puppet-based installation of Codenvy (5.0.0-M8 and earlier) to the Dockerized version of Codenvy. Please contact our support team for instructions.
 
+# Auditing
+The Codenvy audit service provides information on historic licensing changes (moves between Fair Source and paid licenses for example) as well as the current state of the system with regards to license compliance and workspace ownership across all accounts.
+
+A system administrator can generate an audit report at any time:
+1. Log in with administrator credentials.
+2. Navigate in your browser to: `<Codenvy host url>/api/audit`.
+3. A file named `<date-time>.txt` will be downloaded.
+
+Sample audit log:
+```
+2017 Jan 09 - 17:40:39: ***@codenvy.com added paid license 1460727747815.
+2017 Jan 31 - 17:41:40: Paid license 1460727747815 expired.
+2017 Jan 31 - 17:41:40: System returned to previously accepted Fair Source license.
+
+--- CURRENT STATE ---
+Number of users: 1
+Number of licensed seats: 50
+License expiration: 15 January 2017
+***@codenvy.onprem is owner of 1 workspace and has permissions in 1 workspace
+└ wksp-pp0m, is owner: true, permissions: [read, use, run, configure, setPermissions, delete]
+***1@gmail.com is owner of 0 workspaces and has permissions in 0 workspaces
+***1@gmail.com is owner of 0 workspaces and has permissions in 0 workspaces
+***2@gmail.com is owner of 1 workspace and has permissions in 1 workspace
+└ wksp-0aku, is owner: true, permissions: [read, use, run, configure, setPermissions, delete]
+```
+
 # Disaster Recovery
 You can run Codenvy with hot-standy nodes, so that in the event of a failure of one Codenvy, you can perform a switchover to another standby system.
 

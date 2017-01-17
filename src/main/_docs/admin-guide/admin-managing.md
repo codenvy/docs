@@ -136,7 +136,7 @@ The Codenvy audit service provides information on historic licensing changes (mo
 A system administrator can generate an audit report at any time:
 1. Log in with administrator credentials.
 2. Navigate in your browser to: `<Codenvy host url>/api/audit`.
-3. A file named `<date-time>.txt` will be downloaded.
+3. A file named `report_<datetime>.txt` will be downloaded.
 
 Sample audit log:
 ```

@@ -39,7 +39,6 @@
   - ide-debug # Che use-che-as-an-ide
   - ide-sync # Che use-che-as-an-ide
   - user-sharing-permissions
-  - user-using-desktop-ides 
 - title: Admin Guide
   docs:
   - admin-installation

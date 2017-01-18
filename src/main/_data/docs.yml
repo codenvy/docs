@@ -38,6 +38,7 @@
   - ide-run # Che use-che-as-an-ide
   - ide-debug # Che use-che-as-an-ide
   - ide-sync # Che use-che-as-an-ide
+  - ide-ssh # Che use-che-as-an-ide
   - user-sharing-permissions
 - title: Admin Guide
   docs:

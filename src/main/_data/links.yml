@@ -1,0 +1,43 @@
+#
+#  2012-2017 Codenvy, S.A.
+#  All Rights Reserved.
+#
+# NOTICE:  All information contained herein is, and remains
+# the property of Codenvy S.A. and its suppliers,
+# if any.  The intellectual and technical concepts contained
+# herein are proprietary to Codenvy S.A.
+# and its suppliers and may be covered by U.S. and Foreign Patents,
+# patents in process, and are protected by trade secret or copyright law.
+# Dissemination of this information or reproduction of this material
+# is strictly forbidden unless prior written permission is obtained
+# from Codenvy S.A..
+#
+
+ide-build: /docs/user-guide/build/index.html
+ide-commands: /docs/user-guide/commands/index.html
+ide-debug: /docs/user-guide/debug/index.html
+ide-docker: /docs/user-guide/docker/index.html
+ide-editor-settings: /docs/user-guide/editor-settings/index.html
+ide-electron: /docs/user-guide/electron/index.html
+ide-git-svn: /docs/user-guide/git-svn/index.html
+ide-import-a-project: /docs/user-guide/import-a-project/index.html
+ide-intellisense: /docs/user-guide/intellisense/index.html
+ide-previews: /docs/user-guide/previews/index.html
+ide-projects: /docs/user-guide/projects/index.html
+ide-run: /docs/user-guide/run/index.html
+ide-sharing: /docs/user-guide/sharing/index.html
+ide-ssh: /docs/user-guide/ssh/index.html
+ide-sync: /docs/user-guide/sync/index.html
+ws-admin-intro: /docs/getting-started/admin-intro/index.html
+ws-agents: /docs/getting-started/agents/index.html
+ws-data-model-samples: /docs/getting-started/data-model-samples/index.html
+ws-data-model-stacks: /docs/getting-started/data-model-stacks/index.html
+ws-machines: /docs/getting-started/machines/index.html
+ws-recipes: /docs/getting-started/recipes/index.html
+ws-samples: /docs/getting-started/samples/index.html
+ws-stacks: /docs/getting-started/stacks/index.html
+ws-volume-mounts: /docs/getting-started/volume-mounts/index.html
+setup-configuration: /docs/admin-guide/configuration/index.html
+plugins-create-and-build-extensions: https://www.eclipse.org/che/docs/plugins/create-and-build-extensions/index.html
+server-stack: https://www.eclipse.org/che/docs/server/stack/index.html
+setup-getting-started: /docs/getting-started/getting-started/index.html

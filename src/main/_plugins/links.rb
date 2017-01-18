@@ -50,7 +50,7 @@ module Reading
             end
           end     
           #puts collections
-          site.config["links"] = collections
+          site.config["links"] = collections.merge(site.data["links"])
       rescue 
           red = "\033[0;31m"
           puts red + "Jekyll> There is an error in the ruby plugin file _plugins/links.rb." 

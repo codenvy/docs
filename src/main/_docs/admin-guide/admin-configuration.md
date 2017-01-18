@@ -174,7 +174,7 @@ CODENVY_MACHINE_DOCKER_PRIVILEGE_MODE=true
 ```
 
 ### Mirroring Docker Hub  
-If you are running a private registry internally to your company, you can [optionally mirror Docker Hub](https://docs.docker.com/registry/mirror/). Your private registry will download and cache any images that your users reference from the public Docker Hub. You need to [configure your Docker daemon to make use of mirroring](https://docs.docker.com/registry/mirror/).
+If you are running a private registry internally to your company, you can [optionally mirror Docker Hub](https://docs.docker.com/registry/recipes/mirror/). Your private registry will download and cache any images that your users reference from the public Docker Hub. You need to [configure your Docker daemon to make use of mirroring](https://docs.docker.com/registry/recipes/mirror/).
 
 ### Using Docker In Workspaces
 If you'd like your users to work with projects which have their own Docker images and Docker build capabilities inside of their workspace, then you need to configure the workspace to work with Docker. You have two options:

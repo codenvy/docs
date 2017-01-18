@@ -17,7 +17,7 @@ Codenvy makes cloud workspaces for develoment teams. Install, run, and manage Co
 ## Download
 This is the administration guide for the on-premises installation of Codenvy. This document discusses the installation, configuration, and operation of a Codenvy cloud that you host with a public provider like Amazon, Azure, or Google or on your own hardware behind the firewall.
 
-The administration of your account and users for the hosted version of Codenvy at [codenvy.io](http://codenvy.io) is covered in the User Guide.
+The administration of your account and users for the hosted version of Codenvy at [codenvy.io](https://codenvy.io) is covered in the User Guide.
 
 ## Quick Start
 With Docker 1.10+ on Windows, Mac, or Linux:

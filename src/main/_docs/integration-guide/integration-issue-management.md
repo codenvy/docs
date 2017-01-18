@@ -14,7 +14,7 @@ permalink: /:categories/issue-management/
 [Codenvy Factories]({{base}}/docs/integration-guide/workspace-automation/index.html) can be integrated with nearly any issue mangement system. However, we have developed two plug-ins that allow completely automated Factory creation and update based on changes to Atlassian JIRA or Microsoft VSTS issue management.
 
 * Codenvy Plug-In for Atlassian JIRA: [Documentation]({{base}}/docs/integration-guide/issue-management/index.html#codenvy-plug-in-for-atlassian-jira) / [Video](https://www.youtube.com/watch?v=y4wdplYj6qs)
-* Codenvy Extension for Microsoft VSTS: [Documentation]({{base}}/docs/integration-guide/issue-management/index.html#codenvy-extension-for-microsoft-visual-studio-team-services) / [Video](#) {% assign docs_todo="Need to add video to youtube"%}
+* Codenvy Extension for Microsoft VSTS: [Documentation]({{base}}/docs/integration-guide/issue-management/index.html#codenvy-extension-for-microsoft-visual-studio-team-services) / Video {% assign docs_todo="Need to add video to youtube"%}
 
 # Codenvy Plug-in for Atlassian JIRA  
 The Codenvy plug-in for Atlassian JIRA allows anyone to jump directly from an issue in JIRA to a custom, isolated workspace designed to let them edit, built, debug and review the issue.  [This video](https://www.youtube.com/watch?v=y4wdplYj6qs) shows the agile flow from JIRA to Codenvy.

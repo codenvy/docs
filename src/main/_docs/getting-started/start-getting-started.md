@@ -15,7 +15,7 @@ You can get started with Codenvy through our hosted offering or by installing it
 
 | Get Started Options | Action |
 |:--- | :---: |
-|Create a Free Account at codenvy.io. Everyone gets 3GB for free. Connect to a public toolchain and be coding in minutes.| [Sign up](https://codenvy.io/site/create-account)
+|Create a Free Account at codenvy.io. Everyone gets 3GB for free. Connect to a public toolchain and be coding in minutes.| [Sign up](https://codenvy.io/)
 |Download Codenvy. Install Codenvy anywhere Docker runs and connect it to your private toolchain. Control security and configuration–even add your own extensions.|[Install Now](#install)
 
 ## Install

@@ -25,7 +25,7 @@ Codenvy services require 2 GB storage and 4 GB RAM. The RAM, CPU and storage res
 Boot2Docker, docker-machine, Docker for Windows, and Docker for Mac are all Docker variations that launch VMs with Docker running in the VM with access to Docker from your host. We recommend increasing your default VM size to at least 4GB. Each of these technologies have different ways to allow host folder mounting into the VM. Please enable this for your OS so that Codenvy data is persisted on your host disk.
 
 ## Software
-* Docker 1.11+
+* Docker 1.11+ (1.12.5+ recommended)
 
 The Codenvy CLI - a Docker image - manages the other Docker images and supporting utilities that Codenvy uses during its configuration or operations phases. The CLI also provides utilities for downloading an offline bundle to run Codenvy while disconnected from the network.
 

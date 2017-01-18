@@ -91,6 +91,7 @@
                   <resources>          
                     <resource>
                       <directory>${project.basedir}/src/main</directory>
+                      <filtering>false</filtering>
                     </resource>
                   </resources>              
                 </configuration>            
@@ -128,6 +129,7 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
                     <excludes>
+                        <exclude>**/**/*.js</exclude>
                         <exclude>**/**/*.svg</exclude>
                         <exclude>**/**/*.html</exclude>
                     </excludes>

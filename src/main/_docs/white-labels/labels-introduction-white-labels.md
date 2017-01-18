@@ -12,10 +12,10 @@ A Codenvy white label is the ability to embed Codenvy within another product, or
 **White labelling requires an OEM license.** The free Fair Source 3 license that ships with Codenvy and our enterprise license do not provide redistribution rights. Please [contact sales@codenvy.com](https://codenvy.com/contact/sales/) to obtain an OEM license.
 
 # Extending Codenvy 
-White label licensees often wish to add new features to Codenvy. This can be done by creating Eclipse Che extensions and plugins which will work with Codenvy or Eclipse Che. Eclipse Che docs include an extensive section on [building extensions and plugins](www.eclipse.org/che/docs).
+White label licensees often wish to add new features to Codenvy. This can be done by creating Eclipse Che extensions and plugins which will work with Codenvy or Eclipse Che. Eclipse Che docs include an extensive section on [building extensions and plugins](https://www.eclipse.org/che/docs).
 
 ## Creating Custom Assemblies  
-If you create custom Eclipse Che extensions that you want to deploy within Codenvy, you will need to create a [custom assembly](#{%assign docs_todo="need location or add"%}). A custom assembly is a new Codenvy binary that is runnable by our Docker infrastructure. It's simple and easy to build one.
+If you create custom Eclipse Che extensions that you want to deploy within Codenvy, you will need to create a custom assembly {%assign docs_todo="need location or add"%}. A custom assembly is a new Codenvy binary that is runnable by our Docker infrastructure. It's simple and easy to build one.
 
 # Modifying the User Interface  
 It's possible to customize nearly any portion of the user interface, however there are several customizations that are commonly requested.
@@ -25,7 +25,7 @@ All branding is located in `dashboard/src/assets/branding`:
 - `codenvy-logo.svg` is used in loading screens.
 - `codenvy-logo-text.svg` is displayed in the left navbar's menu at the top.
 
-To change the logo replace those two files with your organization's logo (match the size of the existing codenvy.svg files to avoid resizing issues). Then set the links to them in [product.json](#{%assign docs_todo="need location or add"%}) file:
+To change the logo replace those two files with your organization's logo (match the size of the existing codenvy.svg files to avoid resizing issues). Then set the links to them in product.json {%assign docs_todo="need location or add"%} file:
 
 ```json  
 "logoFile": "my-corp-logo.svg\n"logoTextFile": "my-corp-logo-text.svg"
@@ -65,4 +65,4 @@ This widget is configured to send emails to Codenvy with the comments written by
 #remove this section
 <che-footer id="codenvyfooter" che-support-help-path="{{branding.helpPath}}" che-support-help-title="{{branding.helpTitle}}" che-support-email="{{branding.supportEmail}}" che-product-name="Codenvy" ng-show="waitingLoaded && !showIDE"></che-footer>
 ```
-Alternatively you can leave the widget but change the link to point to your own organization's email by changing the `helpPath` and `supportEmail` attributes in the [product.json](#{%assign docs_todo="need location or add"%}) file.
+Alternatively you can leave the widget but change the link to point to your own organization's email by changing the `helpPath` and `supportEmail` attributes in the product.json {%assign docs_todo="need location or add"%} file.

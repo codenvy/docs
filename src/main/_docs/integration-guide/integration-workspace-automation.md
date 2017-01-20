@@ -119,6 +119,7 @@ Different Eclipse Che and Codenvy plug-ins can add their own attributes to affec
 
 <br>
  Here is a snippet that demonstrates full configuration of the contribution mixin.
+ 
 ```json  
 factory.workspace.project : {
   "mixins"     : [ "pullrequest" ],
@@ -154,6 +155,7 @@ factory.policies : {
 }
 ```
 <br>
+
 ```json  
 factory.policies.resources : {
   "ram" : INTEGER                     // RAM in MB for workspace default environment
@@ -182,6 +184,7 @@ You can use `since : EPOCHTIME`, `until : EPOCHTIME` and `referer` as a way to p
 How many workspaces should be created?  If `count : perClick` then every click of the Factory URL will generate a different workspace, each with its own identifier, name and resources.  If `count : perUser`, then exactly one workspace will be generated for each unique user that clicks on the Factory URL. If the workspace has previously been generated, we will reopen the existing workspace and place the user into it.
 
 ## factory.ide Object
+
 ```json  
 factory.ide.{event} : {          // event = onAppLoaded, onProjectsLoaded, onAppClosed
   "actions" : [{}]               // List of IDE actions to execute when event triggered
@@ -190,7 +193,7 @@ factory.ide.{event} : {          // event = onAppLoaded, onProjectsLoaded, onApp
 factory.ide.{event}.actions : [{
   "id"         : String,         // Action for IDE to perform when event triggered
   properties : {}                // Properties to customize action behavior
-}]\
+}]
 ```
 You can instruct the Factory to invoke a series of IDE actions based upon events in the lifecycle of the workspace.
 * `onAppLoaded` - triggered when the IDE is loaded
@@ -198,6 +201,7 @@ You can instruct the Factory to invoke a series of IDE actions based upon events
 * `onAppClosed` - triggered when the IDE is closed
 
 This is an example that associates a variety of actions with all of the events.
+
 ```json  
 "ide" : {  
   "onProjectsLoaded" : {                // Actions triggered when a project is opened
@@ -268,6 +272,7 @@ Each event type has a set of actions that can be triggered. There is no ordering
 
 #### Action: Open File
 This action will open a file as a tab in the editor. You can provide this action multiple times to have multiple files open. The file property is a relative reference to a file in the project’s source tree. The `file` parameter is the relative path within the workspace to the file that should be opened by the editor. Note that projects are located in the workspaces `/projects` folder.
+
 ```json  
 {  
   "id" : "openFile",
@@ -282,6 +287,7 @@ If you create a project from a factory, you can have Codenvy perform a find / re
 Parameterizing source code allows you to create projects whose source code will be different for each click on the Factory. The most common use of this is inserting a developer-specific key into the source code. Each developer has their own key which is known to you. That key is inserted as the replacement variable and then inserted into the source code when that user invokes the Factory URL.
 
 Parameterization works by replacing templated variables in the source code with values specified in the Factory object. The `findReplace` action is triggered by the `factory.ide.onProjectsLoaded : {}` event. It is an array of JSON objects, so you can perform multiple parameterizations on your source tree.
+
 ```json  
 "onProjectOpened" : {                          
   "actions" : [{  
@@ -307,6 +313,7 @@ It is possible to combine two replacement methods. Priority is given to singlepa
 
 ## factory.creator Object
 This object has meta information that you can embed within the Factory. These attributes do not affect the automation behavior or the behavior of the generated workspace.
+
 ```json  
 factory.creator : {
   "name"      : STRING,                // Name of author of this configuration file
@@ -316,6 +323,7 @@ factory.creator : {
 }
 ```
 ## factory.button Object
+
 ```json  
 # Defines a visual button or logo that can front the Factory URL
 factory.button : {
@@ -329,7 +337,7 @@ factory.button.attributes : {
   "logo"    : URL,                     // Button image URL. Ignored if type = nologo
   "style"   : [horizontal | vertical]  // Counter direction. Ignored if type = logo
                    
-}\
+}
 ```
 We provide three button types with animations that execute when you hover over them.  You can save the button configuration with the Factory by filling in the `factory.button` object with the Factory configuration.  You can also use our button formats directly within Markdown and HTML using a JavaScript snippet.
 
@@ -347,6 +355,7 @@ Button animations do not work withing Markdown documents, unfortunately.  Our do
 
 ### JavaScript Button: Configuration From Factory
 You can save your button configuration within Codenvy when you generate the Factory configuration. You do this by filling in the `factory.button` fields as part of your `factory.json`. Your button configuration is saved within Codenvy and any logo image is uploaded and hosted on our servers. You can then reference this Factory button directly using JavaScript.
+
 ```html  
 <script
     type="text/javascript"
@@ -356,6 +365,7 @@ You can save your button configuration within Codenvy when you generate the Fact
 ```
 ### JavaScript Button: Configuration Within JavaScript
 You can reuse our buttons and animations without first having created a Factory.  
+
 ```html  
 <script
     type    = "text/javascript"
@@ -370,11 +380,13 @@ You can reuse our buttons and animations without first having created a Factory.
 The `gray` style will cause the small dark animation button to load. The `white` does the small white animation button to load. Use `advanced` if you want to have your logo image loaded with our hover animation on top of it.  The `counter` will add a click counter to the button that is updated daily with the counts stored server side. The `style` attribute can be `white`, `dark` or `advanced`, which displays your logo.
 
 ### Markdown Button
+
 ```markdown  
 ![alt](https://codenvy.com/factory/resources/factory-white.png)](URL)
 ![alt](https://codenvy.com/factory/resources/factory-dark.png)](URL)
 ```
 ### Button Examples
+
 ```html  
 <script
     type    = "text/javascript"

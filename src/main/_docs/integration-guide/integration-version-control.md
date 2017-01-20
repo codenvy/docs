@@ -27,6 +27,7 @@ Currently it's not possible for Codenvy to use oAuth integration with GitLab. Al
 
 ## BitBucket Server oAuth
 You can setup oAuth to a dedicated BitBucket Server.
+
 #### 1. Generate Keys
 SSH to your BitBucket Server instance and generate RSA key-pairs
 ```shell
@@ -37,6 +38,7 @@ $ openssl genrsa -out private.pem 1024
 $ openssl rsa -in private.pem -pubout > public.pub`
 $ openssl pkcs8 -topk8 -inform pem -outform pem -nocrypt -in private.pem -out privatepkcs8.pem 
 ```
+
 #### 2. Setup Codenvy in BitBucket Server
 In the Bitbucket Server as an Admin:
 
@@ -70,6 +72,7 @@ In the `codenvy.env` file add (or change if they already exist):
 Restart your Codenvy server to enable the integration.
 
 ## GitHub oAuth
+
 ### Setup oAuth at GitHub
 1. Register an application in your GitHub account. Refer to [Setup oAuth at GitHub]({{base}}{{site.links["ide-git-svn"]}}#github-oauth) for additional information.
 2. Update the `codenvy.env` with secret, ID and callback:

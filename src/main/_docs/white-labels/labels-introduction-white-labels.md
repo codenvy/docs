@@ -46,6 +46,7 @@ To remove the loader from the splash screen, delete the appropriate lines in:
 
 ## Changing the Left Navbar
 The colors of the navigation menu are configured in [navbar-theme.styl](https://github.com/codenvy/codenvy/blob/master/dashboard/src/app/navbar/navbar-theme.styl):
+
 ```json  
 $onprem-navbar-backgroud-color #background color of the menu
 $onprem-navbar-active-menu-background-color #background color of selected menu item

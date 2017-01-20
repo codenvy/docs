@@ -74,6 +74,7 @@ webhook1=github,https://github.com/orgName/web-java-spring,factory7nfrelk0v8b77f
 ```   
 
 For BitBucket Server: `bitbucketserver-webhooks.properties`
+
 ```text  
 webhook1=bitbucketserver,http://owner@bitbucketserver.host/scm/projectkey/repository.git,factoryId
 [webhook-name],[repository-url],[factory-id];[factory-id];...;[factory-id]
@@ -90,8 +91,6 @@ In your GitHub repo settings, configure the following webhook:
 - Install Post-Receive WebHooks plugin.
 - In repo settings, configure the plugin to use Bitbucket Server webhook: `http(s)://$codenvyURL/api/bitbucketserver-webhook`
 - Configure `bitbucket_endpoint` property with the URL of your Bitbucket Server
-
-
 
 ## Test Integration  
 To trigger the email you will need to make the build fail. If everything is configured correctly the build failed email should include a "Codenvy Factory" line in the build information at the top of the email.

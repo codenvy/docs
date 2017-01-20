@@ -30,6 +30,7 @@ You can setup oAuth to a dedicated BitBucket Server.
 
 #### 1. Generate Keys
 SSH to your BitBucket Server instance and generate RSA key-pairs
+
 ```shell
 # generate the key pairs
 $ openssl genrsa -out private.pem 1024
@@ -76,6 +77,7 @@ Restart your Codenvy server to enable the integration.
 ### Setup oAuth at GitHub
 1. Register an application in your GitHub account. Refer to [Setup oAuth at GitHub]({{base}}{{site.links["ide-git-svn"]}}#github-oauth) for additional information.
 2. Update the `codenvy.env` with secret, ID and callback:
+
 ```text  
 oauth.github.clientid=yourClientID
 oauth.github.clientsecret=yourClientSecret
@@ -92,9 +94,11 @@ With oAuth setup you can perform all git actions with the repo, including commit
 After importing a repository, you can perform the most common Git and SVN operations using interactive menus or through console commands.
 
 **Note: Use of git menu remote push command will not work prior setting up SSH or oAuth authentication.**
-![git-menu.png]({{base}}/docs/assets/imgs/codenvy/git-menu.png)
+![git-menu.png]({{base}}/docs/assets/imgs/codenvy/git-menu.png){:style="width: auto"} 
 
-![svn-menu.png]({{base}}/docs/assets/imgs/codenvy/svn-menu.png)
+![svn-menu.png]({{base}}/docs/assets/imgs/codenvy/svn-menu.png){:style="width: auto"}
+
+
 
 # Built-In Pull Request Panel
 Within the Codenvy IDE there is a pull request panel to simplify the creation of pull requests for GitHub, BitBucket or Microsoft VSTS (with git) repositories.

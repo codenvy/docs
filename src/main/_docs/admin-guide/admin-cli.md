@@ -22,6 +22,7 @@ These variables can be set in your local environment shell before running and th
 | `CODENVY_HOST` | The IP address or DNS name of the Codenvy service. We use `eclipse/che-ip` to attempt discovery if not set. |
 
 Codenvy depends upon Docker images. We use Docker images in three ways:
+
 1. As cross-platform utilites within the CLI. For example, in scenarios where we need to perform a `curl` operation, we use a small Docker image to perform this function. We do this as a precaution as many operating systems (like Windows) do not have curl installed.
 2. To look up the master version and upgrade manifest, which is stored as a singleton Docker image called `codenvy/version`.
 3. To perform initialization and configuration of Codenvy such as with `codenvy/init`. This image contains templates that are delivered as a payload and installed onto your computer. These payload images can have different files based upon the image's version.
@@ -79,6 +80,7 @@ Provides information on the current version and the available versions that are 
 Manages the sequence of upgrading Codenvy from one version to another. Run `codenvy version` to get a list of available versions that you can upgrade to.
 
 Upgrading Codenvy is done by using a `codenvy/cli:<version>` that is newer than the version you currently have installed. For example, if you have 5.0.0-M2 installed and want to upgrade to 5.0.0-M7, then:
+
 ```
 # Get the new version of Codenvy
 docker pull codenvy/cli:5.0.0-M7

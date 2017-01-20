@@ -10,6 +10,7 @@ permalink: /:categories/using-desktop-ides/
 It's possible to establish SSH connection between your desktop IDE and a remote Codenvy workspace.
 
 In Codenvy create a new workspace, open it in the IDE and import any project in there. On the Consoles panel click `Connect via SSH`, you will see the following instructions:
+
 ```shell  
 You can connect your SSH client to 'default' with:
 
@@ -71,6 +72,7 @@ In the IDE, open the “Consoles” panel and press “SSH”. Here you will fin
 Capture all three of these items.
 ![ScreenShot2016-08-02at8.18.23AM.png](../../../docs/assets/imgs/codenvy/ScreenShot2016-08-02at8_18_23AM.png)
 Using Docker launch the `che-mount` container, pass in the information you captured from the SSH screen:
+
 ```shell  
 # Launch the Che mount container with your Codenvy instance
 docker run --rm -it \
@@ -111,6 +113,7 @@ If you just want to mount the remote workspace to a local directory, you can do 
 You can still use your local IDE with the local file mount. You may want a local file mount instead of a sync if you want to eliminate the risk of any synchronization conflicts from clients accessing the same file system locally and remotely within the workspace at the same time.
 
 Windows users can use sshfs by installing free software [win-sshfs](https://code.google.com/archive/p/win-sshfs/) for Window versions up to 7 or by purchasing software such as [SFTP Net Drive](https://www.eldos.com/) for Windows 8.0, 8.1 or 10. Mac users can use sshfs by installing free open source software [FUSE](https://osxfuse.github.io/) and associated sshfs extension. Linux has sshfs built into it kernel so most Linux distributions require a small sshfs package to be installed.
+
 ```shell  
 # On Linux & Mac - first install sshfs.  Then:
 sshfs -p <ws-ssh-port> user@<che-ws-ip-address>:/projects /mnt/che

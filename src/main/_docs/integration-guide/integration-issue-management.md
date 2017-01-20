@@ -21,19 +21,18 @@ permalink: /:categories/issue-management/
 The Codenvy plug-in for Atlassian JIRA allows anyone to jump directly from an issue in JIRA to a custom, isolated workspace designed to let them edit, built, debug and review the issue.  [This video](https://www.youtube.com/watch?v=y4wdplYj6qs) shows the agile flow from JIRA to Codenvy.
 
 The plug-in for JIRA consists of three parts:
+
 1. **Issue event listener**: Automatically generates [Codenvy Factories]({{base}}/docs/integration-guide/workspace-automation/index.html) for the develop and review issue fields when an issue in a Factory-enabled project is created.
 2. **Custom issue fields**: Display the links to the develop and review workspaces in Codenvy.
 3. **Plug-in administration page**: Defines the location of the associated Codenvy instance, username and password.
 
 The Codenvy agile workflow with Atlassian JIRA requires:
-- Codenvy with the VCS Factory Plug-In installed.
-- Atlassian JIRA issue management system.
-- Codenvy Plug-in for Atlassian JIRA
-- GitHub or other git-based repo with webhooks for push and pull requests.
+
+- Codenvy 5.0+.
+- Atlassian JIRA issue management system 7.x.
+- Codenvy Plug-in for Atlassian JIRA 1.3+.
+- GitHub or BitBucket Server repo.
 ![jira-github-jenkins-integration.png]({{base}}/docs/assets/imgs/codenvy/jira-github-jenkins-integration.png)
-
-The VCS Factory Plug-In updates Codenvy Factories in response to GitHub webhooks for push events and pull request events.
-
 
 ## Installing the Plug-In for JIRA   
 

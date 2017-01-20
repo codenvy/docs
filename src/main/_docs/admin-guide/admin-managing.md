@@ -20,19 +20,28 @@ Overlay networks require a distributed key-value store. We embed ZooKeeper, a ke
 The default network in Docker is a "bridge" network. If your system will only require a single physical node, you can scale it with larger amounts of RAM using bridge networking (its default configuration).
 
 ## Scaling With Overlay Network (Linux Only)
-1: Collect the IP address of Codenvy `CODENVY-IP` from your master node.
 
+1: Collect the IP address of Codenvy `CODENVY-IP` from your master node.
 2: Collect the network interface of the new workspace node `WS-IF`:
+
 ```shell
 # Get the network interface from your ws node, typically 'eth1' or 'eth0':
 ifconfig
 ```
 
-3: On each workspace node, configure and restart Docker with four new options: `--cluster-store=zk://<CODENVY-IP>:2181`, `--cluster-advertise=<WS-IF>:2375`, `--host=tcp://0.0.0.0:2375`, and `--engine-insecure-registry=<CODENVY-IP>:5000`. The first parameter tells Docker where the key-value store is located. The second parameter tells Docker how to link its workspace node to the key-value storage broadcast. The third parameter opens Docker to communicate on Codenvy's swarm cluster (this parameter is not needed if your workspace node is in a VM). And the fourth parameter allows the Docker daemon to push snapshots to Codenvy's internal registry (this parameter is not needed if you are using an external registry). If you are running Codenvy behind a proxy, each workspace node Docker daemon should get the same proxy configuration that you placed on the master node. If you would like your Codenvy master node to also host workspaces, you can add these parameters to your master Docker daemon as well.
+3: On each workspace node, configure and restart Docker with four new options:
+
+- `--cluster-store=zk://<CODENVY-IP>:2181`
+- `--cluster-advertise=<WS-IF>:2375`
+- `--host=tcp://0.0.0.0:2375`
+- `--engine-insecure-registry=<CODENVY-IP>:5000`
+
+The first parameter tells Docker where the key-value store is located. The second parameter tells Docker how to link its workspace node to the key-value storage broadcast. The third parameter opens Docker to communicate on Codenvy's swarm cluster (this parameter is not needed if your workspace node is in a VM). And the fourth parameter allows the Docker daemon to push snapshots to Codenvy's internal registry (this parameter is not needed if you are using an external registry). If you are running Codenvy behind a proxy, each workspace node Docker daemon should get the same proxy configuration that you placed on the master node. If you would like your Codenvy master node to also host workspaces, you can add these parameters to your master Docker daemon as well.
 
 4: Verify that Docker is running properly. Docker will not start if it is not able to connect to the key-value storage. Run a simple `docker run hello-world` to verify Docker is happy. Each workspace node that successfully runs this command is part of the overlay network.
 
 5: On the Codenvy master node, modify `codenvy.env` to uncomment or add:
+
 ```json
 # Uncomment this property to switch Codenvy from bridge to overlay mode:
 CODENVY_MACHINE_DOCKER_NETWORK_DRIVER=overlay
@@ -41,6 +50,7 @@ CODENVY_MACHINE_DOCKER_NETWORK_DRIVER=overlay
 # The ports must match the `--cluster-advertise` port added to Docker daemons
 CODENVY_SWARM_NODES=<WS-IP>:2375,<WS2-IP>:2375,<WSn-IP>:2375
 ```
+
 6: Restart Codenvy with `codenvy/cli restart`.
 
 ## Simulated Scaling
@@ -50,7 +60,8 @@ This simulated scaling can be used for production, but it is generally discourag
 
 As an example, the following sequence launches a 3-node cluster of Codenvy using Docker machine with a VirtualBox hypervisor. In this example, we launch 3 VMs: a Codenvy node and 2 additional workspace nodes.  
 
-Start 3 VMs named 'codenvy', 'ws1', 'ws2'):
+Start 3 VMs named `codenvy`, `ws1`, `ws2`:
+
 ```shell
 # Codenvy 
 # Grab the IP address of this VM and use it in other commands where we have <CODENVY-IP>
@@ -74,6 +85,7 @@ docker-machine create -d virtualbox --engine-env DOCKER_TLS=no --virtualbox-memo
 ```
 
 Connect to the Codenvy VM and start Codenvy:
+
 ```shell
 # SSH into the VM
 docker-machine ssh codenvy
@@ -99,6 +111,7 @@ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock \
 Upgrading Codenvy is done by downloading a `codenvy/cli:<version>` that is newer than the version you currently have installed. You can run `codenvy version` to see the list of available versions that you can upgrade to.
 
 For example, if you have 5.0.0-M2 installed and want to upgrade to 5.0.0-M8, then:
+
 ```shell
 # Get the new version of Codenvy
 docker pull codenvy/cli:5.0.0-M8
@@ -111,6 +124,7 @@ docker run <volume-mounts> codenvy/cli:5.0.0-M8 upgrade
 The upgrade command has numerous checks to prevent you from upgrading Codenvy if the new image and the old version are not compatible. In order for the upgrade procedure to advance, the CLI image must be newer that the version in `/instance/codenvy.ver`.
 
 The upgrade process:
+
 1. Performs a version compatibility check
 2. Downloads new Docker images that are needed to run the new version of Codenvy
 3. Stops Codenvy if it is currently running
@@ -134,11 +148,13 @@ It is possible to migrate your configuration and user data from a puppet-based i
 The Codenvy audit service provides information on historic licensing changes (moves between Fair Source and paid licenses for example) as well as the current state of the system with regards to license compliance and workspace ownership across all accounts.
 
 A system administrator can generate an audit report at any time:
+
 1. Log in with administrator credentials.
 2. Navigate in your browser to: `<Codenvy host url>/api/audit`.
 3. A file named `report_<datetime>.txt` will be downloaded.
 
 Sample audit log:
+
 ```
 2017 Jan 09 - 17:40:39: ***@codenvy.com added paid license 1460727747815.
 2017 Jan 31 - 17:41:40: Paid license 1460727747815 expired.
@@ -166,12 +182,14 @@ In the event of a failure of the primary, the secondary system can be powered on
 ## Initial Setup
 ### Create the Secondary System
 Install Codenvy on a secondary system taking care to ensure:
+
 - Version matches the primary system
 - License file is added to the secondary system.
 - Number of nodes and their resource capacity is the same as the primary system.
 - Source code repositories, artifact repositories and Docker registries are accessible from the secondary system.
 
 ### Transfer Data
+
 1. Execute `codenvy-backup` on the primary system to get a copy of the `/instance` folder and the `codevy.env`.
 2. Execute `codenvy-restore` on the secondary system.
 

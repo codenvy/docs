@@ -16,6 +16,7 @@ Codenvy installs on Linux, Mac and Windows.
 
 ## Hardware
 The Codenvy server requires a minimum of:
+
 * 2 cores
 * 4GB RAM
 * 3GB disk space
@@ -25,6 +26,7 @@ Codenvy services require 2 GB storage and 4 GB RAM. The RAM, CPU and storage res
 Boot2Docker, docker-machine, Docker for Windows, and Docker for Mac are all Docker variations that launch VMs with Docker running in the VM with access to Docker from your host. We recommend increasing your default VM size to at least 4GB. Each of these technologies have different ways to allow host folder mounting into the VM. Please enable this for your OS so that Codenvy data is persisted on your host disk.
 
 ## Software
+
 * Docker 1.11+ (1.12.5+ recommended)
 
 The Codenvy CLI - a Docker image - manages the other Docker images and supporting utilities that Codenvy uses during its configuration or operations phases. The CLI also provides utilities for downloading an offline bundle to run Codenvy while disconnected from the network.
@@ -91,6 +93,7 @@ All ports are TCP unless otherwise noted.
 
 # Installation
 ## Syntax
+
 ```
 USAGE:
   docker run -it --rm <DOCKER_PARAMETERS> codenvy/cli:<version> [COMMAND]
@@ -131,11 +134,15 @@ In these docs, we shorthand `codenvy [COMMAND]`, for the full `docker run ...` s
 
 ## Sample Start
 Install and start the nightly build with user data saved on Windows at C:\tmp:
-`docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v /c/tmp:/data codenvy/cli:5.0.0-latest start`
+
+```
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v /c/tmp:/data codenvy/cli:5.0.0-latest start
+```
 
 This installs a Codenvy configuration, downloads Codenvy's Docker images, run pre-flight port checks, boot Codenvy's services, and run post-flight checks. You do not need root access to start Codenvy, unless your environment requires it for Docker operations.
 
 A successful start will display:
+
 ```
 INFO: (codenvy cli): Downloading cli-latest
 INFO: (codenvy cli): Checking registry for version 'nightly' images
@@ -154,11 +161,14 @@ INFO: (codenvy start): Ver: 5.0.0-M6-SNAPSHOT
 INFO: (codenvy start): Use: http://10.0.75.2
 INFO: (codenvy start): API: http://10.0.75.2/swagger
 ```
+
 The administrative login is:
+
 ```
 user: admin
 pass: password
 ```
+
 ## Versions
 Each version of Codenvy is available as a Docker image tagged with a label that matches the version, such as `codenvy/cli:5.0.0-M7`. You can see all versions available by running `docker run codenvy/cli version` or by [browsing DockerHub](https://hub.docker.com/r/codenvy/cli/tags/).
 
@@ -175,6 +185,7 @@ The software referenced by these labels can change over time. Since Docker will 
 In the case of 'latest' images, when you initialize an installation using the CLI, we encode your `/instance/codenvy.ver` file with the numbered version that latest references. If you begin using a CLI version that mismatches what was installed, you will be presented with an error.
 
 To avoid issues that can appear from using 'nightly' or 'latest' redirectoins, you may:
+
 1. Verify that you have the most recent version with `docker pull eclipse/cli:<version>`.
 2. When running the CLI, commands that use other Docker images have an optional `--pull` and `--force` command line option [which will instruct the CLI to check DockerHub]({{base}}/docs/admin-guide/configuration/index.html) for a newer version and pull it down. Using these flags will slow down performance, but ensures that your local cache is current.
 
@@ -198,6 +209,7 @@ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock
 
 ## Proxy Installation
 You can install and operate Codenvy behind a proxy:
+
 1. Configure each physical node's Docker daemon with proxy access.
 2. Optionally, override the default workspace proxy settings for users if you want to restrict their Internet access.
 
@@ -208,6 +220,7 @@ Please be mindful that your `HTTP_PROXY` and/or `HTTPS_PROXY` that you set in th
 If you configure `HTTP_PROXY` or `HTTPS_PROXY` in your Docker daemon, we will add `localhost,127.0.0.1,codenvy-swarm,CODENVY_HOST` to your `NO_PROXY` value where `CODENVY_HOST` is the DNS or IP address. We recommend that you add the short and long form DNS entry to your Docker's `NO_PROXY` setting if it is not already set.
 
 We will add some values to `codenvy.env` that contain some proxy overrides. You can optionally modify these with different values:
+
 ```
 CODENVY_HTTP_PROXY_FOR_CODENVY=<YOUR_PROXY_FROM_DOCKER>
 CODENVY_HTTPS_PROXY_FOR_CODENVY=<YOUR_PROXY_FROM_DOCKER>
@@ -223,6 +236,7 @@ The last three entries are injected into workspaces created by your users. This 
 Firewalls will typically cause traffic problems to appear when you are starting a new workspace or adding a new physical node for scaling. There are certain network configurations where we direct networking traffice between workspaces and Codenvy through external IP addresses, which can flow through routers or firewalls. If ports or protocols are blocked, then certain Codenvy functions will be unavailable.
 
 #### Running Codenvy Behind a Firewall (Linux/Mac)
+
 ```shell
 # Check to see if firewall is running:
 systemctl status firewalld
@@ -252,6 +266,7 @@ If you are going to use the embedded Zabbix monitor that is deployed with Codenv
 #### Running Codenvy Behind a Firewall (Windows)
 
 There are many third party firewall services. Different versions of Windows OS also have different firewall configurations. The built-in Windows firewall can be configured in the control panel under "System and Security":
+
 1. In the left pane, right-click `Inbound Rules`, and then click `New Rule` in the action pane.
 2. In the `Rule Type` dialog box, select `Port`, and then click `Next`.
 3. In the `Protocol and Ports` dialog box, select `TCP`. 
@@ -264,9 +279,11 @@ We support offline (disconnected from the Internet) installation and operation. 
 
 ### 1. Save Codenvy Images
 While connected to the Internet, download Codenvy's Docker images:
+
 ```
 codenvy offline
 ```
+
 The CLI will download images and save them to `/backup/*.tar` with each image saved as its own file. You can save these files to a differnet location by volume mounting a local folder to `:/data/backup`. The version tag of the CLI Docker image will be used to determine which versions of dependent images to download. There is about 1GB of data that will be saved.
 
 The default execution will download none of the optional stack images, which are needed to launch workspaces of a particular type. There are a few dozen stacks for different programming languages and some of them are over 1GB in size. It is unlikely that your users will need all of the stacks, so you do not need to download all of them. You can get a list of available stack images by running `codenvy offline --list`. You can download a specific stack by running `codenvy offline --image:<image-name>` and the `--image` flag can be repeatedly used on a single command line.
@@ -281,9 +298,11 @@ docker load < /tmp/offline/codenvy_cli:<version>.tar
 # Start Codenvy in offline mode
 docker run <other-properties> -v /tmp/offline:/data/backup codenvy/cli:<version> start --offline
 ```
+
 The `--offline` parameter instructs Codenvy CLI to load all of the TAR files located in the folder mounted to `/data/backup`. These images will then be used instead of routing out to the Internet to check for DockerHub. The preboot sequence takes place before any CLI functions make use of Docker. The `codenvy start`, `codenvy download`, and `codenvy init` commands support `--offline` mode which triggers this preboot seequence.
 
 # Uninstall
+
 ```
 # Remove your Codevy configuration and destroy user projects and database
 docker run codenvy/cli:<version> destroy [--quiet|--cli]

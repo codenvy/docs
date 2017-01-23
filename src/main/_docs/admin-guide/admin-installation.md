@@ -242,12 +242,19 @@ Firewalls will typically cause traffic problems to appear when you are starting 
 systemctl status firewalld
 
 # Check for list of open ports
-# Verify that ports 80tcp, 443tcp, 2376tcp, 4789udp, 7946tcp/udp, 23750tcp, 32768-65535tcp are open
+# Verify that ports 80/tcp 81/tcp 443/tcp 2181/tcp 2375-2376/tcp 4789/udp 5000/tcp 5432/tcp 7946/tcp 7946/udp 8080/tcp 23750/tcp 23751/tcp 32001/tcp 32101/tcp 32768-65535/tcp are open
 firewall-cmd --list-ports
 
 # Optionally open ports on your local firewall:
 firewall-cmd --permanent --add-port=80/tcp
 ... and so on
+
+# Alternatively open all ports at once by running (adding sudo may be required):
+declare -a ports=( 80/tcp 81/tcp 443/tcp 2181/tcp 2375-2376/tcp 4789/udp 5000/tcp 5432/tcp 7946/tcp 7946/udp 8080/tcp 23750/tcp 23751/tcp 32001/tcp 32101/tcp 32768-65535/tcp )
+for port in ${ports[@]}
+do
+    firewall-cmd --permanent --add-port=$port
+done
 
 # You can also verify that ports are open:
 nmap -Pn -p <port> localhost

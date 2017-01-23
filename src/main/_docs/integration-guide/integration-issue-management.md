@@ -139,6 +139,7 @@ In Codenvy create a new generic user account that will house the factories creat
 
 ### Setting VSTS Webhooks
 1. On VSTS go to:
+
 ```  
 https://{your-account}.visualstudio.com/{your-collection}/{your-project-name}/_admin/_servicehooks\
 ```
@@ -150,6 +151,7 @@ https://{your-account}.visualstudio.com/{your-collection}/{your-project-name}/_a
 ### Setting Properties in Codenvy
 1. In `/home/codenvy/credentials.properties`
 Include the Codenvy User for VSTS username and password created above.
+
 ```  
 username=somebody@somemail.com
 password=somepw\
@@ -157,6 +159,7 @@ password=somepw\
 2. In `/home/codenvy/vsts-webhooks.properties`
 For each VSTS webhook created include:
 [webhook-name]=[webhook-type],[api-version],[project-api-url],[username],[password]
+
 ```  
 # [webhook-name]=[webhook-type],[host],[account],[collection],[api-version],[username],[password]
 webhook1=work-item-created,visualstudio,myaccount,DefaultCollection,2.2-preview.1,some-user,some-pw\

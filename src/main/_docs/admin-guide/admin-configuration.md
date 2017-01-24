@@ -118,6 +118,8 @@ You can place limits on how users interact with the system to control overall sy
 
 You can also set limits on Docker's allocation of CPU to workspaces, which may be necessary if you have a very dense workspace population where users are competing for limited physical resources.
 
+Workspaces have idle timeouts that stop workspaces that a user has not interacted with in a specified time. The idle timeout is set by the `CODENVY_MACHINE_WS_AGENT_INACTIVE_STOP_TIMEOUT_MS` property in the `codenvy.env` file with a default value of `14400000` milliseconds or 4 hours. This allows Codenvy to to free up unused resources but may need to be increased if longer running workspaces are required.
+
 ## Docker
 Workspace runtimes are powered by one or more Docker containers. When a user creates a workpace, they do so from a [stack]({{base}}{{site.links["ws-stacks"]}}) which includes a Dockerfile or reference to a Docker image which will be used to create the containers for the workspace runtimes. Stacks can pull that image from a public registry, like DockerHub, or a private registry. Images in a registry can be publicly visible or private, which require user credentials to access. You can also set up a private registry to act as a mirror to Docker Hub.  And, if you are running Codenvy behind a proxy, you can configure the Docker daemon registry to operate behind a proxy.
 

@@ -28,7 +28,8 @@
   docs:
   - ws-admin-intro # Che workspace-administration
   - ide-projects # Che use-che-as-an-ide
-  - user-import   
+  - user-import
+  - user-teams
   - ide-git-svn # Che use-che-as-an-ide
   - ide-editor-settings # Che use-che-as-an-ide
   - ide-intellisense # Che use-che-as-an-ide

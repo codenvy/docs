@@ -1,6 +1,6 @@
 <ul>
   {% unless page.url contains '/docs/tutorials/' or page.url contains '/docs/openshift/' or page.url contains '/docs/artik/' %}
-    {% assign docs_general = true %} 
+    {% assign docs_general = true %}
   {% endunless  %}
   <li class="{% if page.url contains '/docs/' and docs_general == true and page.overview == null %}current{% endif %}">
     <a href="{{ base }}/docs/index.html">Docs</a>
@@ -9,6 +9,6 @@
     <a href="{{ base }}/docs/tutorials/multi-machine/index.html">Tutorials</a>
   </li>
   <li>
-    <a href="{{ site.repository }}/tree/master/docs"><span class="hide-on-mobiles">View on </span>GitHub</a>
+    <a href="https://github.com/codenvy/{{ page.tags[1] }}-docs/tree/master/docs/">GitHub</a>
   </li>
 </ul>

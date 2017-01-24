@@ -208,23 +208,24 @@ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock
 ```
 
 ## Proxy Installation
-You can install and operate Codenvy behind a proxy:
+Codenvy can be installed and operated from behind a proxy:
 
 1. Configure each physical node's Docker daemon with proxy access.
 2. Optionally, override the default workspace proxy settings for users if you want to restrict their Internet access.
 
 Before starting Codenvy, configure [Docker's daemon for proxy access](https://docs.docker.com/engine/admin/systemd/#/http-proxy). If you plan to scale Codenvy with multiple host nodes, each host node must have its Docker daemon configured for proxy access. If you have Docker for Windows or Docker for Mac installed on your desktop and installing Codenvy, these utilities have a GUI in their settings which let you set the proxy settings directly.
 
-Please be mindful that your `HTTP_PROXY` and/or `HTTPS_PROXY` that you set in the Docker daemon must have a protocol and port number. Proxy configuration is quite finnicky, so please be mindful of providing a fully qualified proxy location.
+`HTTP_PROXY` and/or `HTTPS_PROXY` set in the Docker daemon must have a protocol and port number. Proxy configuration is quite finnicky, so please ensure you have provided a fully qualified proxy location.
 
-If you configure `HTTP_PROXY` or `HTTPS_PROXY` in your Docker daemon, we will add `localhost,127.0.0.1,codenvy-swarm,CODENVY_HOST` to your `NO_PROXY` value where `CODENVY_HOST` is the DNS or IP address. We recommend that you add the short and long form DNS entry to your Docker's `NO_PROXY` setting if it is not already set.
+If you configure `HTTP_PROXY` or `HTTPS_PROXY` in your Docker daemon, Codenvy automatically adds `localhost,127.0.0.1,codenvy-swarm,CODENVY_HOST` to your `NO_PROXY` value where `CODENVY_HOST` is the DNS or IP address. We recommend that you check these values in your `codenvy.env` and add the short and long form DNS entry to your Docker's `NO_PROXY` setting if it is not already set.
 
-We will add some values to `codenvy.env` that contain some proxy overrides. You can optionally modify these with different values:
+This is the full set of proxy-related values in the `codenvy.env`. You can optionally modify these with different values:
 
 ```
 CODENVY_HTTP_PROXY_FOR_CODENVY=<YOUR_PROXY_FROM_DOCKER>
 CODENVY_HTTPS_PROXY_FOR_CODENVY=<YOUR_PROXY_FROM_DOCKER>
 CODENVY_NO_PROXY_FOR_CODENVY=localhost,127.0.0.1,codenvy-swarm,<YOUR_CODENVY_HOST>
+
 CODENVY_HTTP_PROXY_FOR_CODENVY_WORKSPACES=<YOUR_PROXY_FROM_DOCKER>
 CODENVY_HTTPS_PROXY_FOR_CODENVY_WORKSPACES=<YOUR_PROXY_FROM_DOCKER>
 CODENVY_NO_PROXY_FOR_CODENVY_WORKSPACES=localhost,127.0.0.1,<YOUR_CODENVY_HOST>

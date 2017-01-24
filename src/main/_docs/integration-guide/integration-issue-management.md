@@ -21,19 +21,18 @@ permalink: /:categories/issue-management/
 The Codenvy plug-in for Atlassian JIRA allows anyone to jump directly from an issue in JIRA to a custom, isolated workspace designed to let them edit, built, debug and review the issue.  [This video](https://www.youtube.com/watch?v=y4wdplYj6qs) shows the agile flow from JIRA to Codenvy.
 
 The plug-in for JIRA consists of three parts:
+
 1. **Issue event listener**: Automatically generates [Codenvy Factories]({{base}}/docs/integration-guide/workspace-automation/index.html) for the develop and review issue fields when an issue in a Factory-enabled project is created.
 2. **Custom issue fields**: Display the links to the develop and review workspaces in Codenvy.
 3. **Plug-in administration page**: Defines the location of the associated Codenvy instance, username and password.
 
 The Codenvy agile workflow with Atlassian JIRA requires:
-- Codenvy with the VCS Factory Plug-In installed.
-- Atlassian JIRA issue management system.
-- Codenvy Plug-in for Atlassian JIRA
-- GitHub or other git-based repo with webhooks for push and pull requests.
+
+- Codenvy 5.0+.
+- Atlassian JIRA issue management system 7.x.
+- Codenvy Plug-in for Atlassian JIRA 1.3+.
+- GitHub or BitBucket Server repo.
 ![jira-github-jenkins-integration.png]({{base}}/docs/assets/imgs/codenvy/jira-github-jenkins-integration.png)
-
-The VCS Factory Plug-In updates Codenvy Factories in response to GitHub webhooks for push events and pull request events.
-
 
 ## Installing the Plug-In for JIRA   
 
@@ -66,7 +65,29 @@ The Codenvy plug-in for JIRA is available from the [Atlassian Marketplace](https
 11. Type in your custom field name (e.g. "Review") and click "Create".
 12. Associate the field to the JIRA projects you want to be Factory-enabled and click "Update".
 
-### Configuring GitHub Webhooks
+### Create a Credentials Property File
+In `/home/codenvy` create a `credentials.properties` file and enter the username and password of your JIRA user (e.g. jira-plugin@some-email.com) as below:
+```  
+username=somebody@somemail.com
+password=some-password
+```
+### Create a Git Property File
+**For GitHub**
+In `/home/codenvy` create a `github-webhooks.properties` file with the following content:
+```  
+# [webhook-name]=[webhook-type],[repository-url],[factory-id];[factory-id];...;[factory-id]
+webhook1=github,https://github.com/myorg/myproject,gfn6lgml8wl47rbr
+```
+
+**For BitBucket Server**
+In `/home/codenvy` create a `bitbucketserver-webhooks.properties` file with the following content:
+```text  
+webhook1=bitbucketserver,http://owner@bitbucketserver.host/scm/projectkey/repository.git,factoryId
+[webhook-name],[repository-url],[factory-id];[factory-id];...;[factory-id]
+```
+
+### Configuring Webhooks
+**For GitHub**
 1. On your repository's GitHub page, go to Settings > Webhooks & services.
 2. Click the "Add webhook" button.
 3. In the Payload URL field enter: `http://{your-codenvy-url}/api/github-webhook`.
@@ -75,18 +96,11 @@ The Codenvy plug-in for JIRA is available from the [Atlassian Marketplace](https
 5. Select "Let me select individual events" radio button.
 6. Check "Push" and "Pull Request" checkboxes.
 
-### Configuring VCS Factory Plug-in with GitHub
-1. In `/home/codenvy` create a `github-webhooks.properties` file with the following content for your GitHub webhooks:
-```  
-# [webhook-name]=[webhook-type],[repository-url],[factory-id];[factory-id];...;[factory-id]
-webhook1=github,https://github.com/myorg/myproject,gfn6lgml8wl47rbr
-\
-```
-2. In the same directory, create a `credentials.properties` file and enter the username and password of your JIRA user (e.g. jira-plugin@some-email.com) as below:
-```  
-username=somebody@somemail.com
-password=somepwd
-```
+**For BitBucket Server**
+1. Log into the Bitbucket Server as an Admin
+1. Install Post-Receive WebHooks plugin.
+1. In repo settings, configure the plugin to use Bitbucket Server webhook: `http(s)://$codenvyURL/api/bitbucketserver-webhook`
+1. Configure `bitbucket_endpoint` property with the URL of your Bitbucket Server
 
 ## Testing
 At this point Codenvy will automatically generate custom develop and review workspaces for every issues that's created based on the parent Factory associated with the JIRA Project.
@@ -117,7 +131,7 @@ The Codenvy agile workflow with Microsoft Visual Studio Team Services requires:
 ![microsoft-vsts-integration.png]({{base}}/docs/assets/imgs/codenvy/microsoft-vsts-integration.png)
 
 ## Installing the Extension for VSTS   
-The Codenvy extension for Microsoft VSTS is available from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=codenvy.codenvy-extension)
+The Codenvy extension for Microsoft VSTS is available from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=codenvy.codenvy-extension).
 
 ## Configuring the Extension for VSTS    
 ### Creating the Codenvy User for VSTS  

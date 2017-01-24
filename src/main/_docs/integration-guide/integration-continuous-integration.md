@@ -45,10 +45,34 @@ In the job in Jenkins replace the description with the Factory link. It should l
 
 where the URL in quotes is the Factory URL to be used with the Jenkins job.
 
-### Configure Property Files 
-SSH into your Codenvy instance, navigate to `/home/codenvy` and create 3 `.properties` files:
+### Create Property Files
+#### Credentials File
+In a directory outside the Codenvy contianer create a `credentials.properties` file and enter the username and password of the use who created the Jenkins Factory in Codenvy.
 
-**1. A Connectors File:** `connectors.properties`
+```  
+username=somebody@somemail.com
+password=some-password
+```
+
+#### Git File
+**For GitHub**
+In a directory outside the Codenvy contianer create a `github-webhooks.properties` file.
+
+```text  
+webhook1=github,https://github.com/orgName/web-java-spring,factory7nfrelk0v8b77fekn
+[webhook-name],[GitHub-URL],[Factory-id]
+```   
+
+**For BitBucket**
+In a directory outside the Codenvy contianer create a `bitbucketserver-webhooks.properties` file.
+
+```text  
+webhook1=bitbucketserver,http://owner@bitbucketserver.host/scm/projectkey/repository.git,factoryId
+[webhook-name],[repository-url],[factory-id];[factory-id];...;[factory-id]
+```
+
+#### Jenkins Connector File 
+In a directory outside the Codenvy contianer create a `connectors.properties` file.
 
 ```text  
 jenkins1=jenkins,factory7nfrelk0v8b77fek,http://userName:password@jenkins.codenvy-dev.com:8080,EvgenTestn
@@ -56,37 +80,23 @@ jenkins1=jenkins,factory7nfrelk0v8b77fek,http://userName:password@jenkins.codenv
 [connector-name],[factory-ID],[$protocol://$userName:$password@$jenkinsURL],[jenkins-job-name]
 ```   
 
-**2. A Credentials File:** `credentials.properties`
+### Copy Property Files to Container
+**This is a temporary workaround - a mounting mechanism is being developed to remove the need to re-add these property files at each container start**
+For each of the three property files, copy it into the root of the Codenvy container:
 
-```text  
-username=yourCodenvyUsername
-password=yourCodenvyPassword
-# username and password should be for the user that created a base Factory
-```   
-
-**3. A GitHub or BitBucket Server Properties File:**
-
-For GitHub: `github-webhooks.properties`
-
-```text  
-webhook1=github,https://github.com/orgName/web-java-spring,factory7nfrelk0v8b77fekn
-[webhook-name],[GitHub-URL],[Factory-id]
-```   
-
-For BitBucket Server: `bitbucketserver-webhooks.properties`
-
-```text  
-webhook1=bitbucketserver,http://owner@bitbucketserver.host/scm/projectkey/repository.git,factoryId
-[webhook-name],[repository-url],[factory-id];[factory-id];...;[factory-id]
+```shell
+docker cp <file name> codenvy_codenvy_1:/<file name>
+# Example: docker cp credentials.properties codenvy_codenvy_1:/credentials.properties (edited)
 ```
+
+This must be done each time the container is restarted. If you have an automated start script or restart script add these commands to that.
 
 ### Configure Repo Webhooks  
 #### For GitHub
-In your GitHub repo settings, configure the following webhook:
-
-`http(s)://$codenvyURL/api/github-webhook`
+In your GitHub repo settings, configure the following webhook: `http(s)://$codenvyURL/api/github-webhook`
 
 #### For BitBucket Server
+
 - Log into the Bitbucket Server as an Admin
 - Install Post-Receive WebHooks plugin.
 - In repo settings, configure the plugin to use Bitbucket Server webhook: `http(s)://$codenvyURL/api/bitbucketserver-webhook`

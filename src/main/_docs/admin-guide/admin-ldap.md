@@ -7,9 +7,6 @@ permalink: /:categories/ldap/
 ---
 {% include base.html %}
 
-**Applies To**: Codenvy on-premises installs.
-
----
 
 The Codenvy LDAP integration has two major roles: synchronization and authentication.
 

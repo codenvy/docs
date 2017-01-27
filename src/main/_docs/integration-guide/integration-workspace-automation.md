@@ -8,9 +8,6 @@ permalink: /:categories/workspace-automation/
 {% include base.html %}
 
 
-**Applies To**: Codenvy on-premises installs and codenvy.io hosted accounts.
-
----
 A Factory is a template used to generate new or open existing workspaces with a URL. Factories can be used to create replicas of existing workspaces or to automate the provisioning of staticly or dynamically defined workspaces.
 
 # Try a Factory

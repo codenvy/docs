@@ -7,9 +7,6 @@ permalink: /:categories/cli/
 ---
 {% include base.html %}
 
-**Applies To**: Codenvy on-premises installs.
-
----
 Note: The CLI will hide most error conditions from standard out. Internal stack traces and error output is redirected to `cli.log`, which is saved in the host folder where `:/data` is mounted.
 
 ## codenvy init  

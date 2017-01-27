@@ -7,14 +7,30 @@ permalink: /:categories/installation/
 ---
 {% include base.html %}
 
-**Applies To**: Codenvy on-premises installs.
+# Get Help
+If you are a Codenvy customer, you can open an email ticket for 24/7/365 support.
 
----
-  		  
+We want everyone to have a great experience installing and running Codenvy. If you run into an issue, please [open a GitHub issue](http://github.com/codenvy/codenvy/issues) providing:
+
+- your OS distribution and version
+- output of `docker version` command
+- output of `docker info` command
+- the full `docker run ...` syntax you used on the command line
+- the output of `cli.log` - see [CLI Reference]({{base}}{{site.links["admin-cli"]}})
+
+# Quick Start
+With Docker 1.11+ (1.12.5+ recommended) on Windows, Mac, or Linux:
+
+```
+$ docker run codenvy/cli start
+```
+
+This gives you additional instructions on how to run the Codenvy CLI while setting your hostname, configuring volume mounts, and testing your Docker setup. For full install syntax [see below]({{base}}{{site.links["admin-installation"]}}#installation).
+
 # System Requirements
 Codenvy installs on Linux, Mac and Windows.
 
-## Hardware
+### Hardware
 The Codenvy server requires a minimum of:
 
 * 2 cores
@@ -25,7 +41,7 @@ Codenvy services require 2 GB storage and 4 GB RAM. The RAM, CPU and storage res
 
 Boot2Docker, docker-machine, Docker for Windows, and Docker for Mac are all Docker variations that launch VMs with Docker running in the VM with access to Docker from your host. We recommend increasing your default VM size to at least 4GB. Each of these technologies have different ways to allow host folder mounting into the VM. Please enable this for your OS so that Codenvy data is persisted on your host disk.
 
-## Software
+### Software
 
 * Docker 1.11+ (1.12.5+ recommended)
 
@@ -37,25 +53,13 @@ Install the most recent version of the Docker Engine for your platform using the
 
 Sometimes Fedora and RHEL/CentOS users will encounter issues with SElinux. Try disabling selinux with `setenforce 0` and check if resolves the issue. If using the latest docker version and/or disabling selinux does not fix the issue then please file a issue request on the [issues](https://github.com/codenvy/codenvy/issues) page. If you are a licensed customer of Codenvy, you can get prioritized support with support@codenvy.com.
 
-## Hostnames
-Codenvy must be accessed over DNS hostnames. We will attempt to auto-set the hostname (`CODENVY_HOST`) by running an internal utility `docker run --net=host eclipse/che-ip:nightly`. This approach is not fool-proof. This utility is usually accurate on desktops, but often fails on hosted servers. If it fails you can explicitly set this value when executing the docker run:
-
-```
-docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock
-                    -v <local-path>:/data
-                    -e CODENVY_HOST=<your-ip-or-host>
-                       codenvy/cli:<version> [COMMAND]
-```
-
-Alternatively, you can edit the `CODENVY_HOST` value in `codenvy.env`. 
-
-## Ports
+### Ports
 The master node is where Codenvy is installed and running. In a [scalability mode]({{base}}/docs/admin-guide/managing/index.html), you can add additional physical "workspace" nodes to increase system capacity. If you have not added any additional physical workspace nodes, then the Codenvy master node doubles as a workspace node and needs both sets of ports opened.
 
 #### Master Node: External Ports
 All ports are TCP unless otherwise noted.
 
-|Port|Service|Notes|
+|Port >>>>>>>>>>>>>>>>|Service >>>>>>>>>>>>>>>>|Notes|
 |---|---|---|
 |80 / 443|HAProxy HTTP/S|HTTP is the default. If you configure [HTTP/S]({{base}}/docs/admin-guide/configuration/index.html#https), then port 80 can be closed.
 |5000|Docker Registry|Embedded registry to save workspace snapshots. This port is not required if you configure an external registry or have not added additional workspace nodes.
@@ -64,7 +68,7 @@ All ports are TCP unless otherwise noted.
 #### Master Node: Internal Ports
 All ports are TCP unless otherwise noted.
 
-|Port|Service
+|Port >>>>>>>>|Service >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
 |---|---|
 |81|Nginx
 |2181|ZooKeeper
@@ -75,7 +79,7 @@ All ports are TCP unless otherwise noted.
 #### Workspace Node: External Ports
 All ports are TCP unless otherwise noted.
 
-|Port|Service|Notes|
+|Port >>>>>>>>>>>>>>>>|Service >>>>>>>>>>>>>>>>|Notes|
 |---|---|---|
 |80 / 443|HAProxy HTTP/S|HTTP is the default. If you configure [HTTP/S]({{base}}/docs/admin-guide/configuration/index.html#https), then port 80 can be closed.
 |32768-65535|Docker|Users who launch servers in their workspace bind to ephemeral ports in this range. This range can be limited.
@@ -85,18 +89,23 @@ The Docker daemon will need to be remotely accessed by Codenvy, so it has to be 
 #### Workspace Node: Internal Ports
 All ports are TCP unless otherwise noted.
 
-|Port|Service|Notes|
+|Port |Service >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|Notes|
 | --- |--- |--- |
 |2375|Docker Daemon|Swarm should be able to reach Docker daemon from the master node. If Master node is in a different network, this port should be extrenally accessible.
 |4789|Docker Overlay (UDP)|Workspace nodes use this port to create overlay networks. If Workspace nodes are is different networks, this port should be externally accessible.
 |7946|Docker Overlay (TCP + UDP)|Workspace nodes use this port to create overlay networks. If Workspace nodes are is different networks, this port should be externally accessible.
 
+# Licensing
+Codenvy starts with a Fair Source 3 license, which allows up to three users in an organization to use Codenvy with full functionality and limited liabilities and warranties. You can request a trial license from Codenvy for more than 3 users or purchase one from our friendly sales team (sales@codenvy.com). Once you gain the license, start Codenvy and then apply the license in the admin dashboard that is accessible with your login credentials.
+
+Licenses require the host to be connected to the internet. If you require a license for a system that isn't connected to the internet please contact sales@codenvy.com.
+
 # Installation
-## Syntax
+In these docs, we shorthand `codenvy [COMMAND]`, for the full `docker run ...` syntax for readability.
 
 ```
-USAGE:
-  docker run -it --rm <DOCKER_PARAMETERS> codenvy/cli:<version> [COMMAND]
+USAGE: 
+  docker run -it --rm <DOCKER_PARAMETERS> codenvy/cli [COMMAND]
 
 MANDATORY DOCKER PARAMETERS:
   -v <LOCAL_PATH>:/data                Where user, instance, and log data saved
@@ -105,12 +114,14 @@ OPTIONAL DOCKER PARAMETERS:
   -e CODENVY_HOST=<YOUR_HOST>          IP address or hostname where Codenvy will serve its users
   -v <LOCAL_PATH>:/data/instance       Where instance, user, log data will be saved
   -v <LOCAL_PATH>:/data/backup         Where backup files will be saved
+  -v <LOCAL_PATH>:/cli                 Where the CLI trace log is saved
   -v <LOCAL_PATH>:/repo                Codenvy git repo to activate dev mode
   -v <LOCAL_PATH>:/sync                Where remote ws files will be copied with sync command
   -v <LOCAL_PATH>:/unison              Where unison profile for optimzing sync command resides
-
+    
 COMMANDS:
   action <action-name>                 Start action on Codenvy instance
+  add-node                             Adds a physical node to serve workspaces intto the Codenvy cluster
   backup                               Backups Codenvy configuration and data to /data/backup volume mount
   config                               Generates a Codenvy config from vars; run on any start / restart
   destroy                              Stops services, and deletes Codenvy instance data
@@ -118,7 +129,9 @@ COMMANDS:
   help                                 This message
   info                                 Displays info about Codenvy and the CLI
   init                                 Initializes a directory with a Codenvy install
+  list-nodes                           Lists all physical nodes that are part of the Codenvy cluster
   offline                              Saves Codenvy Docker images into TAR files for offline install
+  remove-node <ip>                     Removes the physical node from the Codenvy cluster
   restart                              Restart Codenvy services
   restore                              Restores Codenvy configuration and data from /data/backup mount
   rmi                                  Removes the Docker images for <version>, forcing a repull
@@ -126,17 +139,16 @@ COMMANDS:
   start                                Starts Codenvy services
   stop                                 Stops Codenvy services
   sync <wksp-name>                     Synchronize workspace with current working directory
+  test <test-name>                     Start test on Codenvy instance
   upgrade                              Upgrades Codenvy from one version to another with migrations and backups
   version                              Installed version and upgrade paths
 ```
 
-In these docs, we shorthand `codenvy [COMMAND]`, for the full `docker run ...` syntax for readability.
-
-## Sample Start
+### Sample Start
 Install and start the nightly build with user data saved on Windows at C:\tmp:
 
 ```
-docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v /c/tmp:/data codenvy/cli:5.0.0-latest start
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v /c/tmp:/data codenvy/cli start
 ```
 
 This installs a Codenvy configuration, downloads Codenvy's Docker images, run pre-flight port checks, boot Codenvy's services, and run post-flight checks. You do not need root access to start Codenvy, unless your environment requires it for Docker operations.
@@ -144,22 +156,29 @@ This installs a Codenvy configuration, downloads Codenvy's Docker images, run pr
 A successful start will display:
 
 ```
-INFO: (codenvy cli): Downloading cli-latest
-INFO: (codenvy cli): Checking registry for version 'nightly' images
+INFO: Proxy: HTTP_PROXY=, HTTPS_PROXY=, NO_PROXY=*.local, 169.254/16
+INFO: (codenvy cli): Checking network... (hint: '--fast' skips version, network, and nightly checks)
+INFO: (codenvy cli): Loading cli...
+INFO: (codenvy cli): Checking registry for version '5.1.2' images
 INFO: (codenvy config): Generating codenvy configuration...
-INFO: (codenvy config): Customizing docker-compose for Windows
+INFO: (codenvy config): Customizing docker-compose for running in a container
 INFO: (codenvy start): Preflight checks
-         port 80:  [OK]
-         port 443: [OK]
-         port 5000: [OK]
+         port 80 (http):        [AVAILABLE] 
+         port 443 (https):      [AVAILABLE] 
+         port 2181 (zookeeper): [AVAILABLE] 
+         port 5000 (registry):  [AVAILABLE] 
+         port 23750 (socat):    [AVAILABLE] 
+         port 23751 (swarm):    [AVAILABLE] 
+         port 32001 (jmx):      [AVAILABLE] 
+         port 32101 (jmx):      [AVAILABLE] 
 
 INFO: (codenvy start): Starting containers...
+INFO: (codenvy start): Services booting...
 INFO: (codenvy start): Server logs at "docker logs -f codenvy_codenvy_1"
-INFO: (codenvy start): Server booting...
 INFO: (codenvy start): Booted and reachable
-INFO: (codenvy start): Ver: 5.0.0-M6-SNAPSHOT
-INFO: (codenvy start): Use: http://10.0.75.2
-INFO: (codenvy start): API: http://10.0.75.2/swagger
+INFO: (codenvy start): Ver: 5.1.2
+INFO: (codenvy start): Use: http://localhost
+INFO: (codenvy start): API: http://localhost/swagger
 ```
 
 The administrative login is:
@@ -169,7 +188,36 @@ user: admin
 pass: password
 ```
 
-## Versions
+### Logs and User Data
+When Codenvy initializes itself, it stores logs, user data, database data, and instance-specific configuration in the folder mounted to `:/data/instance` or an `instance` subfolder of what you mounted to `:/data`.  
+
+Codenvy's containers save their logs in the same location:
+
+```
+/instance/logs/codenvy/<year>               # Server logs
+/instance/logs/codenvy/che-machine-logs     # Workspace logs
+/instance/logs/nginx                        # nginx access and error logs
+/instance/logs/haproxy                      # HAproxy logs
+```
+
+User data is stored in:
+
+```
+/instance/data/codenvy                      # Project backups (we synchronize projs from remote ws here)
+/instance/data/postgres                     # Postgres data folder (users, workspaces, stacks etc)
+/instance/data/registry                     # Workspace snapshots
+```
+
+Instance configuration is generated by Codenvy and is updated by our internal configuration utilities. These 'generated' configuration files should not be modified:
+
+```
+/instance/codenvy.ver.do_not_modify         # Version of Codenvy installed
+/instance/docker-compose-container.yml      # Docker compose to launch internal services
+/instance/docker-compose.yml                # Docker compose to launch Codenvy from the host without contianer
+/instance/config                            # Configuration files which are input mounted into the containers
+```
+
+### Versions
 Each version of Codenvy is available as a Docker image tagged with a label that matches the version, such as `codenvy/cli:5.0.0-M7`. You can see all versions available by running `docker run codenvy/cli version` or by [browsing DockerHub](https://hub.docker.com/r/codenvy/cli/tags/).
 
 We maintain "redirection" labels which reference special versions of Codenvy:
@@ -206,6 +254,18 @@ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock
                        codenvy/cli:<version> [COMMAND]    
 
 ```
+
+## Hostnames
+Codenvy must be accessed over DNS hostnames. We will attempt to auto-set the hostname (`CODENVY_HOST`) by running an internal utility `docker run --net=host eclipse/che-ip:nightly`. This approach is not fool-proof. This utility is usually accurate on desktops, but often fails on hosted servers. If it fails you can explicitly set this value when executing the docker run:
+
+```
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock
+                    -v <local-path>:/data
+                    -e CODENVY_HOST=<your-ip-or-host>
+                       codenvy/cli:<version> [COMMAND]
+```
+
+Alternatively, you can edit the `CODENVY_HOST` value in `codenvy.env`. 
 
 ## Proxy Installation
 Codenvy can be installed and operated from behind a proxy:

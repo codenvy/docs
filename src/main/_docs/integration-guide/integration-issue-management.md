@@ -7,11 +7,11 @@ permalink: /:categories/issue-management/
 ---
 {% include base.html %}
 
-**Applies To**: Codenvy on-premises installs.
-
----
-
 [Codenvy Factories]({{base}}/docs/integration-guide/workspace-automation/index.html) can be integrated with nearly any issue mangement system. However, we have developed two plug-ins that allow completely automated Factory creation and update based on changes to Atlassian JIRA or Microsoft VSTS issue management.
+
+Because configuring this integration requires system-level property settings it can only be used by customer with [on-premises Codenvy]({{base}}{{site.links["admin-installation"]}}).
+
+## Codenvy Issue Management Integrations
 
 * Codenvy Plug-In for Atlassian JIRA: [Documentation]({{base}}/docs/integration-guide/issue-management/index.html#codenvy-plug-in-for-atlassian-jira) / [Video](https://www.youtube.com/watch?v=y4wdplYj6qs)
 
@@ -66,25 +66,41 @@ The Codenvy plug-in for JIRA is available from the [Atlassian Marketplace](https
 12. Associate the field to the JIRA projects you want to be Factory-enabled and click "Update".
 
 ### Create a Credentials Property File
-In `/home/codenvy` create a `credentials.properties` file and enter the username and password of your JIRA user (e.g. jira-plugin@some-email.com) as below:
+In a directory outside the Codenvy contianer create a `credentials.properties` file and enter the username and password of the use who created the Jenkins Factory in Codenvy.
+
 ```  
 username=somebody@somemail.com
 password=some-password
 ```
-### Create a Git Property File
-**For GitHub**
-In `/home/codenvy` create a `github-webhooks.properties` file with the following content:
-```  
-# [webhook-name]=[webhook-type],[repository-url],[factory-id];[factory-id];...;[factory-id]
-webhook1=github,https://github.com/myorg/myproject,gfn6lgml8wl47rbr
-```
 
-**For BitBucket Server**
-In `/home/codenvy` create a `bitbucketserver-webhooks.properties` file with the following content:
+### Create a Repo Property File
+**For GitHub**
+In a directory outside the Codenvy contianer create a `github-webhooks.properties` file.
+
+```text  
+webhook1=github,https://github.com/orgName/web-java-spring,factory7nfrelk0v8b77fekn
+[webhook-name],[GitHub-URL],[Factory-id]
+```   
+
+<br>
+**For BitBucket**
+In a directory outside the Codenvy contianer create a `bitbucketserver-webhooks.properties` file.
+
 ```text  
 webhook1=bitbucketserver,http://owner@bitbucketserver.host/scm/projectkey/repository.git,factoryId
 [webhook-name],[repository-url],[factory-id];[factory-id];...;[factory-id]
 ```
+
+### Copy Property Files to Container
+**This is a temporary workaround - a mounting mechanism is being developed to remove the need to re-add these property files at each container start**
+For each of the three property files, copy it into the root of the Codenvy container:
+
+```shell
+docker cp <file name> codenvy_codenvy_1:/<file name>
+# Example: docker cp credentials.properties codenvy_codenvy_1:/credentials.properties (edited)
+```
+
+This must be done each time the container is restarted. If you have an automated start script or restart script add these commands to that.
 
 ### Configuring Webhooks
 **For GitHub**

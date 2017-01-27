@@ -15,8 +15,7 @@
 
 - title: Getting Started
   docs:
-  - intro
-  - start-getting-started
+  - getting-started
   - ws-admin-intro # Che workspace-administration
   - ws-stacks # Che workspace-administration
   - ws-recipes # Che workspace-administration

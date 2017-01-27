@@ -3,7 +3,7 @@ tag: [ "codenvy" ]
 title: Getting Started
 excerpt: ""
 layout: docs
-permalink: /:categories/getting-started/
+permalink: /docs/
 ---
 {% include base.html %}
 

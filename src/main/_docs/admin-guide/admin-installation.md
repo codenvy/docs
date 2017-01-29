@@ -12,11 +12,8 @@ If you are a Codenvy customer, you can open an email ticket for 24/7/365 support
 
 We want everyone to have a great experience installing and running Codenvy. If you run into an issue, please [open a GitHub issue](http://github.com/codenvy/codenvy/issues) providing:
 
-- your OS distribution and version
-- output of `docker version` command
-- output of `docker info` command
-- the full `docker run ...` syntax you used on the command line
-- the output of `cli.log` - see [CLI Reference]({{base}}{{site.links["admin-cli"]}})
+- output of 'docker run codenvy/cli info' command
+- if requested, a support package with 'docker run codenvy/cli info --bundle'
 
 # Quick Start
 With Docker 1.11+ (1.12.5+ recommended) on Windows, Mac, or Linux:
@@ -101,51 +98,10 @@ Codenvy starts with a Fair Source 3 license, which allows up to three users in a
 Licenses require the host to be connected to the internet. If you require a license for a system that isn't connected to the internet please contact sales@codenvy.com.
 
 # Installation
-In these docs, we shorthand `codenvy [COMMAND]`, for the full `docker run ...` syntax for readability.
-
-```
-USAGE: 
-  docker run -it --rm <DOCKER_PARAMETERS> codenvy/cli [COMMAND]
-
-MANDATORY DOCKER PARAMETERS:
-  -v <LOCAL_PATH>:/data                Where user, instance, and log data saved
-
-OPTIONAL DOCKER PARAMETERS:
-  -e CODENVY_HOST=<YOUR_HOST>          IP address or hostname where Codenvy will serve its users
-  -v <LOCAL_PATH>:/data/instance       Where instance, user, log data will be saved
-  -v <LOCAL_PATH>:/data/backup         Where backup files will be saved
-  -v <LOCAL_PATH>:/cli                 Where the CLI trace log is saved
-  -v <LOCAL_PATH>:/repo                Codenvy git repo to activate dev mode
-  -v <LOCAL_PATH>:/sync                Where remote ws files will be copied with sync command
-  -v <LOCAL_PATH>:/unison              Where unison profile for optimzing sync command resides
-    
-COMMANDS:
-  action <action-name>                 Start action on Codenvy instance
-  add-node                             Adds a physical node to serve workspaces intto the Codenvy cluster
-  backup                               Backups Codenvy configuration and data to /data/backup volume mount
-  config                               Generates a Codenvy config from vars; run on any start / restart
-  destroy                              Stops services, and deletes Codenvy instance data
-  download                             Pulls Docker images for the current Codenvy version
-  help                                 This message
-  info                                 Displays info about Codenvy and the CLI
-  init                                 Initializes a directory with a Codenvy install
-  list-nodes                           Lists all physical nodes that are part of the Codenvy cluster
-  offline                              Saves Codenvy Docker images into TAR files for offline install
-  remove-node <ip>                     Removes the physical node from the Codenvy cluster
-  restart                              Restart Codenvy services
-  restore                              Restores Codenvy configuration and data from /data/backup mount
-  rmi                                  Removes the Docker images for <version>, forcing a repull
-  ssh <wksp-name> [machine-name]       SSH to a workspace if SSH agent enabled
-  start                                Starts Codenvy services
-  stop                                 Stops Codenvy services
-  sync <wksp-name>                     Synchronize workspace with current working directory
-  test <test-name>                     Start test on Codenvy instance
-  upgrade                              Upgrades Codenvy from one version to another with migrations and backups
-  version                              Installed version and upgrade paths
-```
+We abbreviate `codenvy [COMMAND]`, for the full `docker run ...` syntax for readability.
 
 ### Sample Start
-Install and start the nightly build with user data saved on Windows at C:\tmp:
+Install and start Codenvy data saved on a Windows file system at C:\tmp:
 
 ```
 docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v /c/tmp:/data codenvy/cli start

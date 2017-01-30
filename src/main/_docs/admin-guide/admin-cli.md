@@ -7,7 +7,58 @@ permalink: /:categories/cli/
 ---
 {% include base.html %}
 
-Note: The CLI will hide most error conditions from standard out. Internal stack traces and error output is redirected to `cli.log`, which is saved in the host folder where `:/data` is mounted.
+When you run the image `codenvy/cli` that is a special Docker image which is the CLI launcher. It contains the CLI which has the functions to manage a Codenvy installation. The CLI, in turn, launches Codenvy from a configuration, which launches a number of other containers which actually run the Codenvy servers. 
+
+The CLI will hide most error conditions from standard out. Internal stack traces and error output is redirected to `cli.log`, which is saved in the host folder where `:/data` is mounted.
+
+```
+USAGE:
+  docker run -it --rm <DOCKER_PARAMETERS> codenvy/cli:<version> [COMMAND]
+
+MANDATORY DOCKER PARAMETERS:
+  -v <LOCAL_PATH>:/data                Where user, instance, and log data saved
+
+OPTIONAL DOCKER PARAMETERS:
+  -e CODENVY_HOST=<YOUR_HOST>          IP address or hostname where codenvy will serve its users
+  -v <LOCAL_PATH>:/data/instance       Where instance, user, log data will be saved
+  -v <LOCAL_PATH>:/data/backup         Where backup files will be saved
+  -v <LOCAL_PATH>:/repo                codenvy git repo - uses local binaries and manifests
+  -v <LOCAL_PATH>:/assembly            codenvy assembly - uses local binaries
+  -v <LOCAL_PATH>:/sync                Where remote ws files will be copied with sync command
+  -v <LOCAL_PATH>:/unison              Where unison profile for optimizing sync command resides
+  -v <LOCAL_PATH>:/chedir              Soure repository to convert into workspace with Chedir utility
+
+COMMANDS:
+  action <action-name>                 Start action on codenvy instance
+  backup                               Backups codenvy configuration and data to /data/backup volume mount
+  config                               Generates a codenvy config from vars; run on any start / restart
+  destroy                              Stops services, and deletes codenvy instance data
+  dir <command>                        Use Chedir and Chefile in the directory mounted to :/chedir
+  download                             Pulls Docker images for the current codenvy version
+  help                                 This message
+  info                                 Displays info about codenvy and the CLI
+  init                                 Initializes a directory with a codenvy install
+  offline                              Saves codenvy Docker images into TAR files for offline install
+  restart                              Restart codenvy services
+  restore                              Restores codenvy configuration and data from /data/backup mount
+  rmi                                  Removes the Docker images for <version>, forcing a repull
+  ssh <wksp-name> [machine-name]       SSH to a workspace if SSH agent enabled
+  start                                Starts codenvy services
+  stop                                 Stops codenvy services
+  sync <wksp-name>                     Synchronize workspace with local directory mounted to :/sync
+  test <test-name>                     Start test on codenvy instance
+  upgrade                              Upgrades codenvy from one version to another with migrations and backups
+  version                              Installed version and upgrade paths
+  add-node                             Adds a physical node to serve workspaces intto the Codenvy cluster
+  list-nodes                           Lists all physical nodes that are part of the Codenvy cluster
+  remove-node <ip>                     Removes the physical node from the Codenvy cluster
+
+GLOBAL COMMAND OPTIONS:
+  --fast                               Skips networking, version, nightly and preflight checks
+  --offline                            Runs CLI in offline mode, loading images from disk
+  --debug                              Enable debugging of codenvy server
+  --trace                              Activates trace output for debugging CLI
+```
 
 ## codenvy init  
 Initializes an empty directory with a Codenvy configuration and instance folder where user data and runtime configuration will be stored. You must provide a `<path>:/data` volume mount, then Codenvy creates a `instance` and `backup` subfolder of `<path>`. You can optionally override the location of `instance` by volume mounting an additional local folder to `/data/instance`. You can optionally override the location of where backups are stored by volume mounting an additional local folder to `/data/backup`.  After initialization, a `codenvy.env` file is placed into the root of the path that you mounted to `/data`.
@@ -27,7 +78,7 @@ Codenvy depends upon Docker images. We use Docker images in three ways:
 
 You can control the nature of how Codenvy downloads these images with command line options. All image downloads are performed with `docker pull`.
 
-| Mode | Description |
+| Mode>>>>> | Description |
 |------|-------------|
 | `--no-force` | Default behavior. Will download an image if not found locally. A local check of the image will see if an image of a matching name is in your local registry and then skip the pull if it is found. This mode does not check DockerHub for a newer version of the same image. |
 | `--pull` | Will always perform a `docker pull` when an image is requested. If there is a newer version of the same tagged image at DockerHub, it will pull it, or use the one in local cache. This keeps your images up to date, but execution is slower. |

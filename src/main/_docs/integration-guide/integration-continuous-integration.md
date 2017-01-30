@@ -44,62 +44,56 @@ In the job in Jenkins replace the description with the Factory link. It should l
 
 where the URL in quotes is the Factory URL to be used with the Jenkins job.
 
-### Create Property Files
-#### Credentials File
-In a directory outside the Codenvy contianer create a `credentials.properties` file and enter the username and password of the use who created the Jenkins Factory in Codenvy.
-
-```  
-username=somebody@somemail.com
-password=some-password
+#### Credentials
+Update the `codenvy.env` with the username and password of the user who created the Factory in Codenvy: 
+```text
+CODENVY_INTEGRATION_FACTORY_OWNER_USERNAME=omebody@somemail.com
+CODENVY_INTEGRATION_FACTORY_OWNER_PASSWORD=password
 ```
 
-#### Git File
+#### Git
 **For GitHub**
-In a directory outside the Codenvy contianer create a `github-webhooks.properties` file.
+Update the `codenvy.env` with `GitHub` webhooks properties:
 
 ```text  
-webhook1=github,https://github.com/orgName/web-java-spring,factory7nfrelk0v8b77fekn
-[webhook-name],[GitHub-URL],[Factory-id]
-```   
-
-**For BitBucket**
-In a directory outside the Codenvy contianer create a `bitbucketserver-webhooks.properties` file.
-
-```text  
-webhook1=bitbucketserver,http://owner@bitbucketserver.host/scm/projectkey/repository.git,factoryId
-[webhook-name],[repository-url],[factory-id];[factory-id];...;[factory-id]
+CODENVY_GITHUB_WEBHOOK_WEBHOOK1_REPOSITORY_URL=https://github.com/testrepo.git
+CODENVY_GITHUB_WEBHOOK_WEBHOOK1_FACTORY1_ID=factory1Id
+CODENVY_GITHUB_WEBHOOK_WEBHOOK1_FACTORY2_ID=factory2Id
 ```
 
-#### Jenkins Connector File 
-In a directory outside the Codenvy contianer create a `connectors.properties` file.
+**For BitBucket Server**
+Update the `codenvy.env` with `Bitbucket Server` webhooks properties:
 
 ```text  
-jenkins1=jenkins,factory7nfrelk0v8b77fek,http://userName:password@jenkins.codenvy-dev.com:8080,EvgenTestn
-
-[connector-name],[factory-ID],[$protocol://$userName:$password@$jenkinsURL],[jenkins-job-name]
-```   
-
-### Copy Property Files to Container
-**This is a temporary workaround - a mounting mechanism is being developed to remove the need to re-add these property files at each container start**
-For each of the three property files, copy it into the root of the Codenvy container:
-
-```shell
-docker cp <file name> codenvy_codenvy_1:/<file name>
-# Example: docker cp credentials.properties codenvy_codenvy_1:/credentials.properties (edited)
+CODENVY_BITBUCKET_SERVER_WEBHOOK1_REPOSITORY_URL=https://github.com/testrepo.git
+CODENVY_BITBUCKET_SERVER_WEBHOOK1_WEBHOOK1_FACTORY1_ID=factory1Id
+CODENVY_BITBUCKET_SERVER_WEBHOOK1_WEBHOOK1_FACTORY2_ID=factory2Id
 ```
 
-This must be done each time the container is restarted. If you have an automated start script or restart script add these commands to that.
+#### Jenkins Connector 
+Update the `codenvy.env` with connectors properties:
+
+```text  
+#CODENVY_JENKINS_CONNECTOR_CONNECTOR1_FACTORY_ID=<factory id>
+#CODENVY_JENKINS_CONNECTOR_CONNECTOR1_URL=<url>
+#CODENVY_JENKINS_CONNECTOR_CONNECTOR1_JOB_NAME=<job name>
+```
 
 ### Configure Repo Webhooks  
 #### For GitHub
-In your GitHub repo settings, configure the following webhook: `http(s)://$codenvyURL/api/github-webhook`
+1. On your repository's GitHub page, go to Settings > Webhooks & services.
+2. Click the "Add webhook" button.
+3. In the Payload URL field enter: `http://{your-codenvy-url}/api/github-webhook`.
+4. Content Type is application/json.
+5. Leave the Secret field empty.
+5. Select "Let me select individual events" radio button.
+6. Check "Push" and "Pull Request" checkboxes.
 
 #### For BitBucket Server
-
-- Log into the Bitbucket Server as an Admin
-- Install Post-Receive WebHooks plugin.
-- In repo settings, configure the plugin to use Bitbucket Server webhook: `http(s)://$codenvyURL/api/bitbucketserver-webhook`
-- Configure `bitbucket_endpoint` property with the URL of your Bitbucket Server
+1. Log into the Bitbucket Server as an Admin
+2. Install Post-Receive WebHooks plugin.
+3. In repo settings, configure the plugin to use Bitbucket Server webhook: `http(s)://$codenvyURL/api/bitbucketserver-webhook`
+4. Configure `bitbucket_endpoint` property with the URL of your Bitbucket Server
 
 ## Test Integration  
 To trigger the email you will need to make the build fail. If everything is configured correctly the build failed email should include a "Codenvy Factory" line in the build information at the top of the email.

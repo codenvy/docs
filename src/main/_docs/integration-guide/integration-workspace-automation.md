@@ -11,7 +11,7 @@ permalink: /:categories/workspace-automation/
 A Factory is a template used to generate new or open existing workspaces with a URL. Factories can be used to create replicas of existing workspaces or to automate the provisioning of staticly or dynamically defined workspaces.
 
 # Try a Factory
-Clone a public Codenvy workspace http://codenvy.io/f?id=omriatu352kkthua 
+Clone a public Codenvy workspace: [http://codenvy.io/f?id=omriatu352kkthua](http://codenvy.io/f?id=omriatu352kkthua).
 
 # Definitions
 
@@ -92,6 +92,11 @@ The `factory.workspace` is identical to the `workspace:{}` object for Eclipse Ch
 Codenvy maintains object compatibility with the workspace definition from Eclipse Che. You can export Eclipse Che workspaces and then reuse the workspace definition within a Factory. Codenvy workspaces are composed of 0..n projects, 0..n environments which contain machine stacks to run the code, 0..n commands to perform against the code, and a type.
 
 The `factory.policies`, `factory.ide`, `factory.creator`, and `factory.button` objects are unique to Factories. They provide meta information to the automation engine that alter the presentation of the Factory URL or the behavior of the provisioning.
+
+## Gotchas
+A few rules to remember when creating Factories:
+- The linux distro you use needs to support rsync's `--usermap` parameter, some older distros (like Debian Wheezy don't).
+- Any users created in your Dockerfile must have no password set for the SSH keys.
 
 ## Mixins
 A mixin adds additional behaviors to a project as a set of new project type attributes.  Mixins are reusable across any project type. You define the mixins to add to a project by specifying an array of strings, with each string containing the identifier for the mixin.  For example, `"mixins" : [ "tour", "pullrequest" ]`.

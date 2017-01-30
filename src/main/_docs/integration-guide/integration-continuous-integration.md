@@ -44,8 +44,11 @@ In the job in Jenkins replace the description with the Factory link. It should l
 
 where the URL in quotes is the Factory URL to be used with the Jenkins job.
 
+### Set Codenvy Environment Variables
+
 #### Credentials
 Update the `codenvy.env` with the username and password of the user who created the Factory in Codenvy: 
+
 ```text
 CODENVY_INTEGRATION_FACTORY_OWNER_USERNAME=omebody@somemail.com
 CODENVY_INTEGRATION_FACTORY_OWNER_PASSWORD=password
@@ -53,7 +56,7 @@ CODENVY_INTEGRATION_FACTORY_OWNER_PASSWORD=password
 
 #### Git
 **For GitHub**
-Update the `codenvy.env` with `GitHub` webhooks properties:
+Update the `codenvy.env` with `GitHub` webhooks properties. Note that you can rename "WEBHOOK1" with any identifer. The system will treat Git and Jenkins Connector variables with the same name as related so ensure you have both identically named for each install:
 
 ```text  
 CODENVY_GITHUB_WEBHOOK_WEBHOOK1_REPOSITORY_URL=https://github.com/testrepo.git
@@ -71,7 +74,7 @@ CODENVY_BITBUCKET_SERVER_WEBHOOK1_WEBHOOK1_FACTORY2_ID=factory2Id
 ```
 
 #### Jenkins Connector 
-Update the `codenvy.env` with connectors properties:
+Update the `codenvy.env` with connectors properties. Note that you can rename "WEBHOOK1" with any identifer. The system will treat Git and Jenkins Connector variables with the same name as related so ensure you have both identically named for each install:
 
 ```text  
 #CODENVY_JENKINS_CONNECTOR_CONNECTOR1_FACTORY_ID=<factory id>
@@ -79,8 +82,10 @@ Update the `codenvy.env` with connectors properties:
 #CODENVY_JENKINS_CONNECTOR_CONNECTOR1_JOB_NAME=<job name>
 ```
 
-### Configure Repo Webhooks  
+### Configure Repo Webhooks 
+
 #### For GitHub
+
 1. On your repository's GitHub page, go to Settings > Webhooks & services.
 2. Click the "Add webhook" button.
 3. In the Payload URL field enter: `http://{your-codenvy-url}/api/github-webhook`.
@@ -90,6 +95,7 @@ Update the `codenvy.env` with connectors properties:
 6. Check "Push" and "Pull Request" checkboxes.
 
 #### For BitBucket Server
+
 1. Log into the Bitbucket Server as an Admin
 2. Install Post-Receive WebHooks plugin.
 3. In repo settings, configure the plugin to use Bitbucket Server webhook: `http(s)://$codenvyURL/api/bitbucketserver-webhook`

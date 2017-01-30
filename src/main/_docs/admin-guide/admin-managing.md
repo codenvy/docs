@@ -15,6 +15,7 @@ permalink: /:categories/managing/
 ---
 
 # Scaling
+
 Codenvy workspaces can run on different physical nodes managed by Docker Swarm. This is an essential part of managing large development teams, as workspaces are both RAM and CPU intensive operations, and developers do not like to share their computing power. You will want to allocate enough nodes and resources to handle the number of concurrently *running* workspaces, each of which will have its own RAM and CPU requirements.
 
 Codenvy requires a Docker overlay network to exist for our workspace nodes. An overlay network is a network that spans across the various nodes that allows Docker containers to simplify how they communicate with one another. This is mandatory for Codenvy since your workspaces can themselves be composed of multiple containers (such as defined by Docker Compose). If a single workspace has multiple runtimes, we can deploy those runtimes on different physical nodes. An overlay network allows those containers to have a common nework so that they can communicate with each other using container names, without each container having to understand the location of the other.
@@ -25,15 +26,16 @@ The default network in Docker is a "bridge" network. If your system will only re
 
 ## Scaling With Overlay Network (Linux Only)
 
-1: Collect the IP address of Codenvy `CODENVY-IP` from your master node.
-2: Collect the network interface of the new workspace node `WS-IF`:
+1. Collect the IP address of Codenvy `CODENVY-IP` from your master node.
+
+2. Collect the network interface of the new workspace node `WS-IF`:
 
 ```shell
 # Get the network interface from your ws node, typically 'eth1' or 'eth0':
 ifconfig
 ```
 
-3: On each workspace node, configure and restart Docker with four new options:
+3. On each workspace node, configure and restart Docker with four new options:
 
 - `--cluster-store=zk://<CODENVY-IP>:2181`
 - `--cluster-advertise=<WS-IF>:2375`
@@ -42,9 +44,9 @@ ifconfig
 
 The first parameter tells Docker where the key-value store is located. The second parameter tells Docker how to link its workspace node to the key-value storage broadcast. The third parameter opens Docker to communicate on Codenvy's swarm cluster (this parameter is not needed if your workspace node is in a VM). And the fourth parameter allows the Docker daemon to push snapshots to Codenvy's internal registry (this parameter is not needed if you are using an external registry). If you are running Codenvy behind a proxy, each workspace node Docker daemon should get the same proxy configuration that you placed on the master node. If you would like your Codenvy master node to also host workspaces, you can add these parameters to your master Docker daemon as well.
 
-4: Verify that Docker is running properly. Docker will not start if it is not able to connect to the key-value storage. Run a simple `docker run hello-world` to verify Docker is happy. Each workspace node that successfully runs this command is part of the overlay network.
+4. Verify that Docker is running properly. Docker will not start if it is not able to connect to the key-value storage. Run a simple `docker run hello-world` to verify Docker is happy. Each workspace node that successfully runs this command is part of the overlay network.
 
-5: On the Codenvy master node, modify `codenvy.env` to uncomment or add:
+5. On the Codenvy master node, modify `codenvy.env` to uncomment or add:
 
 ```json
 # Uncomment this property to switch Codenvy from bridge to overlay mode:
@@ -55,7 +57,7 @@ CODENVY_MACHINE_DOCKER_NETWORK_DRIVER=overlay
 CODENVY_SWARM_NODES=<WS-IP>:2375,<WS2-IP>:2375,<WSn-IP>:2375
 ```
 
-6: Restart Codenvy with `codenvy/cli restart`.
+6. Restart Codenvy with `codenvy/cli restart`.
 
 ## Simulated Scaling
 You can simulate what it is like to scale Codenvy with different nodes by launching Codenvy and its various cluster nodes within VMs using `docker-machine`, a utility that ships with Docker. Docker machine is a way to launch VMs that have Docker pre-installed in the VM using boot2docker. Docker machine uses different "drivers", such as HyperV or VirtualBox as the underlying hypervisor engine to launch the VMs. By lauching a set of VMs with different IP addresses, you can then simulate using Codenvy's Docker commands to start a main system and then having the other nodes add themselves to the cluster.

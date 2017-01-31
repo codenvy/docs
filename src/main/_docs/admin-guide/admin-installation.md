@@ -63,7 +63,7 @@ All ports are TCP unless otherwise noted.
 |---|---|---|
 |80 / 443|HAProxy HTTP/S|HTTP is the default. If you configure [HTTP/S]({{base}}/docs/admin-guide/configuration/index.html#https), then port 80 can be closed.
 |5000|Docker Registry|Embedded registry to save workspace snapshots. This port is not required if you configure an external registry or have not added additional workspace nodes.
-|23750|Docker|On a fresh install, Docker is running on port 23750, and Swarm reaches it at `$CODENVY_HOST:23750`. If a master node isn't used to run workspaces, this port can be filtered
+|23750|Docker|On a fresh install, Docker is running on port 23750, and Swarm reaches it at `$CODENVY_HOST:23750`. If a master node isn't used to run workspaces, this port can be filtered.
 |32768-65535|Docker and Codenvy Agent|Users who launch servers in their workspace bind to ephemeral ports in this range. This range can be limited.
 
 #### Master Node: Internal Ports

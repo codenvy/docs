@@ -183,7 +183,9 @@ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock \
 Dev mode will use files from your host repository:
 
 1. During the `codenvy config` phase, the source repository's `/dockerfiles/init/modules` and `/dockerfiles/init/manifests` will be used instead of the ones that are included in the `codenvy/init` container.
-2. During the `codenvy start` phase, a local assembly from `assembly/onpremises-ide-packaging-tomcat-codenvy-allinone/target/onpremises-ide-packaging-tomcat-codenvy-allinone` is mounted into the `codenvy/codenvy` runtime container. You must `mvn clean install` the `assembly/onpremises-ide-packaging-tomcat-codenvy-allinone/` folder prior to activated development mode.
+2. During the `codenvy start` phase, a local assembly from `assembly/onpremises-ide-packaging-tomcat-codenvy-allinone/target/onpremises-ide-packaging-tomcat-codenvy-allinone` is mounted into the `codenvy/codenvy` runtime container. You must `mvn clean install` the `assembly/onpremises-ide-packaging-tomcat-codenvy-allinone/` folder prior to activated development mode. We also will mount the assemblies that generate the workspace agent and terminal agents.
+
+You can only have the custom assemblies deployed into Codenvy and skip using repository configuration files by using the `:/assembly` volume mount instead.
 
 To activate jpda suspend mode for debugging codenvy server initialization, in the `codenvy.env`:
 

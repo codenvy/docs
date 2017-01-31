@@ -65,59 +65,6 @@ The Codenvy plug-in for JIRA is available from the [Atlassian Marketplace](https
 11. Type in your custom field name (e.g. "Review") and click "Create".
 12. Associate the field to the JIRA projects you want to be Factory-enabled and click "Update".
 
-### Create a Credentials Property File
-In a directory outside the Codenvy contianer create a `credentials.properties` file and enter the username and password of the use who created the Jenkins Factory in Codenvy.
-
-```  
-username=somebody@somemail.com
-password=some-password
-```
-
-### Create a Repo Property File
-**For GitHub**
-In a directory outside the Codenvy contianer create a `github-webhooks.properties` file.
-
-```text  
-webhook1=github,https://github.com/orgName/web-java-spring,factory7nfrelk0v8b77fekn
-[webhook-name],[GitHub-URL],[Factory-id]
-```   
-
-<br>
-**For BitBucket**
-In a directory outside the Codenvy contianer create a `bitbucketserver-webhooks.properties` file.
-
-```text  
-webhook1=bitbucketserver,http://owner@bitbucketserver.host/scm/projectkey/repository.git,factoryId
-[webhook-name],[repository-url],[factory-id];[factory-id];...;[factory-id]
-```
-
-### Copy Property Files to Container
-**This is a temporary workaround - a mounting mechanism is being developed to remove the need to re-add these property files at each container start**
-For each of the three property files, copy it into the root of the Codenvy container:
-
-```shell
-docker cp <file name> codenvy_codenvy_1:/<file name>
-# Example: docker cp credentials.properties codenvy_codenvy_1:/credentials.properties (edited)
-```
-
-This must be done each time the container is restarted. If you have an automated start script or restart script add these commands to that.
-
-### Configuring Webhooks
-**For GitHub**
-1. On your repository's GitHub page, go to Settings > Webhooks & services.
-2. Click the "Add webhook" button.
-3. In the Payload URL field enter: `http://{your-codenvy-url}/api/github-webhook`.
-4. Content Type is application/json.
-5. Leave the Secret field empty.
-5. Select "Let me select individual events" radio button.
-6. Check "Push" and "Pull Request" checkboxes.
-
-**For BitBucket Server**
-1. Log into the Bitbucket Server as an Admin
-1. Install Post-Receive WebHooks plugin.
-1. In repo settings, configure the plugin to use Bitbucket Server webhook: `http(s)://$codenvyURL/api/bitbucketserver-webhook`
-1. Configure `bitbucket_endpoint` property with the URL of your Bitbucket Server
-
 ## Testing
 At this point Codenvy will automatically generate custom develop and review workspaces for every issues that's created based on the parent Factory associated with the JIRA Project.
 

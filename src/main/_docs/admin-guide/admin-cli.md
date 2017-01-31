@@ -49,7 +49,7 @@ This command respects `--no-force`, `--pull`, `--force`, and `--offline`.
 Starts Codenvy and its services using `docker-compose`. If the system cannot find a valid configuration it will perform a `codenvy init`. Every `start` and `restart` will run a `codenvy config` to generate a new configuration set using the latest configuration. The starting sequence will perform pre-flight testing to see if any ports required by Codenvy are currently used by other services and post-flight checks to verify access to key APIs.  
 
 ## codenvy stop
-Stops all of the Codenvy service containers and removes them.
+The default stop is a graceful stop where each workspace is stopped and confirmed shutdown before stopping system services. If workspaces are configured to snap on stop, then all snaps will be completed before system service shutdown begins. You can ignore workspace stop behavior and shut down only system services with `--force` flag. Your admin user and password are required to perform a shutdown and provided by `--user` and `--password`
 
 ## codenvy restart
 Performs a `codenvy stop` followed by a `codenvy start`, respecting `--pull`, `--force`, and `--offline`.

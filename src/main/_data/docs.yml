@@ -13,9 +13,17 @@
 # from Codenvy S.A..
 #
 
-- title: Getting Started
+- title: Admin Guide
   docs:
   - getting-started
+  - admin-installation
+  - admin-configuration
+  - admin-ldap
+  - admin-managing
+  - admin-cli
+  - admin-runbook
+- title: Workspace Guide
+  docs:
   - ws-admin-intro # Che workspace-administration
   - ws-stacks # Che workspace-administration
   - ws-recipes # Che workspace-administration
@@ -39,14 +47,6 @@
   - ide-sync # Che use-che-as-an-ide
   - ide-ssh # Che use-che-as-an-ide
   - user-sharing-permissions
-- title: Admin Guide
-  docs:
-  - admin-installation
-  - admin-configuration
-  - admin-ldap
-  - admin-managing
-  - admin-cli
-  - admin-runbook
 - title: Integration Guide
   docs:
   - integration-workspace-automation

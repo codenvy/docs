@@ -33,7 +33,7 @@
         <tag>HEAD</tag>
     </scm>
     <properties>
-        <che.docs.version>5.2.0</che.docs.version>
+        <che.docs.version>5.3.0-SNAPSHOT</che.docs.version>
         <jetty.version>9.4.0.v20161208</jetty.version>
         <maven.releases.repo.url>https://maven.codenvycorp.com/content/repositories/codenvy-private-releases/</maven.releases.repo.url>
         <maven.snapshots.repo.url>https://maven.codenvycorp.com/content/repositories/codenvy-private-snapshots/</maven.snapshots.repo.url>

@@ -1,6 +1,6 @@
 ---
 tag: [ "codenvy" ]
-title: Managing
+title: Management
 excerpt: ""
 layout: docs
 permalink: /:categories/managing/

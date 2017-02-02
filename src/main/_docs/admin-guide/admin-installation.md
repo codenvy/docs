@@ -30,7 +30,7 @@ This gives you additional instructions on how to run the Codenvy CLI while setti
 # System Requirements
 Codenvy installs on Linux, Mac and Windows.
 
-### Hardware
+## Hardware
 The Codenvy server requires a minimum of:
 
 * 2 cores
@@ -41,7 +41,7 @@ Codenvy services require 2 GB storage and 4 GB RAM. The RAM, CPU and storage res
 
 Boot2Docker, docker-machine, Docker for Windows, and Docker for Mac are all Docker variations that launch VMs with Docker running in the VM with access to Docker from your host. We recommend increasing your default VM size to at least 4GB. Each of these technologies have different ways to allow host folder mounting into the VM. Please enable this for your OS so that Codenvy data is persisted on your host disk.
 
-### Software
+## Software
 
 * Docker 1.11+ (1.12.5+ recommended)
 
@@ -53,8 +53,13 @@ Install the most recent version of the Docker Engine for your platform using the
 
 Sometimes Fedora and RHEL/CentOS users will encounter issues with SElinux. Try disabling selinux with `setenforce 0` and check if resolves the issue. If using the latest docker version and/or disabling selinux does not fix the issue then please file a issue request on the [issues](https://github.com/codenvy/codenvy/issues) page. If you are a licensed customer of Codenvy, you can get prioritized support with support@codenvy.com.
 
-### Ports
-The master node is where Codenvy is installed and running. In a [scalability mode]({{base}}/docs/admin-guide/managing/index.html), you can add additional physical "workspace" nodes to increase system capacity. If you have not added any additional physical workspace nodes, then the Codenvy master node doubles as a workspace node and needs both sets of ports opened.
+## Ports and Architecture
+Codenvy's runtime launches a group of Docker containers in a compose relationship. The master node is where Codenvy is installed and running. In a [scalability mode]({{base}}/docs/admin-guide/managing/index.html), you can add additional physical "workspace" nodes to increase system capacity.
+
+### Master Node
+If you have not added any additional physical workspace nodes, then the Codenvy master node runs core services and workspaces.
+
+![AIO.png]({{base}}/docs/assets/imgs/codenvy/AIO.png)
 
 #### Master Node: External Ports
 All ports are TCP unless otherwise noted.
@@ -76,6 +81,11 @@ All ports are TCP unless otherwise noted.
 |2375|Docker
 |5432|Postgres
 |8080|Codenvy Server
+
+### Workspace Nodes
+You can add as many workspace nodes as required to handle additional demand.
+
+![master_plus_node.png]({{base}}/docs/assets/imgs/codenvy/master_plus_node.png)
 
 #### Workspace Node: External Ports
 All ports are TCP unless otherwise noted.
@@ -375,10 +385,5 @@ docker run codenvy/cli:<version> rmi
 # Delete the Codenvy CLI
 docker rmi -f codenvy/cli
 ```
+ 
 
-# System Architecture
-Codenvy's runtime launches a group of Docker containers in a compose relationship. Once running, Codenvy's containers can be accessed on the command line from within a browser.
- 
-Production installs have a Codenvy master node separated from 1..n workspace nodes which run the developer workspaces.
- 
-![codenvy-architecture-scalable.png]({{base}}/docs/assets/imgs/codenvy/codenvy-architecture-scalable.png)

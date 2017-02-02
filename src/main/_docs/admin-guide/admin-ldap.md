@@ -137,7 +137,7 @@ There are 2 possible strategies for synchronization:
 1. Synchronization period is configured and synchronization is periodical.
 2. Synchronization period is set to `-1` then synchronization is executed once per server start after the configured initial delay.
 
-Synchronization can also be triggered by a REST API call:
+Synchronization can also be triggered by a REST API call (the user executing the call will need `MANAGE_CODENVY` permissions):
 
 ```
 POST <host>/api/sync/ldap

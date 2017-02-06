@@ -7,7 +7,7 @@ permalink: /:categories/cli/
 ---
 {% include base.html %}
 
-When you run the image `codenvy/cli` that is a special Docker image which is the CLI launcher. It contains the CLI which has the functions to manage a Codenvy installation. The CLI, in turn, launches Codenvy from a configuration, which launches a number of other containers which actually run the Codenvy servers. 
+Running `codenvy/cli` executes Codenvy's CLI launcher from within a Docker container. The CLI launcher uses the `codenvy.env` configuration file to launch and configure a set of containers that actually run Codenvy. The CLI launcher also includes a number of helper functions for admins.
 
 Note: The CLI will hide most error conditions from standard out. Internal stack traces and error output is redirected to `cli.log`, which is saved in the host folder where `:/data` is mounted.
 

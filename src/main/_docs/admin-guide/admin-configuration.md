@@ -34,7 +34,7 @@ The version control sequence would be:
 5. Run `codenvy config` or `codenvy start`.
 
 # LDAP
-You can configure Codenvy to synchronize the user database to your LDAP installation. The [LDAP guide]({{base}}{{site.links["admin-ldap"]}}) has the configuration and examples.
+You can configure Codenvy to synchronize the user database to your LDAP installation for the purposes of creating user accounts. The [LDAP guide]({{base}}{{site.links["admin-ldap"]}}) has the configuration and examples.
 
 # oAuth Account Creation
 By default in Codenvy users create accounts in the system by:
@@ -42,21 +42,23 @@ By default in Codenvy users create accounts in the system by:
 - Self-registering using an email and username
 - Using oAuth from Google, GitHub or Microsoft
 
-Optionally you can connect Codenvy to LDAP (see the section above) or you can add your own oAuth provider for user account creation by following the steps below.
+Optionally you can connect Codenvy to LDAP which will disable self-registration (see the section above) or you can add your own oAuth provider for user account creation by following the steps below.
 
-Codenvy is shipped with a preconfigured GitHub oAuth application for the `codenvy.onprem` hostname. To enable GitHub oAuth, add `CODENVY_HOST=codenvy.onprem` to `codenvy.env` and restart. If you have a custom DNS, you need to register a GitHub oAuth application with GitHub's oAuth registration service. You will be asked for the callback URL, which is `http://<your_hostname>/api/oauth/callback`. You will receive from GitHub a client ID and secret, which must be added to `codenvy.env`:
+To enable GitHub oAuth, add `CODENVY_HOST=codenvy.onprem` to `codenvy.env` and restart. If you have a custom DNS, you need to register a GitHub oAuth application with GitHub's oAuth registration service. You will be asked for the callback URL, which is `http://<your_hostname>/api/oauth/callback`. You will receive from GitHub a client ID and secret, which must be added to `codenvy.env`:
 
 ```
 CODENVY_GITHUB_CLIENT_ID=yourID
 CODENVY_GITHUB_SECRET=yourSecret
 ```
 
-Google oAuth (and others) are configured the same:
+Google oAuth (and others) are configured in the same way:
 
 ```
 CODENVY_GOOGLE_CLIENT_ID=yourID
 CODENVY_GOOGLE_SECRET=yourSecret
 ```
+
+If you are looking for a way to clone private git projects into your workspace see our [Git and SVN page]({{base}}{{site.links["ide-git-svn"]}}).
 
 # HTTPS
 By default Codenvy runs over HTTP as this is simplest to install. There are two requirements for configuring HTTP/S: 

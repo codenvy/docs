@@ -36,8 +36,13 @@ The version control sequence would be:
 # LDAP
 You can configure Codenvy to synchronize the user database to your LDAP installation. The [LDAP guide]({{base}}{{site.links["admin-ldap"]}}) has the configuration and examples.
 
-# oAuth
-You can configure Google, GitHub, Microsoft, BitBucket, or WSO2 oAuth for use when users login or create an account.
+# oAuth Account Creation
+By default in Codenvy users create accounts in the system by:
+
+- Self-registering using an email and username
+- Using oAuth from Google, GitHub or Microsoft
+
+Optionally you can connect Codenvy to LDAP (see the section above) or you can add your own oAuth provider for user account creation by following the steps below.
 
 Codenvy is shipped with a preconfigured GitHub oAuth application for the `codenvy.onprem` hostname. To enable GitHub oAuth, add `CODENVY_HOST=codenvy.onprem` to `codenvy.env` and restart. If you have a custom DNS, you need to register a GitHub oAuth application with GitHub's oAuth registration service. You will be asked for the callback URL, which is `http://<your_hostname>/api/oauth/callback`. You will receive from GitHub a client ID and secret, which must be added to `codenvy.env`:
 

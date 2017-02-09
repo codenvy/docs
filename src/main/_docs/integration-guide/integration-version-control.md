@@ -7,11 +7,6 @@ permalink: /:categories/version-control/
 ---
 {% include base.html %}
 
-**Applies To**: Codenvy on-premises installs.
-
-Codenvy is powered by the open Eclipse Che project. You will see references to Eclipse Che and its documenation below.
----
-
 Public or private repositories are used to import projects into workspaces, to use the Git / Subversion menus, and to use and create [Factories]({{base}}/docs/integration-guide/workspace-automation/index.html). Some repository tasks such as git push and access to private repositories require setting up SSH or oAuth authentication mentioned below.
 
 # Using SSH  

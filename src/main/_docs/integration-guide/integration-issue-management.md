@@ -7,11 +7,11 @@ permalink: /:categories/issue-management/
 ---
 {% include base.html %}
 
-**Applies To**: Codenvy on-premises installs.
-
----
-
 [Codenvy Factories]({{base}}/docs/integration-guide/workspace-automation/index.html) can be integrated with nearly any issue mangement system. However, we have developed two plug-ins that allow completely automated Factory creation and update based on changes to Atlassian JIRA or Microsoft VSTS issue management.
+
+Because configuring this integration requires system-level property settings it can only be used by customer with [on-premises Codenvy]({{base}}{{site.links["admin-installation"]}}).
+
+## Codenvy Issue Management Integrations
 
 * Codenvy Plug-In for Atlassian JIRA: [Documentation]({{base}}/docs/integration-guide/issue-management/index.html#codenvy-plug-in-for-atlassian-jira) / [Video](https://www.youtube.com/watch?v=y4wdplYj6qs)
 
@@ -64,43 +64,6 @@ The Codenvy plug-in for JIRA is available from the [Atlassian Marketplace](https
 10. Choose "Codenvy Review Field" and click "Next".
 11. Type in your custom field name (e.g. "Review") and click "Create".
 12. Associate the field to the JIRA projects you want to be Factory-enabled and click "Update".
-
-### Create a Credentials Property File
-In `/home/codenvy` create a `credentials.properties` file and enter the username and password of your JIRA user (e.g. jira-plugin@some-email.com) as below:
-```  
-username=somebody@somemail.com
-password=some-password
-```
-### Create a Git Property File
-**For GitHub**
-In `/home/codenvy` create a `github-webhooks.properties` file with the following content:
-```  
-# [webhook-name]=[webhook-type],[repository-url],[factory-id];[factory-id];...;[factory-id]
-webhook1=github,https://github.com/myorg/myproject,gfn6lgml8wl47rbr
-```
-
-**For BitBucket Server**
-In `/home/codenvy` create a `bitbucketserver-webhooks.properties` file with the following content:
-```text  
-webhook1=bitbucketserver,http://owner@bitbucketserver.host/scm/projectkey/repository.git,factoryId
-[webhook-name],[repository-url],[factory-id];[factory-id];...;[factory-id]
-```
-
-### Configuring Webhooks
-**For GitHub**
-1. On your repository's GitHub page, go to Settings > Webhooks & services.
-2. Click the "Add webhook" button.
-3. In the Payload URL field enter: `http://{your-codenvy-url}/api/github-webhook`.
-4. Content Type is application/json.
-5. Leave the Secret field empty.
-5. Select "Let me select individual events" radio button.
-6. Check "Push" and "Pull Request" checkboxes.
-
-**For BitBucket Server**
-1. Log into the Bitbucket Server as an Admin
-1. Install Post-Receive WebHooks plugin.
-1. In repo settings, configure the plugin to use Bitbucket Server webhook: `http(s)://$codenvyURL/api/bitbucketserver-webhook`
-1. Configure `bitbucket_endpoint` property with the URL of your Bitbucket Server
 
 ## Testing
 At this point Codenvy will automatically generate custom develop and review workspaces for every issues that's created based on the parent Factory associated with the JIRA Project.

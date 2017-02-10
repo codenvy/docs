@@ -22,7 +22,7 @@ kramdown:
   smart_quotes:   lsquo,rsquo,ldquo,rdquo
   input:          GFM
 
-repository: https://github.com/codenvy/codenvy/
+repository: https://github.com/codenvy/docs/
 
 timezone: America/Los_Angeles
 

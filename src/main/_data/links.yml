@@ -40,4 +40,4 @@ ws-volume-mounts: /docs/getting-started/volume-mounts/index.html
 setup-configuration: /docs/admin-guide/configuration/index.html
 plugins-create-and-build-extensions: https://www.eclipse.org/che/docs/plugins/create-and-build-extensions/index.html
 server-stack: https://www.eclipse.org/che/docs/server/stack/index.html
-setup-getting-started: /docs/getting-started/getting-started/index.html
+setup-getting-started: /docs/index.html

@@ -59,6 +59,7 @@ GLOBAL COMMAND OPTIONS:
   --debug                              Enable debugging of codenvy server
   --trace                              Activates trace output for debugging CLI
 ```
+You can override any value in `codenvy.env` for a single execution by passing in `-e NAME=VALUE` on the command line. The CLI will detect the values on the command line and ignore those imported from `codenvy.env`.
 
 ## codenvy init  
 Initializes an empty directory with a Codenvy configuration and instance folder where user data and runtime configuration will be stored. You must provide a `<path>:/data` volume mount, then Codenvy creates a `instance` and `backup` subfolder of `<path>`. You can optionally override the location of `instance` by volume mounting an additional local folder to `/data/instance`. You can optionally override the location of where backups are stored by volume mounting an additional local folder to `/data/backup`.  After initialization, a `codenvy.env` file is placed into the root of the path that you mounted to `/data`.

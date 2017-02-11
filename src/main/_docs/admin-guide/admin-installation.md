@@ -233,7 +233,7 @@ We support offline (disconnected from the Internet) installation and operation. 
 While connected to the Internet, download Codenvy's Docker images:
 
 ```
-codenvy offline
+docker run codenvy/cli offline
 ```
 
 The CLI will download images and save them to `/backup/*.tar` with each image saved as its own file. You can save these files to a differnet location by volume mounting a local folder to `:/data/backup`. The version tag of the CLI Docker image will be used to determine which versions of dependent images to download. There is about 1GB of data that will be saved.

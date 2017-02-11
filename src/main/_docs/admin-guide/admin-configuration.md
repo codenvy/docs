@@ -64,7 +64,7 @@ If you are looking for a way to clone private git projects into your workspace s
 By default Codenvy runs over HTTP as this is simplest to install. There are two requirements for configuring HTTP/S: 
 
 1. You must bind Codenvy to a valid DNS name. The HTTP mode of Codenvy allows us to operate over IP addresses. HTTP/S requires certificates that are bound to a DNS entries that you purchase from a DNS provider.  
-2. A valid SSL certificate issued by a *trusted* issuer. Sometimes free certificates will fail given restrictions with JVMs.
+2. A valid SSL certificate issued by a *trusted* issuer. This would normally be a `.pem` file with certificate, key and intermediate certificates. Please avoid using free certificate issuers as their limitations cause issues with JVMs.
 
 To configure HTTP/S, in `codenvy.env`:
 

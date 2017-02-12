@@ -172,6 +172,7 @@ CODENVY_MAIL_SMTP_SOCKETFACTORY_PORT=465
 CODENVY_MAIL_SMTP_SOCKETFACTORY_CLASS=javax.net.ssl.SSLSocketFactory
 CODENVY_MAIL_SMTP_SOCKETFACTORY_FALLBACK=false
 ```
+If you want to use your Gmail as Codenvy mail server, make sure your account is configured to [allow less secure apps]( https://support.google.com/accounts/answer/6010255?hl=en).
 
 # Development Mode
 **Note**: While Codenvy's source code is publicly available on GitHub it is not an open-source project and requires a license from Codenvy to make any changes to the source code.

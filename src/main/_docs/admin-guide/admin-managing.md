@@ -25,6 +25,7 @@ Overlay networks require a distributed key-value store. We embed ZooKeeper, a ke
 The default network in Docker is a "bridge" network. If your system will only require a single physical node, you can scale it with larger amounts of RAM using bridge networking (its default configuration).
 
 ## Scaling With Overlay Network (Linux Only)
+Each workspace node that you add will need to have Docker installed. It should be the same version of Docker that is installed on the master node running Codenvy. Additionally, the IP address of each workspace node must be publicly reachable by browsers. While each workspace is going to be clustered internally with Swarm, the nature of Swarm requires that each IP address is externally accessible.
 
 1. Collect the IP address of Codenvy `CODENVY-IP` from your master node.
 

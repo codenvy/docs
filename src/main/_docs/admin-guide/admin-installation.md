@@ -292,8 +292,11 @@ Install the most recent version of the Docker Engine for your platform using the
 
 Sometimes Fedora and RHEL/CentOS users will encounter issues with SElinux. Try disabling selinux with `setenforce 0` and check if resolves the issue. If using the latest docker version and/or disabling selinux does not fix the issue then please file a issue request on the [issues](https://github.com/codenvy/codenvy/issues) page. If you are a licensed customer of Codenvy, you can get prioritized support with support@codenvy.com.
 
-## Ports and Architecture
-Codenvy's runtime launches a group of Docker containers in a compose relationship. The master node is where Codenvy is installed and running. In a [scalability mode]({{base}}/docs/admin-guide/managing/index.html), you can add additional physical "workspace" nodes to increase system capacity.
+## IP Addresses
+The hostname or IP address that you give to the Codenvy master node (and any optional workspace nodes) must be externally reachable by each browser. In scalability mode, you can create a cluster of workspace nodes by connecting different Docker daemons together. Even though the cluster is an internal object, each workspace node must be listening on a publicly reachable IP address or hostname.
+
+## Required Ports
+Codenvy's runtime launches a group of Docker containers in a compose relationship. The master node is where Codenvy is installed and running. In a [scalability mode]({{base}}/docs/admin-guide/managing/index.html), you can add additional physical "workspace" nodes to increase system capacity. 
 
 ### Master Node
 If you have not added any additional physical workspace nodes, then the Codenvy master node runs core services and workspaces.
@@ -344,6 +347,3 @@ All ports are TCP unless otherwise noted.
 |2375|Docker Daemon|Swarm should be able to reach Docker daemon from the master node. If Master node is in a different network, this port should be extrenally accessible.
 |4789|Docker Overlay (UDP)|Workspace nodes use this port to create overlay networks. If Workspace nodes are is different networks, this port should be externally accessible.
 |7946|Docker Overlay (TCP + UDP)|Workspace nodes use this port to create overlay networks. If Workspace nodes are is different networks, this port should be externally accessible.
-
- 
-

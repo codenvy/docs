@@ -69,6 +69,27 @@ index bed45eb..c97119a 100644
      <inherits name='org.eclipse.che.ide.extension.machine.Machine'/>
 ```
 
+#### Migration
+  5.3 => 5.4 :
+  1. Replace in assembly-ide-war/pom.xml
+  ```
+          <dependency>
+              <groupId>com.codenvy.onpremises</groupId>
+              <artifactId>compiling-ide-war</artifactId>
+              <classifier>classes</classifier>
+              <scope>provided</scope>
+          </dependency>
+  ```
+  with
+  ```
+          <dependency>
+              <groupId>com.codenvy.onpremises</groupId>
+              <artifactId>assembly-ide-war</artifactId>
+              <classifier>classes</classifier>
+              <scope>provided</scope>
+          </dependency>
+  ```
+
 # Build Your Assembly
 
 ```shell  

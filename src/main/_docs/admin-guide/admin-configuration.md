@@ -40,7 +40,7 @@ You can configure Codenvy to synchronize the user database to your LDAP installa
 By default in Codenvy users create accounts in the system by:
 
 - Self-registering using an email and username
-- Using oAuth from Google, GitHub or Microsoft
+- Using oAuth from Google, GitHub, Microsoft or LinkedIn
 
 Optionally you can connect Codenvy to LDAP which will disable self-registration (see the section above) or you can add your own oAuth provider for user account creation by following the steps below.
 

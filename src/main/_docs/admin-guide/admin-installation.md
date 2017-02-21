@@ -147,7 +147,7 @@ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock
 ```
 
 ## Hostnames
-Codenvy must be accessed over DNS hostnames. We will attempt to auto-set the hostname (`CODENVY_HOST`) by running an internal utility `docker run --net=host eclipse/che-ip:nightly`. This approach is not fool-proof. This utility is usually accurate on desktops, but often fails on hosted servers. If it fails you can explicitly set this value when executing the docker run:
+The IP address or DNS name of where the Codenvy endpoint will service your users. Codenvy will attempt to auto-set the hostname (`CODENVY_HOST`) by running an internal utility `docker run --net=host eclipse/che-ip:nightly`. This approach is not fool-proof. This utility is usually accurate on desktops, but often fails on hosted servers. If it fails you can explicitly set this value when executing the docker run:
 
 ```
 docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock
@@ -183,6 +183,14 @@ CODENVY_NO_PROXY_FOR_CODENVY_WORKSPACES=localhost,127.0.0.1,<YOUR_CODENVY_HOST>
 ```
 
 The last three entries are injected into workspaces created by your users. This gives your users access to the Internet from within their workspaces. You can comment out these entries to disable access. However, if that access is turned off, then the default templates with source code will fail to be created in workspaces as those projects are cloned from GitHub.com. Your workspaces are still functional, we just prevent the template cloning.
+
+#### DNS Resolution
+The default behavior is for Codenvy and its workspaces to inherit DNS resolver servers from the host. You can override these resolvers by setting `CODENVY_DNS_RESOLVERS` in the `codenvy.env` file and restarting Codenvy. DNS resolvers allow programs and services that are deployed within a user workspace to perform DNS lookups with public or internal resolver servers. In some environments, custom resolution of DNS entries (usually to an internal DNS provider) is required to enable the Codenvy server and the workspace runtimes to have lookup ability for internal services. 
+
+```shell
+# Update your codenvy.env with comma separated list of resolvers:
+CODENVY_DNS_RESOLVERS=10.10.10.10,8.8.8.8
+```
 
 ## Firewall Tests
 Firewalls will typically cause traffic problems to appear when you are starting a new workspace or adding a new physical node for scaling. There are certain network configurations where we direct networking traffice between workspaces and Codenvy through external IP addresses, which can flow through routers or firewalls. If ports or protocols are blocked, then certain Codenvy functions will be unavailable.

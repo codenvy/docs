@@ -50,7 +50,6 @@
 - title: Integration Guide
   docs:
   - integration-workspace-automation
-  - integration-version-control
   - integration-issue-management
   - integration-continuous-integration
 - title: White Label Guide

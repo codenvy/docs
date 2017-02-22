@@ -69,8 +69,9 @@ index bed45eb..c97119a 100644
      <inherits name='org.eclipse.che.ide.extension.machine.Machine'/>
 ```
 
-#### Migration
-  5.3 => 5.4 :
+# Migrating from 5.3 to 5.4
+Changes in naming in 5.4 mean that if you have a 5.3 assembly you need to build for 5.4 you will have to alter the pom.xml:
+
   1. Replace in assembly-ide-war/pom.xml
   
   ```

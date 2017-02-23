@@ -1,9 +1,9 @@
+---
 tag: [ "codenvy" ]
 title: Permissions
 excerpt: ""
 layout: docs
 permalink: /:categories/permissions/
-
 ---
 {% include base.html %}
 

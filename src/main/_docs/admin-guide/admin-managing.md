@@ -70,7 +70,7 @@ As an example, the following sequence launches a 3-node cluster of Codenvy using
 Start 3 VMs named `codenvy`, `ws1`, `ws2`:
 
 ```shell
-# Codenvy 
+# Codenvy
 # Grab the IP address of this VM and use it in other commands where we have <CODENVY-IP>
 docker-machine create -d virtualbox --engine-env DOCKER_TLS=no --virtualbox-memory "2048" codenvy
 
@@ -222,3 +222,69 @@ If new nodes are added or removed, or if existing nodes are resized, a matching 
 
 ## Triggering Failover
 If there is a failure with the primary system, log into the secondary system to ensure that everything is working as expected. Then re-route DNS to the secondary nodes. The secondary must have the same DNS name as the primary after switchover to ensure all functions operate correctly.
+
+# User Administration
+
+## Configure Account Limits
+By default each user is able to use resources that are set in the system [configuration]({{base}}{{site.links["setup-configuration"]}}#workspace-limits). These limits affect all users but if needed the Codenvy admin can override the default values for a particular user via the Resource API.
+
+### Set Limits for a Single User
+To override the default limits for a single user use `POST /resource/free : [{host}/swagger/#!/resource-free/storeFreeResourcesLimit]()`.
+The body must have the following format:
+
+```json
+{
+  "userId": "{userId}",
+  "resources": [
+    {
+      "type": "{resourceType}",
+      "amount": 1234,
+      "unit": "{unit}"
+    }
+  ]
+}
+```
+
+Where:
+- `userId` parameter corresponds to the ID of the user to grant resources;
+- `resources` parameter contains list of resources to assign to the specified user;
+- `unit` parameter is optional, if it's absent default unit for corresponding resources type will be used.
+
+The following resource types with their resources units are applicable:
+
+|Resource   | Supported Units | Default Unit |
+|-----------|-----------------|--------------|
+| RAM       | mb              | mb           |
+| workspace | item            | item         |
+| runtime   | item            | item         |
+| timeout   | minute          | minute       |
+
+An admin can override all default limits, or only a subset. Limits that are not overridden will remain at the settings inherited from the default configuration.
+
+An example `body` to grant user with ID `userId` the ability to use `2`GB of RAM for running workspaces and create only `10` workspaces. Total number of created workspaces and idle timeout will remain at their defaults.
+
+```json
+{
+  "userId": "userId",
+  "resources": [
+    {
+      "type": "RAM",
+      "amount": 2048,
+      "unit": "mb"
+    },
+    {
+      "type": "workspace",
+      "amount": 10
+    }
+  ]
+}
+```
+
+### List All Limit Overrides
+To see the list of resource limit overrides for all users use the following API: `GET /resource : [{host}/swagger/#!/resource-free/getFreeResourcesLimits]()`.
+
+### List Limit Overrides for a User
+To see the list of resource limit overrides for a specific users use the following API: `GET /resource/{userId} : [{host}/swagger/#!/resource-free/getFreeResourcesLimit]()`.
+
+### Reset Limits for a User to Defaults
+To replace previously overriden limits for a specific user with default limits from the system use the following API: `DELETE /resource/free : [{host}/swagger/#!/resource-free/removeFreeResourcesLimit]()`.

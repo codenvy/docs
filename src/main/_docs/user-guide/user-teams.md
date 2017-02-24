@@ -8,20 +8,12 @@ permalink: /:categories/teams/
 {% include base.html %}
 
 # Teams in Codenvy
+Teams allow groups of developers to collaborate with private and shared workspaces. Resources and permissions are controlled and allocated within the team by the team administrator.
 
-Teams allow to regroup multiple developers to collaborate with shared workspaces and shared resources.
-
-## Team's owner
-
-The user who is creating the team is its "owner" and is sharing his resources to the team.
-As an owner of the team, you are able to define limits to the resources which can be used by teams. See following section [TODO: add link]
-
-On Codenvy.io, the owner of a team, is the one who is paying for its resources.
-
-## Teams's roles
-
-There are two different roles in a team:
-- **Admin**: Team's admins are able to manage the team. They can edit team's settings, manage workspaces, resources and members.
+## Roles
+There are three different roles in a team:
+- **Owner**: The team owner is the user who creates the team. It is the owner's resources that are allocated within the team. Team owners can define limits on the resources that team members can use.
+- **Admin**: Team's admins are able to manage the team. Admins can edit settings, manage workspaces, resources and members.
 - **Developer**: Team's developers are the able create workspace, manage own workspaces and use any other workspaces they have permissions for.
 
 ## Team's workspaces

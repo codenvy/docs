@@ -8,16 +8,16 @@ permalink: /:categories/permissions/
 {% include base.html %}
 
 # Permissions in Codenvy
-In Codenvy, we define a permission as statement that defines an action or a behaviour which can be applied to resources. They define "what" can be done on certain resources. For example there are permission to read workspace and there is another permission to use it. The permissions are the low-grained level of security policies.
+In Codenvy, we define a permission as statement that defines an action or a behaviour which can be applied to resources. Permissions define "what" can be done on certain resources. For example there is a permission to read workspace and there is another permission to use it. The permissions are the low-grained level of security policies.
 
-Codenvy also provides a mecanisms and layers which allow to define "who" is allowed to do "what". Any user and administrator can control resources managed by Codenvy and allow certain actions or behaviours for other users or group of users.
+Codenvy also provides a mechanisms and layers which allow to define "who" is allowed to do "what". Any user and administrator can control resources managed by Codenvy and allow certain actions or behaviors for other users or group of users.
 
 For example:
 - As owner of a workspace, you can grant other users to see and/or use your workspace.
 
 Permissions are applicable on certain type of resources:
-- Workspaces
-- Organizations
+- Workspace
+- Organization
 - Stack
 - Recipe
 - System
@@ -30,7 +30,8 @@ Permissions can be assigned to:
 # Permissions for Workspaces
 
 Owner of a workspace is getting full permissions on the workspace.
-The owner of the workspace, is usually the user who creates the workspace.
+User who creates the workspace is the owner of the workspace and getting full permissions on it.
+Workspace's owner can invite other users to the workspace and grant them certain permissions.
 The following permissions are applicable to workspaces:
 
 | Permission      | Description                                             |
@@ -68,19 +69,19 @@ The following permissions are applicable to organizations:
 
 | Permission                    | Description                                                           |
 | ----------------------------- | --------------------------------------------------------------------- |
-| manageSystem                  | Allows to control system and workspaces.                              |
+| manageSystem                  | Allows to control system, workspaces and organizations.               |
 | setPermissions                | Allows to update permissions of users on the system.                  |
 | manageUsers                   | Allows to create and manage users.                                    |
-| manageOrganizations           | Allows to create and manage organizations.                            |
 
 
 ## Super priviliged mode
 
 The permission "manageSystem" can be extended to provide super privileged mode.
-The super privileged mode allows any user with "manageSystem" permission to perform advanced actions on any resources managed by the system. The user with "manageSystem" permission is able to assign himself to permissions for workspaces and organizations and perform any actions needed.
+The super privileged mode allows any user with "manageSystem" permission to perform advanced actions on any resources managed by the system. The user with "manageSystem" permission is able read and stop any workspaces. To perform other actions on workspaces and organizations, the user will need to assign himself the permissions needed.
+
 
 By default, this mode is disable.
-It is possible to activate this option by configuring the `system.super_privileged_mode` in the `codenvy.env` file.
+It is possible to activate this option by configuring the `CODENVY_SYSTEM_SUPER_PRIVILEGED_MODE` in the `codenvy.env` file.
 
 
 # Permissions for Stacks
@@ -128,6 +129,8 @@ Applicable `domain` values are the following:
 | workspace                  |
 | stack                      |
 | recipe                     |
+
+Note: `domain` is optional, in this case the API will return all possible permissions for all domains.
 
 ## Get applied permissions list
 

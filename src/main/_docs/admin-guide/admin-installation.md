@@ -10,6 +10,8 @@ permalink: /:categories/installation/
 # Get Help
 If you are a Codenvy customer, you can open an email ticket for 24/7/365 support.
 
+If you are having a problem starting Codenvy or workspaces, there are two diagnostic utilities that can help: `docker run codenvy/cli info` on the command-line for diagnosing boot-time issues and a "diagnostic" page that you can launch from the lower corner of the dashboard that loads when Codenvy first opens in your browser.
+
 We want everyone to have a great experience installing and running Codenvy. If you run into an issue, please [open a GitHub issue](http://github.com/codenvy/codenvy/issues) providing:
 
 - Output of 'docker run codenvy/cli info' command

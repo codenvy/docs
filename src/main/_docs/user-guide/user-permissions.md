@@ -55,7 +55,7 @@ The following permissions are applicable to organizations:
 | update                        | Allows to edit organization settings and information.                 |
 | delete                        | Allows to delete an organization.                                     |
 | manageSuborganizations        | Allows to create and manage sub-organizations.                        |
-| manageResources               | Allows to redistribute organization's resources.                      |
+| manageResources               | Allows to redistribute organization’s resources and define CAPs.      |
 | manageWorkspaces              | Allows to create new and manage all team's workspaces.                |
 | setPermissions                | Allows user to invite/remove members to team , update permissions.    |
 
@@ -63,8 +63,7 @@ The following permissions are applicable to organizations:
 
 # Permissions for System
 
-An organization is a named set of users.
-Organizations are the underlying layer for Teams in Codenvy.
+System represent the Codenvy installation.
 The following permissions are applicable to organizations:
 
 | Permission                    | Description                                                           |

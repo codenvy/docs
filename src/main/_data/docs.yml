@@ -37,6 +37,8 @@
   - ide-projects # Che use-che-as-an-ide
   - user-import
   - user-teams
+  - user-subscriptions
+  - user-permissions
   - ide-git-svn # Che use-che-as-an-ide
   - ide-editor-settings # Che use-che-as-an-ide
   - ide-intellisense # Che use-che-as-an-ide

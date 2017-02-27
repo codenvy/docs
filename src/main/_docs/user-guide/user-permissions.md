@@ -121,6 +121,7 @@ You can get the list of permissions which can be applied to a specific resources
 GET /permissions : [{host}/swagger/#!/permissions/getSupportedDomains]()
 
 Applicable `domain` values are the following:
+
 | Domain                     |
 | -------------------------- |
 | system                     |
@@ -138,6 +139,7 @@ You can use the following API for that:
 GET /permissions/{domain} : [{host}/swagger/#!/permissions/getCurrentUsersPermissions]()
 
 Applicable `domain` values are the following:
+
 | Domain                     |
 | -------------------------- |
 | system                     |
@@ -154,6 +156,7 @@ It is possible to get the list of all permissions applied for all users on a spe
 GET /permissions/{domain}/all : [{host}/swagger/#!/permissions/getUsersPermissions]()
 
 Applicable `domain` values are the following:
+
 | Domain                     |
 | -------------------------- |
 | system                     |
@@ -170,6 +173,7 @@ Assigning permissions to a resource can be done by using the following API:
 POST /permissions : [{host}/swagger/#!/permissions/storePermissions]()
 
 Applicable `domain` values are the following:
+
 | Domain                     |
 | -------------------------- |
 | system                     |

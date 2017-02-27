@@ -66,7 +66,7 @@ The system is sending the following receipts:
 
 You can get consult the state of your account's subscriptions and get a summary view.
 Click on your profile at the bottom of the left sidebar:
-![billing-access.png]({{base}}/docs/assets/imgs/codenvy/billing-access.png)
+![billing-access.png]({{base}}/docs/assets/imgs/codenvy/billing-access.png){:style="width: 80%; height: 80%"}
 
 You'll get a summary your account state:
 ![billing-summary.png]({{base}}/docs/assets/imgs/codenvy/billing-summary.png)

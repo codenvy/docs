@@ -42,7 +42,7 @@ Paid tier subscriptions are paid in advance and charged each month.
 ### At the time of the purchase or upgrade, we charge for portion of the month remaining
 We use the daily rate for the package the user has chosen and multiply that by the number of days remaining in the month (including the day of purchase).
 - **Initial purchase example**: May 26th I buy 1GB RAM package
-  - May 26, my credit card is charged $1.92 (5*0.32)
+  - May 26, my credit card is charged $1.92 (6*0.32)
   - At the start of each month until I cancel I am charged another $10
 - **Same package upgrade**: June 17 I buy 1GB more
   - Jun 17, my credit card is charged $4.48 (14*0.32)

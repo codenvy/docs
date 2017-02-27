@@ -50,7 +50,7 @@ Admins of a team are able to configure various settings for the team:
 Any user on Codenvy is able to create a team and invite other users to collaborate in the team. The user who is creating the team is designated as the owner of the team, who is sharing his resources with the team.
 
 To create a team, use the menu in the left sidebar:
-![team-menu.png]({{base}}/docs/assets/imgs/codenvy/team-menu.png)
+![team-menu.png]({{base}}/docs/assets/imgs/codenvy/team-menu.png){:style="height: 40%; width: 40%"}
 
 A new page is displayed which propose a form to provide a name to the team and invite other members.
 ![team-create.png]({{base}}/docs/assets/imgs/codenvy/team-create.png)
@@ -233,7 +233,7 @@ You'll get a confirmation popup, where you can validate or cancel your action.
 As **team developer**, those actions are restricted to the workspace that you created and own in the team.
 
 
-# Use a Team
+# Use Teams
 
 When you are using a team, you are using the resources own by the team's owner which is also controlling certain caps. [TODO add link].
 

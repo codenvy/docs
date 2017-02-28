@@ -14,7 +14,7 @@ Teams allow groups of developers to collaborate with private and shared workspac
 There are three different roles in a team:
 - **Owner**: The team owner is the user who creates the team. It is the owner's resources that are allocated within the team. Team owners can define limits on the resources that team members can use.
 - **Admin**: Team's admins are able to manage the team. Admins can edit settings, manage workspaces, resources and members.
-- **Developer**: Team's developers are the able create workspace, manage own workspaces and use any other workspaces they have permissions for.
+- **Developer**: Team's developers are able create workspace, manage own workspaces and use any other workspaces they have permissions for.
 
 ## Team Workspaces
 Workspaces created in a team use team resources and can be shared with all, or a subset of team members.
@@ -69,7 +69,7 @@ Note that when you are using a team, resources come from the team owner's accoun
 
 Depending on the team settings, you mey get error messages while trying to do certain action:
 - Restriction on workspace creation: The owner has set a limit on the total number of workspaces that can be created and this limit has been reached.
-- Restriction on workspace starting: The owner of the team has limited the number of workspaces that can run simultaneously in the team and this limit has been reached. 
+- Restriction on workspace starting: The owner of the team has limited the number of workspaces that can run simultaneously in the team and this limit has been reached.
 
 ### Share a Workspace
 

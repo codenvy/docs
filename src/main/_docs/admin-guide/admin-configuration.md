@@ -34,30 +34,37 @@ The version control sequence would be:
 5. Run `codenvy config` or `codenvy start`.
 
 # LDAP
-You can configure Codenvy to synchronize the user database to your LDAP installation. The [LDAP guide]({{base}}{{site.links["admin-ldap"]}}) has the configuration and examples.
+You can configure Codenvy to synchronize the user database to your LDAP installation for the purposes of creating user accounts. The [LDAP guide]({{base}}{{site.links["admin-ldap"]}}) has the configuration and examples.
 
-# oAuth
-You can configure Google, GitHub, Microsoft, BitBucket, or WSO2 oAuth for use when users login or create an account.
+# oAuth Account Creation
+By default in Codenvy users create accounts in the system by:
 
-Codenvy is shipped with a preconfigured GitHub oAuth application for the `codenvy.onprem` hostname. To enable GitHub oAuth, add `CODENVY_HOST=codenvy.onprem` to `codenvy.env` and restart. If you have a custom DNS, you need to register a GitHub oAuth application with GitHub's oAuth registration service. You will be asked for the callback URL, which is `http://<your_hostname>/api/oauth/callback`. You will receive from GitHub a client ID and secret, which must be added to `codenvy.env`:
+- Self-registering using an email and username
+- Using oAuth from Google, GitHub, Microsoft or LinkedIn
+
+Optionally you can connect Codenvy to LDAP which will disable self-registration (see the section above) or you can add your own oAuth provider for user account creation by following the steps below.
+
+To enable GitHub oAuth, add `CODENVY_HOST=codenvy.onprem` to `codenvy.env` and restart. If you have a custom DNS, you need to register a GitHub oAuth application with GitHub's oAuth registration service. You will be asked for the callback URL, which is `http://<your_hostname>/api/oauth/callback`. You will receive from GitHub a client ID and secret, which must be added to `codenvy.env`:
 
 ```
 CODENVY_GITHUB_CLIENT_ID=yourID
 CODENVY_GITHUB_SECRET=yourSecret
 ```
 
-Google oAuth (and others) are configured the same:
+Google oAuth (and others) are configured in the same way:
 
 ```
 CODENVY_GOOGLE_CLIENT_ID=yourID
 CODENVY_GOOGLE_SECRET=yourSecret
 ```
 
+If you are looking for a way to clone private git projects into your workspace see our [Git and SVN page]({{base}}{{site.links["ide-git-svn"]}}).
+
 # HTTPS
-By default Codenvy runs over HTTP as this is simplest to install. There are two requirements for configuring HTTP/S: 
+By default Codenvy runs over HTTP as this is simplest to install. There are two requirements for configuring HTTP/S:
 
 1. You must bind Codenvy to a valid DNS name. The HTTP mode of Codenvy allows us to operate over IP addresses. HTTP/S requires certificates that are bound to a DNS entries that you purchase from a DNS provider.  
-2. A valid SSL certificate.  
+2. A valid SSL certificate issued by a *trusted* issuer. This would normally be a `.pem` file with certificate, key and intermediate certificates. Please avoid using free certificate issuers as their limitations cause issues with JVMs.
 
 To configure HTTP/S, in `codenvy.env`:
 
@@ -71,6 +78,18 @@ You can place limits on how users interact with the system to control overall sy
 
 You can also set limits on Docker's allocation of CPU to workspaces, which may be necessary if you have a very dense workspace population where users are competing for limited physical resources.
 
+###  Workspaces count
+The maximum number of workspaces that a user is allowed to create. This limit is set by the `CODENVY_LIMITS_USER_WORKSPACES_COUNT` property in the `codenvy.env` file with a default value of `30`. The user will be presented with an error message if they try to create additional workspaces. This applies to the total number of both running and stopped workspaces. Since each workspace is saved as a snapshot, placing a cap on this number is a way to limit the disk consumption for workspace storage.
+
+###  Running workspaces count
+The maximum number of running workspaces that a single user is allowed to have. This limit is set by the `CODENVY_LIMITS_USER_WORKSPACES_RUN_COUNT` property in the `codenvy.env` file with a default value of `10`. If the user has reached this threshold and they try to start an additional workspace, they will be prompted with an error message. The user will need to stop a running workspace to activate another.
+
+### Workspaces RAM
+The total amount of RAM that a single user is allowed to allocate to running workspaces. This limit is set by the `CODENVY_LIMITS_USER_WORKSPACES_RAM` property in the `codenvy.env` file with a default value of `100`gb. A user can allocate this RAM to a single workspace or spread it across multiple workspaces.
+
+### Workspace environment
+The maximum amount of RAM that a user can allocate to a workspace when they create a new workspace. This limit is set by the `CODENVY_LIMITS_WORKSPACE_ENV_RAM` property in the `codenvy.env` file with a default value of `16`gb. The RAM slider is adjusted to this maximum value.
+
 ### Idle Timeout
 Workspaces have idle timeouts that stop workspaces that a user has not interacted with in a specified time. The idle timeout is set by the `CODENVY_MACHINE_WS_AGENT_INACTIVE_STOP_TIMEOUT_MS` property in the `codenvy.env` file with a default value of `14400000` milliseconds or 4 hours. This allows Codenvy to to free up unused resources but may need to be increased if longer running workspaces are required.
 
@@ -80,7 +99,7 @@ Workspace runtimes are powered by one or more Docker containers. When a user cre
 ### Private Images  
 When users create a workspace, they must select a Docker image (stack) to power the workspace. We provide ready-to-go stacks which reference images hosted at the public Docker Hub, which do not require any authenticated access to pull. You can provide your own images that are stored in a local private registry or at Docker Hub. The images may be publicly or privately visible, even if they are part of a private registry.
 
-If your stack images that Codenvy wants to pull require authenticated access to any registry, or if you want Codenvy to push snapshot images into a registry (also requiring authenticated access), then you must configure registry authentication. 
+If your stack images that Codenvy wants to pull require authenticated access to any registry, or if you want Codenvy to push snapshot images into a registry (also requiring authenticated access), then you must configure registry authentication.
 
 In `codenvy.env`:
 
@@ -120,11 +139,11 @@ CODENVY_DOCKER_REGISTRY_FOR_WORKSPACE_SHAPSHOTS=<registry-url>
 ```
 
 ### Custom Dockerfiles and Composefiles for Workspaces
-Your workspaces are powered by a set of runtime environments. The default runtime is Docker. Typically, admins have pre-built images in DockerHub or another registry which are pulled when the workspace is created. You can optionally provide custom Dockerfiles (or let your users provide their own Dockerfiles), which will dynamically create a workspace image when a user creates a new workspace. 
+Your workspaces are powered by a set of runtime environments. The default runtime is Docker. Typically, admins have pre-built images in DockerHub or another registry which are pulled when the workspace is created. You can optionally provide custom Dockerfiles (or let your users provide their own Dockerfiles), which will dynamically create a workspace image when a user creates a new workspace.
 
 To use your custom Dockerfiles, you can:
 
-1. Create a [custom stack]({{base}}{{site.links["ws-stacks"]}}#custom-stack), which includes a [recipe]({{base}}{{site.links["ws-recipes"]}}) with your Dockerfile. 
+1. Create a [custom stack]({{base}}{{site.links["ws-stacks"]}}#custom-stack), which includes a [recipe]({{base}}{{site.links["ws-recipes"]}}) with your Dockerfile.
 2. Or, users can create a custom recipe when creating a workspace that references your registry.
 
 ### Privileged Mode
@@ -165,6 +184,7 @@ CODENVY_MAIL_SMTP_SOCKETFACTORY_PORT=465
 CODENVY_MAIL_SMTP_SOCKETFACTORY_CLASS=javax.net.ssl.SSLSocketFactory
 CODENVY_MAIL_SMTP_SOCKETFACTORY_FALLBACK=false
 ```
+If you want to use your Gmail as Codenvy mail server, make sure your account is configured to [allow less secure apps]( https://support.google.com/accounts/answer/6010255?hl=en).
 
 # Development Mode
 **Note**: While Codenvy's source code is publicly available on GitHub it is not an open-source project and requires a license from Codenvy to make any changes to the source code.

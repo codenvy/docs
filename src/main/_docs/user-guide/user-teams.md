@@ -109,7 +109,7 @@ The name of the team is restricted to the following rules:
 ## Delete a Team
 **Action restricted to**: Owner of the Team.
 
-![team-delete.png]({{base}}/docs/assets/imgs/codenvy/team-delete.png)
+![team-delete.png]({{base}}/docs/assets/imgs/codenvy/team-delete.png){:style="width: 40%"}
 
 To delete a team, click on "Delete" button.
 This action can't be reverted and all team's workspaces will be deleted.

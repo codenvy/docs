@@ -25,7 +25,7 @@ Any user with an account on Codenvy.io gets a free tier subscription which provi
 
 ## Paid tiers subscription
 
-Depending on your need, you might need more RAM resources than the one provided by the free tier, you might also want to get a better idle timeout configuration. Pair tiers subscription provide longer timeout and more RAM to your account.
+Depending on your need, you might need more RAM resources than the one provided by the free tier, you might also want to get a better idle timeout configuration. Paid tiers subscription provide longer timeout and more RAM to your account.
 
 Paid tier subscriptions are paid in advance and charged each month (see billing rules applied [here]({{base}}{{site.links["user-subscriptions"]}}#billing-rules)).
 

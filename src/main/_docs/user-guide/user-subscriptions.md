@@ -27,7 +27,7 @@ Any user with an account on Codenvy.io gets a free tier subscription which provi
 
 Depending on your need, you might need more RAM resources than the one provided by the free tier, you might also want to get a better idle timeout configuration. Pair tiers subscription provide longer timeout and more RAM to your account.
 
-Paid tier subscriptions are paid in advance and charged each month (see billing rules applied here) [TODO add link].
+Paid tier subscriptions are paid in advance and charged each month (see billing rules applied [here]({{base}}{{site.links["user-subscriptions"]}}#billing-rules)).
 
 Paid tier subscription are allowing the following:
 - RAM: up to 30GB
@@ -89,17 +89,17 @@ You'll also receive an email which will confirm the transaction.
 ## Update Billing information
 You can update your billing information your subscription configuration by going under the "Card" tab from billing page.
 
-[TODO add image]
+<% assign TODO="Update the image after merged" %>
 
 ## Invoices
 
 You can download all your invoices for your subscriptions by going under the "Invoices" tab from billing page.
 
-[TODO add image]
+<% assign TODO="Update the image after merged" %>
 
 ## Cancel subscription
 
 To cancel subscriptions, just remove your credit card information from your account.
 You can remove your credit card by going under the "Card" tab from billing page.
 
-[TODO add image]
+<% assign TODO="Update the image after merged" %>

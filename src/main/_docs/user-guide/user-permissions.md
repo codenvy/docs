@@ -7,15 +7,12 @@ permalink: /:categories/permissions/
 ---
 {% include base.html %}
 
-# Permissions in Codenvy
-In Codenvy, we define a permission as statement that defines an action or a behaviour which can be applied to resources. Permissions define "what" can be done on certain resources. For example there is a permission to read workspace and there is another permission to use it. The permissions are the low-grained level of security policies.
 
-Codenvy also provides a mechanisms and layers which allow to define "who" is allowed to do "what". Any user and administrator can control resources managed by Codenvy and allow certain actions or behaviors for other users or group of users.
+Permissions are used to control user actions. Rather than provide a fixed set of roles we use a broader set of permissions that can be applied in any combination to establish the security you need.
 
-For example:
-- As owner of a workspace, you can grant other users to see and/or use your workspace.
+Codenvy also provides a mechanisms and layers which allow to define "who" is allowed to do "what". Any user and administrator can control resources managed by Codenvy and allow certain actions or behaviors for other users or groups. For example as owner of a workspace, you can grant other users permission to see and/or use your workspace.
 
-Permissions are applicable on certain type of resources:
+Permissions can be applied to:
 - Workspace
 - Organization
 - Stack
@@ -24,100 +21,96 @@ Permissions are applicable on certain type of resources:
 
 Permissions can be assigned to:
 - Users
-- Group of Users (see Teams)
+- Group of users (see teams) [TODO:link]
 
+# Workspace Permissions
 
-# Permissions for Workspaces
+The user who creates a workspace is the _workspace owner_ and has all permissions by default. Workspace owners can invite other users into the workspace and control their permissions for the workspace.
 
-Owner of a workspace is getting full permissions on the workspace.
-User who creates the workspace is the owner of the workspace and getting full permissions on it.
-Workspace's owner can invite other users to the workspace and grant them certain permissions.
 The following permissions are applicable to workspaces:
 
 | Permission      | Description                                             |
 | --------------- | ------------------------------------------------------- |
-| read            | Allows to read a workspace's configuration.             |
-| use             | Allows to use a workspace and interact with it.         |
-| run             | Allows to start and stop a workspace.                   |
-| configure       | Allows to define workspace configuration and change it. |
-| setPermissions  | Allows to update permissions of other users.            |
-| delete          | Allows to delete the workspace.                         |
+| read            | Allows reading a workspace's configuration.
+| use             | Allows using a workspace and interacting with it.
+| run             | Allows starting and stopping a workspace.
+| configure       | Allows defining and changing a workspace configuration.
+| setPermissions  | Allows updating workspace permissions for other users.
+| delete          | Allows deleting the workspace.
 
+# Organization Permissions
 
-# Permissions for Organizations
+An organization is a named set of users. Organizations are the underlying layer for teams [TODO:link] in Codenvy.
 
-An organization is a named set of users.
-Organizations are the underlying layer for Teams in Codenvy.
 The following permissions are applicable to organizations:
 
 | Permission                    | Description                                                           |
 | ----------------------------- | --------------------------------------------------------------------- |
-| update                        | Allows to edit organization settings and information.                 |
-| delete                        | Allows to delete an organization.                                     |
-| manageSuborganizations        | Allows to create and manage sub-organizations.                        |
-| manageResources               | Allows to redistribute organization’s resources and define CAPs.      |
-| manageWorkspaces              | Allows to create new and manage all team's workspaces.                |
-| setPermissions                | Allows user to invite/remove members to team , update permissions.    |
+| update                        | Allows editing of organization settings and information.
+| delete                        | Allows deleting an organization.
+| manageSuborganizations        | Allows creating and managing sub-organizations.
+| manageResources               | Allows redistribution of an organization’s resources and defining resource limits.
+| manageWorkspaces              | Allows creating and managing all the organization's workspaces.
+| setPermissions                | Allows adding and removing users as well as updating their permissions.
 
+# System Permissions
 
+System permissions control aspects that affect the whole Codenvy installation.
 
-# Permissions for System
-
-System represent the Codenvy installation.
 The following permissions are applicable to organizations:
 
 | Permission                    | Description                                                           |
 | ----------------------------- | --------------------------------------------------------------------- |
-| manageSystem                  | Allows to control system, workspaces and organizations.               |
-| setPermissions                | Allows to update permissions of users on the system.                  |
-| manageUsers                   | Allows to create and manage users.                                    |
+| manageSystem                  | Allows control of the system, workspaces and organizations.
+| setPermissions                | Allows updating of permissions for users on the system.
+| manageUsers                   | Allows creating and managing users.
 
+## Super Priviliged Mode
 
-## Super priviliged mode
+The permission "manageSystem" can be extended to provide a super privileged mode that allows advanced actions to be performed on any resources managed by the system. A user with "manageSystem" permission is able read and stop any workspaces. To perform other actions on workspaces and organizations, the user will need to assign himself the permissions needed.
 
-The permission "manageSystem" can be extended to provide super privileged mode.
-The super privileged mode allows any user with "manageSystem" permission to perform advanced actions on any resources managed by the system. The user with "manageSystem" permission is able read and stop any workspaces. To perform other actions on workspaces and organizations, the user will need to assign himself the permissions needed.
+By default, this mode is disabled.
 
-
-By default, this mode is disable.
 It is possible to activate this option by configuring the `CODENVY_SYSTEM_SUPER_PRIVILEGED_MODE` in the `codenvy.env` file.
 
-
-# Permissions for Stacks
+# Stack Permissions
 
 Stack are defined [TODO: link]
+
 The following permissions are applicable to a stack:
 
 | Permission                    | Description                                                           |
 | ----------------------------- | --------------------------------------------------------------------- |
-| search                        | Allows the stack to be returned from search requests.                 |
-| read                          | Allows to get the stack configuration.                                |
-| update                        | Allows to update stack's configuration.                               |
-| delete                        | Allows to delete the stack.                                           |
-| setPermissions                | Allows manage permissions on the stack.                               |
+| search                        | Allows searching of the stacks.
+| read                          | Allows reading of the stack's configuration.
+| update                        | Allows updating of the stack's configuration.
+| delete                        | Allows deleting of the stack.
+| setPermissions                | Allows managing permissions for the stack.
 
-# Permissions for Recipe
+# Recipe Permissions
 
 Recipe are defined [TODO: link]
+
 The following permissions are applicable to a recipe:
 
 | Permission                    | Description                                                           |
 | ----------------------------- | --------------------------------------------------------------------- |
-| search                        | Allows the recipe to be returned from search requests.                |
-| read                          | Allows to get the recipe.                                             |
-| update                        | Allows to update the recipe.                                          |
-| delete                        | Allows to delete the recipe.                                          |
-| setPermissions                | Allows manage permissions on the recipe.                              |
+| search                        | Allows searching of the recipes.
+| read                          | Allows reading of the recipe's configuration.
+| update                        | Allows updating of the recipe's configuration.
+| delete                        | Allows deleting of the recipe.
+| setPermissions                | Allows managing permissions for the recipe.
 
 
 # Permissions API
 
-All permissions can be managed by using the provided Rest API. The APIs are documented using Swagger, as explained here [TODO: link].
-The permissions API list can be visible here: [{host}/swagger/#!/permissions]().
+All permissions can be managed by using the provided REST API. The APIs are documented using Swagger, as explained here [TODO: link].
 
-## Get the list of applicable permissions per resources
+The permissions API list can be accessed by: [{host}/swagger/#!/permissions]().
 
-You can get the list of permissions which can be applied to a specific resources, by using the following API:
+## List Permissions
+
+List the permissions which can be applied to a specific resources:
 GET /permissions : [{host}/swagger/#!/permissions/getSupportedDomains]()
 
 Applicable `domain` values are the following:
@@ -132,10 +125,9 @@ Applicable `domain` values are the following:
 
 Note: `domain` is optional, in this case the API will return all possible permissions for all domains.
 
-## Get applied permissions list
+## List Permissions for Specific User
 
-The Rest API allow to request what are the permissions that you have on a specific resource.
-You can use the following API for that:
+List the permissions which are applied to a specific user:
 GET /permissions/{domain} : [{host}/swagger/#!/permissions/getCurrentUsersPermissions]()
 
 Applicable `domain` values are the following:
@@ -150,9 +142,9 @@ Applicable `domain` values are the following:
 
 `instance` parameter corresponds to the ID of the resource you want to get the applied permissions.
 
-## Get all permissions applied to a specific resources
+## List Permissions for All Users
 
-It is possible to get the list of all permissions applied for all users on a specific resource. If you are granted enough privileges on the resource you are looking for, you can use the following API:
+List the permissions which are applied to a specific user (you must have sufficient permissions to allow you to see this information):
 GET /permissions/{domain}/all : [{host}/swagger/#!/permissions/getUsersPermissions]()
 
 Applicable `domain` values are the following:
@@ -167,9 +159,9 @@ Applicable `domain` values are the following:
 
 `instance` parameter corresponds to the ID of the resource you want to get the applied permissions for all users.
 
-## Assign permissions
+## Assign Permissions
 
-Assigning permissions to a resource can be done by using the following API:
+Assign permissions to a resource:
 POST /permissions : [{host}/swagger/#!/permissions/storePermissions]()
 
 Applicable `domain` values are the following:

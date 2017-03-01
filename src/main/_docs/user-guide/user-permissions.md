@@ -110,10 +110,10 @@ The permissions API list can be accessed by: [{host}/swagger/#!/permissions]().
 
 ## List Permissions
 
-List the permissions which can be applied to a specific resources:
+List all the permissions that can be applied to a chosen domain:
 GET /permissions : [{host}/swagger/#!/permissions/getSupportedDomains]()
 
-Applicable `domain` values are the following:
+If a `domain` is not provided, the API will return all possible permissions for all domains. Valid `domain` values:
 
 | Domain                     |
 | -------------------------- |
@@ -122,15 +122,13 @@ Applicable `domain` values are the following:
 | workspace                  |
 | stack                      |
 | recipe                     |
-
-Note: `domain` is optional, in this case the API will return all possible permissions for all domains.
 
 ## List Permissions for Specific User
 
-List the permissions which are applied to a specific user:
+List the permissions which are applied to a specific user for a given domain:
 GET /permissions/{domain} : [{host}/swagger/#!/permissions/getCurrentUsersPermissions]()
 
-Applicable `domain` values are the following:
+Valid `domain` values:
 
 | Domain                     |
 | -------------------------- |
@@ -140,11 +138,11 @@ Applicable `domain` values are the following:
 | stack                      |
 | recipe                     |
 
-`instance` parameter corresponds to the ID of the resource you want to get the applied permissions.
+The optional `instance` parameter is the ID of a specific instance of the chosen domain will return the set of permissions for the user on that specific domain instance.
 
 ## List Permissions for All Users
 
-List the permissions which are applied to a specific user (you must have sufficient permissions to allow you to see this information):
+List the permissions for all users on a specific domain instance.
 GET /permissions/{domain}/all : [{host}/swagger/#!/permissions/getUsersPermissions]()
 
 Applicable `domain` values are the following:
@@ -157,11 +155,11 @@ Applicable `domain` values are the following:
 | stack                      |
 | recipe                     |
 
-`instance` parameter corresponds to the ID of the resource you want to get the applied permissions for all users.
+The `instance` parameter is mandatory and is the ID of a specific instance of the chosen domain.
 
 ## Assign Permissions
 
-Assign permissions to a resource:
+Assign permissions to a specific instance and user:
 POST /permissions : [{host}/swagger/#!/permissions/storePermissions]()
 
 Applicable `domain` values are the following:
@@ -174,11 +172,12 @@ Applicable `domain` values are the following:
 | stack                      |
 | recipe                     |
 
-`instance` parameter corresponds to the ID of the resource you want to get the applied permissions for all users.
+The `instance` parameter is mandatory and is the ID of a specific instance of the chosen domain
 
-`userId` parameter corresponds to the ID of the user who want to grant certain permissions.
+The `userId` parameter is mandatory and is the ID of the user that will receive the permission assignment.
 
-Sample `body` to grant user `userID` permissions to a workspace `workspaceID`:
+Example:
+Grant read, use and configure permisssions to user `usergzqqr13iul7tvxzo` for workspace `workspace1kycpeyyyxe1q5yk`:
 
 ```json
 {
@@ -189,8 +188,8 @@ Sample `body` to grant user `userID` permissions to a workspace `workspaceID`:
     "configure",
     "setPermissions"
   ],
-  "userId": "userID",
+  "userId": "usergzqqr13iul7tvxzo",
   "domainId": "workspace",
-  "instanceId": "workspaceID"
+  "instanceId": "workspace1kycpeyyyxe1q5yk"
 }
 ```

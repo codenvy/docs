@@ -7,9 +7,11 @@ permalink: /:categories/cli/
 ---
 {% include base.html %}
 
-Running `codenvy/cli` executes Codenvy's CLI launcher from within a Docker container. The CLI launcher uses the `codenvy.env` configuration file to launch and configure a set of containers that actually run Codenvy. The CLI launcher also includes a number of helper functions for admins.
+The CLI is a Docker image (`codenvy/cli`) that is used to install, configure, start and manage Codenvy. Running `codenvy/cli` executes Codenvy's CLI launcher from within a Docker container. The CLI launcher uses the `codenvy.env` configuration file to launch and configure a set of containers that are then used to run Codenvy. The CLI launcher also includes a number of helper functions for admins.
 
-Note: The CLI will hide most error conditions from standard out. Internal stack traces and error output is redirected to `cli.log`, which is saved in the host folder where `:/data` is mounted.
+The CLI has three primary phases: initialization, configuration, and start. The initialization phase is executed by `init` and will install version-specific files into the folder mounted to `/data`. This includes the universal configuration file named `codenvy.env`, a version identifier, and a location where configuration files will be saved. The configuration is executed by the `config` command and takes as input your `codenvy.env` configuration file, the OS of your host, and then generates an OS-specific set of configuration files in the `/data/instance` folder that can be used to run an instance of Codenvy. The configuration phase will run an initialization if a folder is not found. Every execution of the `config` command will overwrite the files in `/data/instance` with the latest configuration. This way if an admin modifies any configuration file, the instance's configuration files will be updated to be guaranteed consistent. The CLI generates a large number of configuration files specific to running Codenvy. The configuration files are sourced from Puppet templates that are stored in our GitHub repository under `/dockerfiles/init`. The start phase is executed by `start` and will use a configuration-generated `docker-compose-container.yml` file to launch Codenvy. The start phase always executes a `config` command, so any files that were edited in `/data/instance` will be overwritten with the generated configuration from the
+
+The CLI will hide most error conditions from standard out. Internal stack traces and error output is redirected to `cli.log`, which is saved in the host folder where `:/data` is mounted.
 
 ```
 USAGE:

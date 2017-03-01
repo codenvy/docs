@@ -106,7 +106,7 @@ This command respects `--no-force`, `--pull`, `--force`, and `--offline`.
 
 *start*
 
-Starts Codenvy and its services using `docker-compose`. If the system cannot find a valid configuration it will perform a `codenvy init`. Every `start` and `restart` will run a `codenvy config` to generate a new configuration set using the latest configuration. The starting sequence will perform pre-flight testing to see if any ports required by Codenvy are currently used by other services and post-flight checks to verify access to key APIs.  
+Starts Codenvy and its services using `docker-compose`. If the system cannot find a valid configuration it will perform a `init`. Every `start` and `restart` will run a `config` to generate a new configuration set using the latest configuration. The starting sequence will perform pre-flight testing to see if any ports required by Codenvy are currently used by other services and post-flight checks to verify access to key APIs.  
 
 -----
 
@@ -144,21 +144,21 @@ Deletes the Docker images from the local registry that Codenvy has downloaded fo
 
 *download*
 
-Used to download Docker images that will be stored in your Docker images repository. This command downloads images that are used by the CLI as utilities, for Codenvy to do initialization and configuration, and for the runtime images that Codenvy needs when it starts.  This command respects `--offline`, `--pull`, `--force`, and `--no-force` (default).  This command is invoked by `codenvy init`, `codenvy config`, and `codenvy start`.
+Used to download Docker images that will be stored in your Docker images repository. This command downloads images that are used by the CLI as utilities, for Codenvy to do initialization and configuration, and for the runtime images that Codenvy needs when it starts.  This command respects `--offline`, `--pull`, `--force`, and `--no-force` (default).  This command is invoked by `init`, `config`, and `start`.
 
-This command is invoked by `codenvy init` before initialization to download the images for the version specified by `codenvy/cli:<version>`.
+This command is invoked by `init` before initialization to download the images for the version specified by `codenvy/cli:<version>`.
 
 -----
 
 *version*
 
-Provides information on the current version and the available versions that are hosted in Codenvy's repositories. `codenvy upgrade` enforces upgrade sequences and will prevent you from upgrading one version to another version where data migrations cannot be guaranteed.
+Provides information on the current version and the available versions that are hosted in Codenvy's repositories. `upgrade` enforces upgrade sequences and will prevent you from upgrading one version to another version where data migrations cannot be guaranteed.
 
 -----
 
 *upgrade*
 
-Manages the sequence of upgrading Codenvy from one version to another. Run `codenvy version` to get a list of available versions that you can upgrade to.
+Manages the sequence of upgrading Codenvy from one version to another. Run `version` to get a list of available versions that you can upgrade to.
 
 Upgrading Codenvy is done by using a `codenvy/cli:<version>` that is newer than the version you currently have installed. For example, if you have 5.0.0-M2 installed and want to upgrade to 5.0.0-M7, then:
 

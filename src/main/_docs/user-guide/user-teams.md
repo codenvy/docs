@@ -67,7 +67,7 @@ When you are member of multiple teams, you must select which team the workspace 
 
 You always have the choice to keep your workspace private - just select "personal" under the team selector.
 
-Note that when you are using a team, resources come from the team owner's account and may be subject to [resource caps]({{base}}{{site.links["user-teams"]}}##manage-team-limits).
+Note that when you are using a team, resources come from the team owner's account and may be subject to [resource caps]({{base}}{{site.links["user-teams"]}}#manage-team-limits).
 
 Depending on the team settings, you may get error messages while trying to do certain action:
 - Restriction on workspace creation: The owner has set a limit on the total number of workspaces that can be created and this limit has been reached.

@@ -21,7 +21,7 @@ Permissions can be applied to:
 
 Permissions can be assigned to:
 - Users
-- Group of users (see teams) [TODO:link]
+- Group of users (see [teams]({{base}}{{site.links["user-teams"]}}))
 
 # Workspace Permissions
 
@@ -40,7 +40,7 @@ The following permissions are applicable to workspaces:
 
 # Organization Permissions
 
-An organization is a named set of users. Organizations are the underlying layer for teams [TODO:link] in Codenvy.
+An organization is a named set of users. Organizations are the underlying layer for [teams]({{base}}{{site.links["user-teams"]}}) in Codenvy.
 
 The following permissions are applicable to organizations:
 
@@ -75,7 +75,7 @@ It is possible to activate this option by configuring the `CODENVY_SYSTEM_SUPER_
 
 # Stack Permissions
 
-Stack are defined [TODO: link]
+A stack is a runtime configuration for a workspace, see [stack definition]({{base}}{{site.links["ws-stacks"]}}).
 
 The following permissions are applicable to a stack:
 
@@ -89,7 +89,7 @@ The following permissions are applicable to a stack:
 
 # Recipe Permissions
 
-Recipe are defined [TODO: link]
+A recipe defines part of the runtime of a workspace, see [recipe definition]({{base}}{{site.links["ws-reciped"]}}).
 
 The following permissions are applicable to a recipe:
 
@@ -104,16 +104,16 @@ The following permissions are applicable to a recipe:
 
 # Permissions API
 
-All permissions can be managed by using the provided REST API. The APIs are documented using Swagger, as explained here [TODO: link].
+All permissions can be managed by using the provided REST API. The APIs are documented using Swagger, as explained [here]({{base}}{{site.links["server-rest-api"]}}).
 
 The permissions API list can be accessed by: [{host}/swagger/#!/permissions]().
 
 ## List Permissions
 
-List all the permissions that can be applied to a chosen domain:
+List the permissions which can be applied to a specific resources:
 GET /permissions : [{host}/swagger/#!/permissions/getSupportedDomains]()
 
-If a `domain` is not provided, the API will return all possible permissions for all domains. Valid `domain` values:
+Applicable `domain` values are the following:
 
 | Domain                     |
 | -------------------------- |
@@ -122,13 +122,15 @@ If a `domain` is not provided, the API will return all possible permissions for 
 | workspace                  |
 | stack                      |
 | recipe                     |
+
+Note: `domain` is optional, in this case the API will return all possible permissions for all domains.
 
 ## List Permissions for Specific User
 
-List the permissions which are applied to a specific user for a given domain:
+List the permissions which are applied to a specific user:
 GET /permissions/{domain} : [{host}/swagger/#!/permissions/getCurrentUsersPermissions]()
 
-Valid `domain` values:
+Applicable `domain` values are the following:
 
 | Domain                     |
 | -------------------------- |
@@ -138,11 +140,11 @@ Valid `domain` values:
 | stack                      |
 | recipe                     |
 
-The optional `instance` parameter is the ID of a specific instance of the chosen domain will return the set of permissions for the user on that specific domain instance.
+`instance` parameter corresponds to the ID of the resource you want to get the applied permissions.
 
 ## List Permissions for All Users
 
-List the permissions for all users on a specific domain instance.
+List the permissions which are applied to a specific user (you must have sufficient permissions to allow you to see this information):
 GET /permissions/{domain}/all : [{host}/swagger/#!/permissions/getUsersPermissions]()
 
 Applicable `domain` values are the following:
@@ -155,11 +157,11 @@ Applicable `domain` values are the following:
 | stack                      |
 | recipe                     |
 
-The `instance` parameter is mandatory and is the ID of a specific instance of the chosen domain.
+`instance` parameter corresponds to the ID of the resource you want to get the applied permissions for all users.
 
 ## Assign Permissions
 
-Assign permissions to a specific instance and user:
+Assign permissions to a resource:
 POST /permissions : [{host}/swagger/#!/permissions/storePermissions]()
 
 Applicable `domain` values are the following:
@@ -172,12 +174,11 @@ Applicable `domain` values are the following:
 | stack                      |
 | recipe                     |
 
-The `instance` parameter is mandatory and is the ID of a specific instance of the chosen domain
+`instance` parameter corresponds to the ID of the resource you want to get the applied permissions for all users.
 
-The `userId` parameter is mandatory and is the ID of the user that will receive the permission assignment.
+`userId` parameter corresponds to the ID of the user who want to grant certain permissions.
 
-Example:
-Grant read, use and configure permisssions to user `usergzqqr13iul7tvxzo` for workspace `workspace1kycpeyyyxe1q5yk`:
+Sample `body` to grant user `userID` permissions to a workspace `workspaceID`:
 
 ```json
 {
@@ -188,8 +189,8 @@ Grant read, use and configure permisssions to user `usergzqqr13iul7tvxzo` for wo
     "configure",
     "setPermissions"
   ],
-  "userId": "usergzqqr13iul7tvxzo",
+  "userId": "userID",
   "domainId": "workspace",
-  "instanceId": "workspace1kycpeyyyxe1q5yk"
+  "instanceId": "workspaceID"
 }
 ```

@@ -97,7 +97,7 @@ You can reinstall Codenvy on a folder that is already initialized and preserve y
 
 *config*
 
-Generates a Codenvy instance configuration thta is placed in `/data/instance`. This command uses puppet to generate configuration files for Codenvy, haproxy, swarm, socat, nginx, and postgres which are mounted when Codenvy services are started. This command is executed on every `start` or `restart`.
+Generates a Codenvy instance configuration thta is placed in `/data/instance`. This command uses puppet to generate configuration files for Codenvy, haproxy, swarm, socat, nginx, and postgres which are mounted when Codenvy services are started. This command is executed on every `codenvy/cli start` or `codenvy/cli restart`.
 
 If you are using a `codenvy/cli:<version>` image and it does not match the version that is in `/instance/codenvy.ver`, then the configuration will abort to prevent you from running a configuration for a different version than what is currently installed.
 
@@ -107,7 +107,7 @@ This command respects `--no-force`, `--pull`, `--force`, and `--offline`.
 
 *start*
 
-Starts Codenvy and its services using `docker-compose`. If the system cannot find a valid configuration it will perform a `init`. Every `start` and `restart` will run a `config` to generate a new configuration set using the latest configuration. The starting sequence will perform pre-flight testing to see if any ports required by Codenvy are currently used by other services and post-flight checks to verify access to key APIs.  
+Starts Codenvy and its services using `docker-compose`. If the system cannot find a valid configuration it will perform a `codenvy/cli init`. Every `codenvy/cli start` and `codenvy/cli restart` will run a `codenvy/cli config` to generate a new configuration set using the latest configuration. The starting sequence will perform pre-flight testing to see if any ports required by Codenvy are currently used by other services and post-flight checks to verify access to key APIs.  
 
 -----
 
@@ -119,7 +119,7 @@ The default stop is a graceful stop where each workspace is stopped and confirme
 
 *restart*
 
-Performs a `stop` followed by a `start`, respecting `--pull`, `--force`, and `--offline`.
+Performs a `codenvy/cli stop` followed by a `codenvy/cli start`, respecting `--pull`, `--force`, and `--offline`.
 
 -----
 
@@ -145,7 +145,7 @@ Deletes the Docker images from the local registry that Codenvy has downloaded fo
 
 *download*
 
-Used to download Docker images that will be stored in your Docker images repository. This command downloads images that are used by the CLI as utilities, for Codenvy to do initialization and configuration, and for the runtime images that Codenvy needs when it starts.  This command respects `--offline`, `--pull`, `--force`, and `--no-force` (default).  This command is invoked by `init`, `config`, and `start`.
+Used to download Docker images that will be stored in your Docker images repository. This command downloads images that are used by the CLI as utilities, for Codenvy to do initialization and configuration, and for the runtime images that Codenvy needs when it starts.  This command respects `--offline`, `--pull`, `--force`, and `--no-force` (default).  This command is invoked by `codenvy/cli init`, `codenvy/cli config`, and `codenvy/cli start`.
 
 This command is invoked by `init` before initialization to download the images for the version specified by `codenvy/cli:<version>`.
 
@@ -159,7 +159,7 @@ Provides information on the current version and the available versions that are 
 
 *upgrade*
 
-Manages the sequence of upgrading Codenvy from one version to another. Run `version` to get a list of available versions that you can upgrade to.
+Manages the sequence of upgrading Codenvy from one version to another. Run `codenvy/cli version` to get a list of available versions that you can upgrade to.
 
 Upgrading Codenvy is done by using a `codenvy/cli:<version>` that is newer than the version you currently have installed. For example, if you have 5.0.0-M2 installed and want to upgrade to 5.0.0-M7, then:
 
@@ -176,9 +176,9 @@ The upgrade command has numerous checks to prevent you from upgrading Codenvy if
 
 The upgrade process: a) performs a version compatibility check, b) downloads new Docker images that are needed to run the new version of Codenvy, c) stops Codenvy if it is currently running triggering a maintenance window, d) backs up your installation, e) initializes the new version, and f) starts Codenvy.
 
-You can run `codenvy version` to see the list of available versions that you can upgrade to.
+You can run `codenvy/cli version` to see the list of available versions that you can upgrade to.
 
-`--skip-backup` option allow to skip [backup](https://github.com/codenvy/che-docs/blob/master/src/main/_docs/setup/setup-cli.md#backup) during update, that could be useful to speed up upgrade because [backup](https://github.com/codenvy/che-docs/blob/master/src/main/_docs/setup/setup-cli.md#backup) can be very expensive operation if `/instace` folder is really big due to many user worksapces and projects.
+`--skip-backup` option allow to skip [backup](https://github.com/codenvy/che-docs/blob/master/src/main/_docs/setup/setup-cli.md#backup) during update, that could be useful to speed up upgrade because [backup](https://github.com/codenvy/che-docs/blob/master/src/main/_docs/setup/setup-cli.md#backup) can be very expensive operation if `/instance` folder is really big due to many user worksapces and projects.
 
 -----
 

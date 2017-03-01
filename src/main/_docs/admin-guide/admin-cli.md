@@ -7,9 +7,11 @@ permalink: /:categories/cli/
 ---
 {% include base.html %}
 
-Running `codenvy/cli` executes Codenvy's CLI launcher from within a Docker container. The CLI launcher uses the `codenvy.env` configuration file to launch and configure a set of containers that actually run Codenvy. The CLI launcher also includes a number of helper functions for admins.
+The CLI is a Docker image (`codenvy/cli`) that is used to install, configure, start and manage Codenvy. Running `codenvy/cli` executes Codenvy's CLI launcher from within a Docker container. The CLI launcher uses the `codenvy.env` configuration file to launch and configure a set of containers that are then used to run Codenvy. The CLI launcher also includes a number of helper functions for admins.
 
-Note: The CLI will hide most error conditions from standard out. Internal stack traces and error output is redirected to `cli.log`, which is saved in the host folder where `:/data` is mounted.
+The CLI has three primary phases: initialization, configuration, and start. The initialization phase is executed by `init` and will install version-specific files into the folder mounted to `/data`. This includes the universal configuration file named `codenvy.env`, a version identifier, and a location where configuration files will be saved. The configuration is executed by the `config` command and takes as input your `codenvy.env` configuration file, the OS of your host, and then generates an OS-specific set of configuration files in the `/data/instance` folder that can be used to run an instance of Codenvy. The configuration phase will run an initialization if a folder is not found. Every execution of the `config` command will overwrite the files in `/data/instance` with the latest configuration. This way if an admin modifies any configuration file, the instance's configuration files will be updated to be guaranteed consistent. The CLI generates a large number of configuration files specific to running Codenvy. The configuration files are sourced from Puppet templates that are stored in our GitHub repository under `/dockerfiles/init`. The start phase is executed by `start` and will use a configuration-generated `docker-compose-container.yml` file to launch Codenvy. The start phase always executes a `config` command, so any files that were edited in `/data/instance` will be overwritten with the generated configuration from the
+
+The CLI will hide most error conditions from standard out. Internal stack traces and error output is redirected to `cli.log`, which is saved in the host folder where `:/data` is mounted.
 
 ```
 USAGE:
@@ -61,7 +63,10 @@ GLOBAL COMMAND OPTIONS:
 ```
 You can override any value in `codenvy.env` for a single execution by passing in `-e NAME=VALUE` on the command line. The CLI will detect the values on the command line and ignore those imported from `codenvy.env`.
 
-## codenvy init  
+-----
+
+*init*  
+
 Initializes an empty directory with a Codenvy configuration and instance folder where user data and runtime configuration will be stored. You must provide a `<path>:/data` volume mount, then Codenvy creates a `instance` and `backup` subfolder of `<path>`. You can optionally override the location of `instance` by volume mounting an additional local folder to `/data/instance`. You can optionally override the location of where backups are stored by volume mounting an additional local folder to `/data/backup`.  After initialization, a `codenvy.env` file is placed into the root of the path that you mounted to `/data`.
 
 These variables can be set in your local environment shell before running and they will be respected during initialization:
@@ -90,43 +95,73 @@ The initialization of a Codenvy installation requires the acceptance of our defa
 
 You can reinstall Codenvy on a folder that is already initialized and preserve your `/data/codenvy.env` values by passing the `--reinit` flag.
 
-## codenvy config
-Generates a Codenvy instance configuration thta is placed in `/data/instance`. This command uses puppet to generate configuration files for Codenvy, haproxy, swarm, socat, nginx, and postgres which are mounted when Codenvy services are started. This command is executed on every `start` or `restart`.
+-----
+
+*config*
+
+Generates a Codenvy instance configuration thta is placed in `/data/instance`. This command uses puppet to generate configuration files for Codenvy, haproxy, swarm, socat, nginx, and postgres which are mounted when Codenvy services are started. This command is executed on every `codenvy/cli start` or `codenvy/cli restart`.
 
 If you are using a `codenvy/cli:<version>` image and it does not match the version that is in `/instance/codenvy.ver`, then the configuration will abort to prevent you from running a configuration for a different version than what is currently installed.
 
 This command respects `--no-force`, `--pull`, `--force`, and `--offline`.
 
-## codenvy start
-Starts Codenvy and its services using `docker-compose`. If the system cannot find a valid configuration it will perform a `codenvy init`. Every `start` and `restart` will run a `codenvy config` to generate a new configuration set using the latest configuration. The starting sequence will perform pre-flight testing to see if any ports required by Codenvy are currently used by other services and post-flight checks to verify access to key APIs.  
+-----
 
-## codenvy stop
+*start*
+
+Starts Codenvy and its services using `docker-compose`. If the system cannot find a valid configuration it will perform a `codenvy/cli init`. Every `codenvy/cli start` and `codenvy/cli restart` will run a `codenvy/cli config` to generate a new configuration set using the latest configuration. The starting sequence will perform pre-flight testing to see if any ports required by Codenvy are currently used by other services and post-flight checks to verify access to key APIs.  
+
+-----
+
+*stop*
+
 The default stop is a graceful stop where each workspace is stopped and confirmed shutdown before stopping system services. If workspaces are configured to snap on stop, then all snaps will be completed before system service shutdown begins. You can ignore workspace stop behavior and shut down only system services with `--force` flag. Your admin user and password are required to perform a shutdown and provided by `--user` and `--password`
 
-## codenvy restart
-Performs a `codenvy stop` followed by a `codenvy start`, respecting `--pull`, `--force`, and `--offline`.
+-----
 
-## codenvy destroy
+*restart*
+
+Performs a `codenvy/cli stop` followed by a `codenvy/cli start`, respecting `--pull`, `--force`, and `--offline`.
+
+-----
+
+*destroy*
+
 Deletes `/docs`, `codenvy.env` and `/instance`, including destroying all user workspaces, projects, data, and user database. If you pass `--quiet` then the confirmation warning will be skipped. Passing `--cli` will also destroy the `cli.log`. By default this is left behind for traceability.
 
-## codenvy offline
+-----
+
+*offline*
+
 Saves all of the Docker images that Codenvy requires into `/backup/*.tar` files. Each image is saved as its own file. If the `backup` folder is available on a machine that is disconnected from the Internet and you start Codenvy with `--offline`, the CLI pre-boot sequence will load all of the Docker images in the `/backup/` folder.
 
 `--list` option will list all of the core images and optional stack images that can be downloaded. The core system images and the CLI will always be saved, if an existing TAR file is not found. `--image:<image-name>` will download a single stack image and can be used multiple times on the command line. You can use `--all-stacks` or `--no-stacks` to download all or none of the optional stack images.
 
-## codenvy rmi
+-----
+
+*rmi*
+
 Deletes the Docker images from the local registry that Codenvy has downloaded for this version.
 
-## codenvy download
-Used to download Docker images that will be stored in your Docker images repository. This command downloads images that are used by the CLI as utilities, for Codenvy to do initialization and configuration, and for the runtime images that Codenvy needs when it starts.  This command respects `--offline`, `--pull`, `--force`, and `--no-force` (default).  This command is invoked by `codenvy init`, `codenvy config`, and `codenvy start`.
+-----
 
-This command is invoked by `codenvy init` before initialization to download the images for the version specified by `codenvy/cli:<version>`.
+*download*
 
-## codenvy version
-Provides information on the current version and the available versions that are hosted in Codenvy's repositories. `codenvy upgrade` enforces upgrade sequences and will prevent you from upgrading one version to another version where data migrations cannot be guaranteed.
+Used to download Docker images that will be stored in your Docker images repository. This command downloads images that are used by the CLI as utilities, for Codenvy to do initialization and configuration, and for the runtime images that Codenvy needs when it starts.  This command respects `--offline`, `--pull`, `--force`, and `--no-force` (default).  This command is invoked by `codenvy/cli init`, `codenvy/cli config`, and `codenvy/cli start`.
 
-## codenvy upgrade
-Manages the sequence of upgrading Codenvy from one version to another. Run `codenvy version` to get a list of available versions that you can upgrade to.
+This command is invoked by `init` before initialization to download the images for the version specified by `codenvy/cli:<version>`.
+
+-----
+
+*version*
+
+Provides information on the current version and the available versions that are hosted in Codenvy's repositories. `upgrade` enforces upgrade sequences and will prevent you from upgrading one version to another version where data migrations cannot be guaranteed.
+
+-----
+
+*upgrade*
+
+Manages the sequence of upgrading Codenvy from one version to another. Run `codenvy/cli version` to get a list of available versions that you can upgrade to.
 
 Upgrading Codenvy is done by using a `codenvy/cli:<version>` that is newer than the version you currently have installed. For example, if you have 5.0.0-M2 installed and want to upgrade to 5.0.0-M7, then:
 
@@ -143,17 +178,26 @@ The upgrade command has numerous checks to prevent you from upgrading Codenvy if
 
 The upgrade process: a) performs a version compatibility check, b) downloads new Docker images that are needed to run the new version of Codenvy, c) stops Codenvy if it is currently running triggering a maintenance window, d) backs up your installation, e) initializes the new version, and f) starts Codenvy.
 
-You can run `codenvy version` to see the list of available versions that you can upgrade to.
+You can run `codenvy/cli version` to see the list of available versions that you can upgrade to.
 
-`--skip-backup` option allow to skip [backup](https://github.com/codenvy/che-docs/blob/master/src/main/_docs/setup/setup-cli.md#backup) during update, that could be useful to speed up upgrade because [backup](https://github.com/codenvy/che-docs/blob/master/src/main/_docs/setup/setup-cli.md#backup) can be very expensive operation if `/instace` folder is really big due to many user worksapces and projects.
+`--skip-backup` option allow to skip [backup](https://github.com/codenvy/che-docs/blob/master/src/main/_docs/setup/setup-cli.md#backup) during update, that could be useful to speed up upgrade because [backup](https://github.com/codenvy/che-docs/blob/master/src/main/_docs/setup/setup-cli.md#backup) can be very expensive operation if `/instance` folder is really big due to many user worksapces and projects.
 
-## codenvy info
+-----
+
+*info*
+
 Displays system state and debugging information. `--network` runs a test to take your `CODENVY_HOST` value to test for networking connectivity simulating browser > Codenvy and Codenvy > workspace connectivity.
 
-## codenvy backup
+-----
+
+*backup*
+
 Tars your `/instance` into files and places them into `/backup`. These files are restoration-ready.
 
-## codenvy restore
+-----
+
+*restore*
+
 Restores `/instance` to its previous state. You do not need to worry about having the right Docker images. The normal start / stop / restart cycle ensures that the proper Docker images are available or downloaded, if not found.
 
 This command will destroy your existing `/instance` folder, so use with caution, or set these values to different folders when performing a restore.

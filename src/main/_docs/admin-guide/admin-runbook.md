@@ -54,7 +54,7 @@ For Machine Nodes local storage is preferred as it will provide the best perform
 
 For the Master Node, LVM or RAID storage is recommended for redundancy. NAS can also be used. If you are using AWS, we recommend LVM with snapshotting turned on for faster backups of the key data.
 
-## Configure Directories
+The following directories can generate large amounts of data in a production system and care should be taken to ensure that there remains free disk space for them:
 
 On Master Node:
 
@@ -73,7 +73,10 @@ On Machine Nodes:
 /var/lib/docker
 ```
 
-### Master Node: Disk Setup
+## Recommended Disk Setup
+The following is our recommendation for disk setup.
+
+### Master Node
 
 After starting the instance inside the first subnet we need to attach 3 data disks:
 - For databases and logs: initial size is about 300 GB.
@@ -112,7 +115,7 @@ For Docker snapshots:
 2. Create volume group: `# vgcreate vg-ddistr /dev/sde`
 3. Create FS volume using all remaining disk space: `#  lvcreate -l 100%FREE -n ddistr vg-ddistr`
 
-Make XFS filesystem for:
+Make XFS filesystems for:
 
 1. journal: `# mkfs.xfs /dev/vg-data/journal`
 2. logs: `# mkfs.xfs /dev/vg-data/logs`
@@ -122,7 +125,7 @@ Make XFS filesystem for:
 8. fs: `# mkfs.xfs /dev/vg-fs/fs`
 9. Snapshots: `# mkfs.xfs /dev/vg-ddistr/ddistr`
 
-For /etc/fstab entries (note the *nofail* option):
+Example `/etc/fstab` entries (note the *nofail* option):
 
 ```
 #
@@ -148,9 +151,9 @@ proc                    /proc                   proc    defaults        0 0
 - Check if swap activated: `# free`
 - Check if all volumes mounted and have correct sizes: `# df -h`
 
-### Machine Nodes: Disk Setup
+### Machine Nodes
 
-After starting the instance inside the second subnet we need to attach the Docker and logs (initial size is about 300 GB).
+After starting the instance inside the second subnet we need to attach Docker and logs (initial size is about 300 GB).
 
 1. Unmount used ephemeral disk: `# umount /dev/sdb1`
 2. Zeroing beginning of ephemeral disk: `# dd if=/dev/zero of=/dev/sdb`
@@ -169,12 +172,12 @@ For Docker and logs:
 3. Create journal volume with size 10 GB: `#  lvcreate -L 10G -n journal vg-data`
 4. Create docker data volume using all remaining disk space: `#  lvcreate -l 100%FREE -n docker vg-data`
 
-Make XFS filesystem for:
+Make XFS filesystems for:
 
 1. journal: `# mkfs.xfs /dev/vg-data/journal`
 2. docker: `# mkfs.xfs /dev/vg-data/docker`
 
-Add /etc/fstab entries (note the *nofail* option):
+Example `/etc/fstab` entries (note the *nofail* option):
 
 ```
 #

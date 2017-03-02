@@ -7,7 +7,7 @@ permalink: /docs/admin-guide/runbook/
 ---
 {% include base.html %}
 
-This article provides specific performance and security guidance for Codenvy on-premises installations based on our experience running codenvy.io hosted SaaS and working with our enterprise customers. We assume a multi-node setup where workspaces are run on Workspace Nodes and the Master Node does not operate workspaces, ie the Master Node's IP is not included in the `codenvy.env` Swarm list.
+This article provides specific performance and security guidance for Codenvy on-premises installations based on our experience running codenvy.io hosted SaaS and working with our enterprise customers. We assume a multi-node setup where workspaces are run on Machine Nodes and the Master Node does not operate workspaces, ie the Master Node's IP is not included in the `codenvy.env` Swarm list.
 
 # Recommended Docker Versions
 Codenvy can run on Docker 1.11+, but we recommend **Docker 1.12.5+**. Versions below 1.12.5 have known issues:
@@ -41,37 +41,36 @@ DOCKER_NETWORK_OPTIONS=' --bip=172.17.42.1/16 -H tcp://0.0.0.0:2375 -H unix:///v
 We have 2 classes of instances:
 
 1. Master Nodes used for running internal Codenvy services.
-2. Workspace Nodes that runs user workspaces.
+2. Machine Nodes that runs user workspaces.
 
-We suggest separating traffic bewteen two subnets: one for Master and one for Workspace Nodes. This keeps the traffic purpose and security properly segregated and allows the use of subnet masks, rather than individual IPs when writing firewall rules. VNET will use addresses `10.0.0.0/8` and two subnets `10.1.0.0/16` for Master and 10.2.0.0/16 for Workspace Nodes.
+We suggest separating traffic bewteen two subnets: one for Master and one for Machine Nodes. This keeps the traffic purpose and security properly segregated and allows the use of subnet masks, rather than individual IPs when writing firewall rules. VNET will use addresses `10.0.0.0/8` and two subnets `10.1.0.0/16` for Master and 10.2.0.0/16 for Machine Nodes.
 
 # Storage
 Cloud-based installs (AWS, Google Cloud, etc...) can scale disk space. We suggest LVM and XFS with caching for read and write.
 
 Workspaces Nodes require fast I/O access to give developers the best experience. This is especially important with interpreted languages like node.js and PHP that require access to a large number of small files. We suggest using SSD for all nodes. 
 
-For Workspace Nodes local storage is preferred as it will provide the best performance.
+For Machine Nodes local storage is preferred as it will provide the best performance.
 
 For the Master Node, LVM or RAID storage is recommended for redundancy. NAS can also be used. If you are using AWS, we recommend LVM with snapshotting turned on for faster backups of the key data.
 
-## Directories
+## Configure Directories
 
-For Master Node:
+On Master Node:
 
 ```
-/var/lib/pgsql
 /var/lib/docker
-/var/lib/docker-distribution
-/home/codenvy/codenvy-data/fs
-/home/codenvy/codenvy/instance/data/codenvy/che-machines
+{path-to-your-data-directory}/instance/data/registry
+{path-to-your-data-directory}/instance/data/codenvy/fs
+{path-to-your-data-directory}/instance/data/codenvy/che-machines
+{path-to-your-data-directory}/instance/data/postgres
 ```
 
-And for Workspace Nodes:
+On Machine Nodes:
 
 ```
 /var/log/journal
 /var/lib/docker
-/home/codenvy/codenvy-data
 ```
 
 ### Master Node: Disk Setup
@@ -98,9 +97,7 @@ For databases and logs:
 3. Create journal volume with size 10 GB: `#  lvcreate -L 10G -n journal vg-data`
 4. Create logs volume with size 20 GB: `#  lvcreate -L 20G -n logs vg-data`
 5. Create machine-logs volume with size 30 GB: `#  lvcreate -L 30G -n machine-logs vg-data`
-6. Create ldap volume with size 10 GB: `#  lvcreate -L 10G -n ldap vg-data`  (Not needed after 5.0.0-M5)
-7. Create mongo volume with size 20 GB: `#  lvcreate -L 20G -n mongo vg-data`  (Not needed after 5.0.0-M5)
-8. Create pgsql volume with size 20 GB: `#  lvcreate -L 20G -n psql vg-data`
+6. Create pgsql volume with size 20 GB: `#  lvcreate -L 20G -n psql vg-data`
 9. Create docker data volume using all remaining disk space: `#  lvcreate -l 100%FREE -n docker vg-docker`
 
 For filesystem:
@@ -120,8 +117,6 @@ Make XFS filesystem for:
 1. journal: `# mkfs.xfs /dev/vg-data/journal`
 2. logs: `# mkfs.xfs /dev/vg-data/logs`
 3. machine-logs: `# mkfs.xfs /dev/vg-data/machine-logs`
-4. ldap: `# mkfs.xfs /dev/vg-data/ldap`  (Not needed after 5.0.0-M5)
-5. mongo: `# mkfs.xfs /dev/vg-data/mongo`  (Not needed after 5.0.0-M5)
 6. pgsql: `# mkfs.xfs /dev/vg-data/pgsql`
 7. docker: `# mkfs.xfs /dev/vg-data/docker`
 8. fs: `# mkfs.xfs /dev/vg-fs/fs`
@@ -143,20 +138,19 @@ devpts                  /dev/pts                devpts  gid=5,mode=620  0 0
 sysfs                   /sys                    sysfs   defaults        0 0
 proc                    /proc                   proc    defaults        0 0
 /dev/vg-docker/swap     swap                    swap    defaults,nofail        0 0
-/dev/vg-data/fs         /home/codenvy/codenvy-data/fs   xfs     defaults,nofail         0 0
-/dev/vg-ddist/ddist     /var/lib/docker-distribution    xfs     defaults,nofail         0 0
-/dev/vg-docker/machinelogs      /home/codenvy/codenvy-data/che-machines-logs    xfs     defaults,nofail         0 0
+/dev/vg-data/fs         {path-to-your-data-directory}instance/data/codenvy/fs   xfs     defaults,nofail         0 0
+/dev/vg-ddist/ddist     {path-to-your-data-directory}instance/data/registry    xfs     defaults,nofail         0 0
+/dev/vg-data/machine-logs      {path-to-your-data-directory}/instance/data/codenvy/che-machines    xfs     defaults,nofail         0 0
+/dev/vg-data/pgsql      {path-to-your-data-directory}/instance/data/postgres    xfs     defaults,nofail         0 0
 ```
 
 - Activate all fstab entries: `# mount -a`
 - Check if swap activated: `# free`
 - Check if all volumes mounted and have correct sizes: `# df -h`
 
-### Workspace Nodes: Disk Setup
+### Machine Nodes: Disk Setup
 
-After starting instance inside second subnet we need to attach 2 data disks:
-- For Docker and logs: initial size is about 300 GB
-- For workspace project storage: initial size is about 1TB, but this should be monitored as the demands will depend heavily on the type of projects and developer usage patterns in the organization.
+After starting the instance inside the second subnet we need to attach the Docker and logs (initial size is about 300 GB).
 
 1. Unmount used ephemeral disk: `# umount /dev/sdb1`
 2. Zeroing beginning of ephemeral disk: `# dd if=/dev/zero of=/dev/sdb`
@@ -175,17 +169,10 @@ For Docker and logs:
 3. Create journal volume with size 10 GB: `#  lvcreate -L 10G -n journal vg-data`
 4. Create docker data volume using all remaining disk space: `#  lvcreate -l 100%FREE -n docker vg-data`
 
-For Workspace Storage:
-
-1. Add data disk to LVM: `# pvcreate /dev/sdd`
-2. Create volume group: `# vgcreate vg-fs /dev/sdd`
-3. Create FS volume using all remaining disk space: `#  lvcreate -l 100%FREE -n fs vg-fs`
-
 Make XFS filesystem for:
 
 1. journal: `# mkfs.xfs /dev/vg-data/journal`
 2. docker: `# mkfs.xfs /dev/vg-data/docker`
-3. FS: `# mkfs.xfs /dev/vg-fs/fs`
 
 Add /etc/fstab entries (note the *nofail* option):
 
@@ -203,9 +190,6 @@ devpts                  /dev/pts                devpts  gid=5,mode=620  0 0
 sysfs                   /sys                    sysfs   defaults        0 0
 proc                    /proc                   proc    defaults        0 0
 /dev/vg-docker/swap     swap                    swap    defaults,nofail        0 0
-/dev/vg-data/fs         /home/codenvy/codenvy-data/fs   xfs     defaults,nofail         0 0
-/dev/vg-ddist/ddist     /var/lib/docker-distribution    xfs     defaults,nofail         0 0
-/dev/vg-docker/machinelogs      /home/codenvy/codenvy-data/che-machines-logs    xfs     defaults,nofail         0 0
 ```
 
 - Activate all fstab entries: `# mount -a`
@@ -213,23 +197,20 @@ proc                    /proc                   proc    defaults        0 0
 - Check if all volumes mounted and have correct sizes: `# df -h`
 
 ## Increasing Disk Space
-If additional disk space is needed you can attach a new data disk (caches turned ON), then issue the following commands:
+If additional disk space is needed you can attach a new data disk (if using Azure make sure caches are turned ON), then issue the following commands:
 
 1. Create physical volume: `# pvcreate /dev/sdg`
-2. Scan disks for changes, new disk should appear here:`lvmdiskscan\npvdisplay\npvscan`
+2. Scan disks for changes, new disk should appear here: `lvmdiskscan pvdisplay pvscan`
 3. Extend volume group: `# vgextend vg-data /dev/sdg`
 4. Extend logical volume: `# lvextend -l +100%FREE /dev/vg-fs/fs`
-5. To grow the actual filesystem, it must be run on mounted volume, no need to stop codenvy or unmount filesystem: `# xfs_growfs /home/codenvy/codenvy-data/fs/`
+5. To grow the actual filesystem, it must be run on mounted volume, no need to stop codenvy or unmount filesystem: `# xfs_growfs {path-to-your-data-directory}/instance/data/codenvy/fs`
 
 ## Detaching Disks
-If you need to detach disks, you need to stop all services that may be using that volume:
+If you need to detach disks:
 
-```
-service puppet stop\nservice crond stop\nservice codenvy stop
-```
-
-1. Unmount FS: `# umount /home/codenvy/codenvy-data/fs`
+1. Stop Codenvy
+1. Unmount FS: `# umount {path-to-your-data-directory}/instance/data/codenvy/fs`
 2. Deactivate volume group: `# vgchange -an vg-fs`
-3. Detach data disk using azure web-interface or CLI from old instance
-4. Reattach data disk using azure web-interface or CLI to new instance (turn ON caching)
+3. Detach data disk
+4. Reattach data disk (if using Azure ensure caching is ON)
 5. Activate volume group: `# vgchange -ay vg-fs`

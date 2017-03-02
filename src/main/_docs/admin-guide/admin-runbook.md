@@ -33,10 +33,12 @@ Zookeeper is a key-value store that is needed by Swarm in a clustered Codenvy se
 -A INPUT -m state --state NEW -m udp -p udp --dport 4789 -j ACCEPT
 ```
 
-**Step 2**: Change the configuration of the Docker daemon to look like the below. On CentOS this file is found at `/etc/sysconfig/docker-network`:
+**Step 2**: Change the configuration of the Docker daemon as below (subsituting the hostname for your instance and the appopriate network adapter.
+
+For example, On CentOS in `/etc/sysconfig/docker-network`:
 
 ```
-DOCKER_NETWORK_OPTIONS=' --bip=172.17.42.1/16 -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-store=zk://<%= scope.lookupvar('third_party::docker::install::docker_cluster_store') -%>:2181 --cluster-advertise=<%= scope.lookupvar('third_party::docker::install::docker_cluster_advertise') -%>:2375'
+DOCKER_NETWORK_OPTIONS=' --bip=172.17.42.1/16 -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-store=zk:// codenvy.com:2181 --cluster-advertise=eth0:2375'
 ```
 
 # Network Infrastructure
@@ -60,7 +62,6 @@ For the Master, LVM or RAID is recommended for redundancy and network attached s
 For Master Node:
 
 ```
-/var/log/journal
 /var/lib/pgsql
 /var/lib/docker
 /var/lib/docker-distribution

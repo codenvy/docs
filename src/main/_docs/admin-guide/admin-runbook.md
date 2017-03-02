@@ -43,16 +43,16 @@ We have 2 classes of instances:
 1. Master Nodes used for running internal Codenvy services.
 2. Workspace Nodes that runs user workspaces.
 
-We suggest separating traffic bewteen two subnets: one for Master and one for Workspace Nodes. This keeps the traffic purpose and security properly segregated and allows the use of subnet masks, rather than individual IPs when writing firewall rules. VNET will use addresses 10.0.0.0/8 and two subnets 10.1.0.0/16 for Master and 10.2.0.0/16 for Workspace Nodes.
+We suggest separating traffic bewteen two subnets: one for Master and one for Workspace Nodes. This keeps the traffic purpose and security properly segregated and allows the use of subnet masks, rather than individual IPs when writing firewall rules. VNET will use addresses `10.0.0.0/8` and two subnets `10.1.0.0/16` for Master and 10.2.0.0/16 for Workspace Nodes.
 
 # Storage
-Cloud-based installs (AWS, Google Cloud, etc...) can quickly scale disk space up. To utilise this we suggest LVM and XFS and recommend using caching for both read and write.
+Cloud-based installs (AWS, Google Cloud, etc...) can scale disk space. We suggest LVM and XFS with caching for read and write.
 
-Machine Nodes typically require fast I/O access to give developers the best experience. This is espeically important with languages like node.js and PHP that can require access to a large number of small files. To optimize performance we suggest using SSD in all locations. 
+Workspaces Nodes require fast I/O access to give developers the best experience. This is especially important with interpreted languages like node.js and PHP that require access to a large number of small files. We suggest using SSD for all nodes. 
 
-For Machine Nodes local storage is strongly preferred as it will provide the best performance.
+For Workspace Nodes local storage is preferred as it will provide the best performance.
 
-For the Master, LVM or RAID is recommended for redundancy and network attached storage can be used. If using Amazon Web Services we recommend LVM with snapshotting turned on for faster backups of the key data.
+For the Master Node, LVM or RAID storage is recommended for redundancy. NAS can also be used. If you are using AWS, we recommend LVM with snapshotting turned on for faster backups of the key data.
 
 ## Directories
 
@@ -66,7 +66,7 @@ For Master Node:
 /home/codenvy/codenvy/instance/data/codenvy/che-machines
 ```
 
-And for Machine Nodes:
+And for Workspace Nodes:
 
 ```
 /var/log/journal

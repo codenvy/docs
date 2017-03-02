@@ -66,8 +66,7 @@ For Master Node:
 /var/lib/docker
 /var/lib/docker-distribution
 /home/codenvy/codenvy-data/fs
-/home/codenvy/codenvy-data/che-machines-logs
-/home/codenvy/codenvy-data/logs
+/home/codenvy/codenvy/instance/data/codenvy/che-machines
 ```
 
 And for Machine Nodes:

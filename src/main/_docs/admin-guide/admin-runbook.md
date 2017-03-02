@@ -7,21 +7,19 @@ permalink: /docs/admin-guide/runbook/
 ---
 {% include base.html %}
 
-This article provides specific performance and security guidance for Codenvy on-premises installations based on our experience running codenvy.io hosted SaaS and working with our enterprise customers. The below recommendations assume a multi-node setup where all workspaces are run on Workspace Nodes and none are run on the Master Node (it's IP/hostname is not included in the swarm list).
-
-For general information on managing a Codenvy on-premises instance see the [managing]({{base}}{{site.links["admin-managing"]}}) docs page.
+This article provides specific performance and security guidance for Codenvy on-premises installations based on our experience running codenvy.io hosted SaaS and working with our enterprise customers. We assume a multi-node setup where workspaces are run on Workspace Nodes and the Master Node does not operate workspaces, ie the Master Node's IP is not included in the `codenvy.env` Swarm list.
 
 # Recommended Docker Versions
-Codenvy can run on Docker 1.10+, but we recommend **Docker 1.12.5+** for the best experience. If you choose to run with a lower version you may experience the following issues:
+Codenvy can run on Docker 1.11+, but we recommend **Docker 1.12.5+**. Versions below 1.12.5 have known issues:
 
 | Issue | Link | Fixed In |
 |--- |--- |--- |
 | DockerConnector exception "Could not kill running container" | https://github.com/codenvy/codenvy/issues/1164 | Docker 1.12.5
 
 # Zookeeper Configuration
-Zookeeper is a key-value store that is needed by Swarm in a clustered Codenvy setup. To optimize the setup:
+Zookeeper is a key-value store used by Docker in a clustered setup. To optimize the setup:
 
-**Step 1**: On the master node ensure that port 2181 is opened. If you're using `iptables` for example:
+**Step 1**: On the Master Node ensure that port 2181 is open. For example, if you're using `iptables`:
 
 ```
 #etcd
@@ -33,9 +31,7 @@ Zookeeper is a key-value store that is needed by Swarm in a clustered Codenvy se
 -A INPUT -m state --state NEW -m udp -p udp --dport 4789 -j ACCEPT
 ```
 
-**Step 2**: Change the configuration of the Docker daemon as below (subsituting the hostname for your instance and the appopriate network adapter.
-
-For example, On CentOS in `/etc/sysconfig/docker-network`:
+**Step 2**: Change the Docker daemon configuration (subsituting the hostname for your instance and the appopriate network adapter):
 
 ```
 DOCKER_NETWORK_OPTIONS=' --bip=172.17.42.1/16 -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-store=zk:// codenvy.com:2181 --cluster-advertise=eth0:2375'
@@ -43,10 +39,11 @@ DOCKER_NETWORK_OPTIONS=' --bip=172.17.42.1/16 -H tcp://0.0.0.0:2375 -H unix:///v
 
 # Network Infrastructure
 We have 2 classes of instances:
+
 1. Master Nodes used for running internal Codenvy services.
 2. Workspace Nodes that runs user workspaces.
 
-We suggest separating traffic bewteen two subnets: one for Master and one for Machine Nodes. This keeps the traffic purpose and security properly segregated and allows the use of subnet masks, rather than individual IPs when writing firewall rules. VNET will use addresses 10.0.0.0/8 and two subnets 10.1.0.0/16 for Master and 10.2.0.0/16 for Machine Nodes.
+We suggest separating traffic bewteen two subnets: one for Master and one for Workspace Nodes. This keeps the traffic purpose and security properly segregated and allows the use of subnet masks, rather than individual IPs when writing firewall rules. VNET will use addresses 10.0.0.0/8 and two subnets 10.1.0.0/16 for Master and 10.2.0.0/16 for Workspace Nodes.
 
 # Storage
 Cloud-based installs (AWS, Google Cloud, etc...) can quickly scale disk space up. To utilise this we suggest LVM and XFS and recommend using caching for both read and write.

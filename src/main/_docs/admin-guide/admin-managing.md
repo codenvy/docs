@@ -27,16 +27,16 @@ The default network in Docker is a "bridge" network. If your system will only re
 ## Scaling With Overlay Network (Linux Only)
 Each workspace node that you add will need to have Docker installed. It should be the same version of Docker that is installed on the master node running Codenvy. Additionally, the IP address of each workspace node must be publicly reachable by browsers. While each workspace is going to be clustered internally with Swarm, the nature of Swarm requires that each IP address is externally accessible.
 
-1. Collect the IP address of Codenvy `CODENVY-IP` from your master node.
+1: Collect the IP address of Codenvy `CODENVY-IP` from your master node.
 
-2. Collect the network interface of the new workspace node `WS-IF`:
+2: Collect the network interface of the new workspace node `WS-IF`:
 
 ```shell
 # Get the network interface from your ws node, typically 'eth1' or 'eth0':
 ifconfig
 ```
 
-3. On each workspace node, [configure and restart Docker](https://docs.docker.com/engine/admin/) with additional options:
+3: On each workspace node, [configure and restart Docker](https://docs.docker.com/engine/admin/) with additional options:
 
 - `--cluster-store=zk://<CODENVY-IP>:2181`
 - `--cluster-advertise=<WS-IF>:2375`
@@ -45,9 +45,9 @@ ifconfig
 
 The first parameter tells Docker where the key-value store is located. The second parameter tells Docker how to link its workspace node to the key-value storage broadcast. The third parameter opens Docker to communicate on Codenvy's swarm cluster (this parameter is not needed if your workspace node is in a VM). And the fourth parameter allows the Docker daemon to push snapshots to Codenvy's internal registry (this parameter is not needed if you are using an external registry). If you are running Codenvy behind a proxy, each workspace node Docker daemon should get the same proxy configuration that you placed on the master node. If you would like your Codenvy master node to also host workspaces, you can add these parameters to your master Docker daemon as well.
 
-4. Verify that Docker is running properly. Docker will not start if it is not able to connect to the key-value storage. Run a simple `docker run hello-world` to verify Docker is happy. Each workspace node that successfully runs this command is part of the overlay network.
+4: Verify that Docker is running properly. Docker will not start if it is not able to connect to the key-value storage. Run a simple `docker run hello-world` to verify Docker is happy. Each workspace node that successfully runs this command is part of the overlay network.
 
-5. On the Codenvy master node, modify `codenvy.env` to uncomment or add:
+5: On the Codenvy master node, modify `codenvy.env` to uncomment or add:
 
 ```json
 # Uncomment this property to switch Codenvy from bridge to overlay mode:

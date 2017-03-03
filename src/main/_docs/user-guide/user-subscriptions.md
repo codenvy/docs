@@ -9,7 +9,7 @@ permalink: /:categories/subscriptions/
 
 
 You can purchase subscriptions for codenvy.io accounts from the user dashboard. Subscriptions allow you to have:  
-- RAM: up to 30GB of RAM to run workspaces  
+- RAM: up to 50GB of RAM to run workspaces  
 - Workspace timeout: 4 hours  
 - Workspaces: Unlimited  
 
@@ -62,16 +62,16 @@ Clicking "Continue" will purchase the subscription. Your card will be charged an
 ## Update Billing information
 You can update your billing information by going under the "Card" tab from billing page.
 
-{% assign TODO="Update the image after merged" %}
+![billing-information.png]({{base}}/docs/assets/imgs/codenvy/billing-information.png)
 
 ## Invoices
 
 You can download all your subscription invoices under the "Invoices" tab from billing page.
 
-{% assign TODO="Update the image after merged" %}
+![billing-invoices.png]({{base}}/docs/assets/imgs/codenvy/billing-invoices.png)
 
 ## Cancel Subscription
 
 To cancel a subscription, just remove your credit card information from your account. You can remove your credit card by going under the "Card" tab from billing page:
 
-{% assign TODO="Update the image after merged" %}
+![billing-information.png]({{base}}/docs/assets/imgs/codenvy/billing-information.png)

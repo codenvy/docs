@@ -335,7 +335,7 @@ All ports are TCP unless otherwise noted.
 |8080|Codenvy Server
 
 ### Workspace Nodes
-You can add as many workspace nodes as required to handle additional demand.
+You can add as many workspace nodes as required to handle additional demand. When adding a workspace node the hostname/IP must be accessible to all clients who will connect to Codenvy.
 
 ![master_plus_node.png]({{base}}/docs/assets/imgs/codenvy/master_plus_node.png)
 

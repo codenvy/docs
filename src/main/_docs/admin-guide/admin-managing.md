@@ -1,6 +1,6 @@
 ---
 tag: [ "codenvy" ]
-title: Management
+title: Managing
 excerpt: ""
 layout: docs
 permalink: /:categories/managing/
@@ -36,12 +36,12 @@ Each workspace node that you add will need to have Docker installed. It should b
 ifconfig
 ```
 
-3. On each workspace node, configure and restart Docker with four new options:
+3. On each workspace node, [configure and restart Docker](https://docs.docker.com/engine/admin/) with additional options:
 
 - `--cluster-store=zk://<CODENVY-IP>:2181`
 - `--cluster-advertise=<WS-IF>:2375`
 - `--host=tcp://0.0.0.0:2375`
-- `--engine-insecure-registry=<CODENVY-IP>:5000`
+- `--insecure-registry=<CODENVY-IP>:5000`
 
 The first parameter tells Docker where the key-value store is located. The second parameter tells Docker how to link its workspace node to the key-value storage broadcast. The third parameter opens Docker to communicate on Codenvy's swarm cluster (this parameter is not needed if your workspace node is in a VM). And the fourth parameter allows the Docker daemon to push snapshots to Codenvy's internal registry (this parameter is not needed if you are using an external registry). If you are running Codenvy behind a proxy, each workspace node Docker daemon should get the same proxy configuration that you placed on the master node. If you would like your Codenvy master node to also host workspaces, you can add these parameters to your master Docker daemon as well.
 

@@ -81,8 +81,6 @@ As a **team developer**, you can share workspaces with other team members by usi
 
 ![team-workspace-share.png]({{base}}/docs/assets/imgs/codenvy/team-workspace-share.png)
 
-{% assign TODO="Update the image after merged" %}
-
 ### Manage Workspaces
 Team workspaces can be managed by team owners, team admins or a team member if they created the specific workspace.
 

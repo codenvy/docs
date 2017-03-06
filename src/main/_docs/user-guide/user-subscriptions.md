@@ -49,7 +49,7 @@ View a summary your account state:
 
 ## Buying RAM
 
-From the "Billing" summary page, you are able to buy more RAM for your account.
+From the "Dashboard" page or "Billing" summary page, you are able to buy more RAM for your account.
 
 Click on the button "Get More RAM". A new popup will be displayed:  
 ![billing-get-ram.png]({{base}}/docs/assets/imgs/codenvy/billing-get-ram.png)
@@ -58,6 +58,10 @@ If your billing information is not already registered, you will have to provide 
 ![billing-info-popup.png]({{base}}/docs/assets/imgs/codenvy/billing-info-popup.png)
 
 Clicking "Continue" will purchase the subscription. Your card will be charged and you will immediately receive the requested additional RAM and a confirmation of the transaction.
+
+The workspace details page has a section "Idle timeout", where the current idle timeout value is displayed along with a button "Buy More RAM To Get 4 Hour Idle Timeout",
+that also provides ability to buy more RAM and increase timeout:
+![get-more-idle-timeout-button.png]({{base}}/docs/assets/imgs/codenvy/get-more-idle-timeout-button.png)
 
 ## Update Billing information
 You can update your billing information by going under the "Card" tab from billing page.

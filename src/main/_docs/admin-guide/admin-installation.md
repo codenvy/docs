@@ -306,7 +306,7 @@ Sometimes Fedora and RHEL/CentOS users will encounter issues with SElinux. Try d
 The hostname or IP address that you give to the Codenvy master node (and any optional workspace nodes) must be externally reachable by each browser. In scalability mode, you can create a cluster of workspace nodes by connecting different Docker daemons together. Even though the cluster is an internal object, each workspace node must be listening on a publicly reachable IP address or hostname.
 
 ## Required Ports
-Codenvy's runtime launches a group of Docker containers in a compose relationship. The master node is where Codenvy is installed and running. In a [scalability mode]({{base}}/docs/admin-guide/managing/index.html), you can add additional physical "workspace" nodes to increase system capacity. 
+Codenvy's runtime launches a group of Docker containers in a compose relationship. The master node is where Codenvy is installed and running. In a [scalability mode]({{base}}/docs/admin-guide/managing/index.html), you can add additional physical "machine" nodes which runs the developer to increase system capacity. 
 
 ### Master Node
 If you have not added any additional physical workspace nodes, then the Codenvy master node runs core services and workspaces.
@@ -334,12 +334,12 @@ All ports are TCP unless otherwise noted.
 |5432|Postgres
 |8080|Codenvy Server
 
-### Workspace Nodes
+### Machines Nodes
 You can add as many workspace nodes as required to handle additional demand.
 
 ![master_plus_node.png]({{base}}/docs/assets/imgs/codenvy/master_plus_node.png)
 
-#### Workspace Node: External Ports
+#### Machines Node: External Ports
 All ports are TCP unless otherwise noted.
 
 |Port >>>>>>>>>>>>>>>>|Service >>>>>>>>>>>>>>>>|Notes|
@@ -349,7 +349,7 @@ All ports are TCP unless otherwise noted.
 
 The Docker daemon will need to be remotely accessed by Codenvy, so it has to be [setup to use a TCP socket](https://docs.docker.com/engine/reference/commandline/dockerd/#/daemon-socket-option). This port only needs to be accessible to the Codenvy master node.
 
-#### Workspace Node: Internal Ports
+#### Machines Node: Internal Ports
 All ports are TCP unless otherwise noted.
 
 |Port |Service >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|Notes|

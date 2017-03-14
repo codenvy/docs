@@ -33,7 +33,7 @@ Factories can be invoked in mutliple ways. You can replace the `codenvy.io` doma
 | --- | ---
 |  Invoke Factory using its unique hashcode <br>`/f?id={hashcode}` <br>`/factory?id={hascode}`| https://codenvy.io/f?id=s38eam174ji42vty
 |  Invoke a named Factory <br> `/f?user={username}&name={factoryname}` <br>`/factory?user={username}&name={factoryname}`<br>`/factory/username/factoryname`  | https://codenvy.io/f?user=tylerjewell&name=starwars<br>https://codenvy.io/factory?user=tylerjewell&name=starwars<br>https://codenvy.io/factory/tylerjewell/starwars
-|  Invoke Factory for a specific git repo <br>`/f?url={git URL}`  | http://codenvy.io/f?url=https://github.com/eclipse/che<br>http://codenvy.io/f?url=https://github.com/eclipse/che/commits/language-server<br>http://codenvy.io/f?url=https://gitlab.com/benoitf/simple-project 
+|  Invoke Factory for a specific git repo <br>`/f?url={git URL}`  | http://codenvy.io/f?url=https://github.com/eclipse/che<br>http://codenvy.io/f?url=https://github.com/eclipse/che/commits/language-server<br>http://codenvy.io/f?url=https://gitlab.com/benoitf/simple-project
 
 Once the Factory is executed, it either loads an existing workspace or generates a new one, depending upon the Factory configuration.  The name of the workspace is determined within the Factory configuration and its name becomes part of the URL access.
 
@@ -102,11 +102,7 @@ A mixin adds additional behaviors to a project as a set of new project type attr
 
 | Mixin ID   | Description   
 | --- | ---
-| `pullrequest`   | Enables pull request workflow where Codenvy handles local & remote branching, forking, and pull request issuance. Pull requests generated from within Codenvy have another Factory placed into the comments of pull requests that a PR reviewer can consume. Adds contribution panel to the IDE. If this mixin is set, then it uses attribute values for `project.attributes.local_branch` and `project.attributes.contribute_to_branch`.   
-<br>
-The `pullrequest` mixin requires additional configuration from the `attributes` object of the project.  If present, Codenvy will use the project attributes as defined in the Factory. If not provided, Codenvy will set defaults for the attributes.
-<br>
-Learn more about other mixins, on [`project : {}` object for Eclipse Che](https://www.eclipse.org/che/docs/server/rest-api/index.html)
+| `pullrequest`  | Enables pull request workflow where Codenvy handles local & remote branching, forking, and pull request issuance. Pull requests generated from within Codenvy have another Factory placed into the comments of pull requests that a PR reviewer can consume. Adds contribution panel to the IDE. If this mixin is set, then it uses attribute values for `project.attributes.local_branch` and `project.attributes.contribute_to_branch`. <br><br> The `pullrequest` mixin requires additional configuration from the `attributes` object of the project.  If present, Codenvy will use the project attributes as defined in the Factory. If not provided, Codenvy will set defaults for the attributes. <br><br> Learn more about other mixins, on [`project : {}` object for Eclipse Che](https://www.eclipse.org/che/docs/server/rest-api/index.html)
 
 ## Pull Request Mixin Attributes
 Project attributes alter the behavior of the IDE or workspace.
@@ -120,7 +116,7 @@ Different Eclipse Che and Codenvy plug-ins can add their own attributes to affec
 
 <br>
  Here is a snippet that demonstrates full configuration of the contribution mixin.
- 
+
 ```json  
 factory.workspace.project : {
   "mixins"     : [ "pullrequest" ],
@@ -282,7 +278,7 @@ This action will open a file as a tab in the editor. You can provide this action
   }
 }
 ```
-#### Action: Find / Replace Values After Project Cloning
+#### Action: Find / Replace Values After Project Cloning  
 If you create a project from a factory, you can have Codenvy perform a find / replace on values in the imported source code after it is imported into the project tree. This essentially lets you parameterize your source code.
 
 Parameterizing source code allows you to create projects whose source code will be different for each click on the Factory. The most common use of this is inserting a developer-specific key into the source code. Each developer has their own key which is known to you. That key is inserted as the replacement variable and then inserted into the source code when that user invokes the Factory URL.
@@ -302,17 +298,17 @@ Parameterization works by replacing templated variables in the source code with 
     }]
 }
 ```
-##### Regex Format
+##### Regex Format  
 The `in` parameter specifies which files in the source tree to perform the find / replace function on. The value is a path format provided as a regular expression. Visit regex reference page for more details.
 
-##### Replacement Mode
+##### Replacement Mode  
 The `replaceMode` property indicates which replacement algorithm should be applied:
 * `variable_singlepass`: Variables that start with ‘$’ and enclosed with curly brackets {} will be searched. For example, to replace variable `VAR_1_NAME` in the resulting code, put `${VAR_1_NAME}` variable in the source code. `${VAR_1_NAME}` will become `VAR_1_NAME`.
 * `text_multipass`: Plain text will be searched. This is slower since all text must be searched.
 
 It is possible to combine two replacement methods. Priority is given to singlepass. If no replacement method is specified, `variable_singlepass` mode will be used.
 
-## factory.creator Object
+## factory.creator Object  
 This object has meta information that you can embed within the Factory. These attributes do not affect the automation behavior or the behavior of the generated workspace.
 
 ```json  
@@ -323,7 +319,7 @@ factory.creator : {
   "userId"    : STRING                 // Set by the system
 }
 ```
-## factory.button Object
+## factory.button Object  
 
 ```json  
 # Defines a visual button or logo that can front the Factory URL
@@ -337,24 +333,24 @@ factory.button.attributes : {
   "counter" : [false | true],          // Adds counter for clicks, updated daily
   "logo"    : URL,                     // Button image URL. Ignored if type = nologo
   "style"   : [horizontal | vertical]  // Counter direction. Ignored if type = logo
-                   
+
 }
 ```
 We provide three button types with animations that execute when you hover over them.  You can save the button configuration with the Factory by filling in the `factory.button` object with the Factory configuration.  You can also use our button formats directly within Markdown and HTML using a JavaScript snippet.
 
 We have three types of buttons.
 
-| Button Type   | Sample   
+| Button Type   | Sample    
 | --- | ---
 | White: 76 x 20 pixels  | ![alt](https://codenvy.io/factory/resources/factory-white.png)
 | Dark: 76 x 20 pixels  | ![alt](https://codenvy.io/factory/resources/factory-dark.png)
 | Logo: 104 x 104 image of your logo with our hover animation layered on top  | ![alt](https://files.readme.io/zolQfjkhT4KKn3P1xBdc_logo.PNG)   
 
 
-#### Button Animation
+#### Button Animation  
 Button animations do not work withing Markdown documents, unfortunately.  Our docs are built using a Markdown editor, so these samples will not give you the hover animation.  
 
-### JavaScript Button: Configuration From Factory
+### JavaScript Button: Configuration From Factory  
 You can save your button configuration within Codenvy when you generate the Factory configuration. You do this by filling in the `factory.button` fields as part of your `factory.json`. Your button configuration is saved within Codenvy and any logo image is uploaded and hosted on our servers. You can then reference this Factory button directly using JavaScript.
 
 ```html  
@@ -364,7 +360,7 @@ You can save your button configuration within Codenvy when you generate the Fact
         >
 </script>
 ```
-### JavaScript Button: Configuration Within JavaScript
+### JavaScript Button: Configuration Within JavaScript  
 You can reuse our buttons and animations without first having created a Factory.  
 
 ```html  
@@ -380,13 +376,14 @@ You can reuse our buttons and animations without first having created a Factory.
 ```
 The `gray` style will cause the small dark animation button to load. The `white` does the small white animation button to load. Use `advanced` if you want to have your logo image loaded with our hover animation on top of it.  The `counter` will add a click counter to the button that is updated daily with the counts stored server side. The `style` attribute can be `white`, `dark` or `advanced`, which displays your logo.
 
-### Markdown Button
+### Markdown Button  
 
 ```markdown  
 ![alt](https://codenvy.com/factory/resources/factory-white.png)](URL)
 ![alt](https://codenvy.com/factory/resources/factory-dark.png)](URL)
 ```
-### Button Examples
+
+### Button Examples  
 
 ```html  
 <script

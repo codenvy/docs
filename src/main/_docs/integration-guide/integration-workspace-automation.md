@@ -33,7 +33,7 @@ Factories can be invoked in mutliple ways. You can replace the `codenvy.io` doma
 | --- | ---
 |  Invoke Factory using its unique hashcode <br>`/f?id={hashcode}` <br>`/factory?id={hascode}`| https://codenvy.io/f?id=s38eam174ji42vty
 |  Invoke a named Factory <br> `/f?user={username}&name={factoryname}` <br>`/factory?user={username}&name={factoryname}`<br>`/factory/username/factoryname`  | https://codenvy.io/f?user=tylerjewell&name=starwars<br>https://codenvy.io/factory?user=tylerjewell&name=starwars<br>https://codenvy.io/factory/tylerjewell/starwars
-|  Invoke Factory for a specific git repo <br>`/f?url={git URL}`  | http://codenvy.io/f?url=https://github.com/eclipse/che<br>http://codenvy.io/f?url=https://github.com/eclipse/che/commits/language-server<br>http://codenvy.io/f?url=https://gitlab.com/benoitf/simple-project
+|  Invoke Factory for a specific git repo <br>`/f?url={git URL}`  | http://codenvy.io/f?url=https://github.com/eclipse/che<br>http://codenvy.io/f?url=https://github.com/eclipse/che/tree/language-server<br>http://codenvy.io/f?url=https://gitlab.com/benoitf/simple-project
 
 Once the Factory is executed, it either loads an existing workspace or generates a new one, depending upon the Factory configuration.  The name of the workspace is determined within the Factory configuration and its name becomes part of the URL access.
 
@@ -51,7 +51,7 @@ You can create Factories that are saved with a unique hash code in the dashboard
 | --- | ---
 | Create a new Factory with pretty name <br>`/ws/{workspace}/{user}/factory/{pretty}?save`   | [https://codenvy.io/ws/eclipseche/tylerjewell/factory/starwars?save](https://codenvy.com/ws/eclipseche/tylerjewell/factory/starwars?save)
 | Create a new Factory from the dashboard <br>`Dashboard > Factories > Create` | [https://codenvy.io/f?id=s38eam174ji42vty](https://codenvy.com/f?id=s38eam174ji42vty)   
-| Create on-demand URL Factory by specifying the remote URL In that case the configuration may be stored inside the repository. |[http://codenvy.io/f?url=https://github.com/eclipse/che](http://codenvy.io/f?url=https://github.com/eclipse/che)  [http://codenvy.io/f?url=https://github.com/eclipse/che](http://codenvy.io/f?url=https://github.com/eclipse/che)<br>[http://codenvy.io/f?url=https://github.com/eclipse/che/commits/language-server](http://codenvy.io/f?url=https://github.com/eclipse/che/commits/language-server)<br>[http://codenvy.io/f?url=https://gitlab.com/benoitf/simple-project](http://codenvy.io/f?url=https://gitlab.com/benoitf/simple-project)
+| Create on-demand URL Factory by specifying the remote URL In that case the configuration may be stored inside the repository. |[http://codenvy.io/f?url=https://github.com/eclipse/che](http://codenvy.io/f?url=https://github.com/eclipse/che)<br>[http://codenvy.io/f?url=https://github.com/eclipse/che/tree/language-server](http://codenvy.io/f?url=https://github.com/eclipse/che/tree/language-server)<br>[http://codenvy.io/f?url=https://gitlab.com/benoitf/simple-project](http://codenvy.io/f?url=https://gitlab.com/benoitf/simple-project)
 
 You can also author a Factory from scratch using a `factory.json` file and then generating a Factory URL using our CLI or API.
 

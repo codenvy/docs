@@ -166,7 +166,12 @@ If you'd like your users to work with projects which have their own Docker image
 
 These two tactics will allow user workspaces to perform `docker` commands from within their workspace to create and work with Docker containers that will be outside the workspace. In other words, this makes your user's workspace feel like their laptop where they would normally be performing `docker build` and `docker run` commands.
 
-You will need to make sure that your user's workspaces are powered from a stack that has a Docker client installed inside of it. Our defalt stacks do not have a Docker client installed, but we have sample stacks from Che-in-Che that have examples for how to handle this.
+You will need to make sure that your user's workspaces are powered from a stack that has Docker installed inside of it. Che's default images do not have Docker installed, but there is a sample docker image eclipse/alpine_jdk8 created from our [dockerfile](https://github.com/eclipse/che-dockerfiles/blob/master/recipes/alpine_jdk8/Dockerfile) that includes docker which can be used as new stack's base image. Refer to the [che-in-che tutorial]({{ base }}({{base}}{{site.links["tutorial-che-in-che"]}}) for additional information.
+
+```shell
+# Update your codenvy.env:
+CODENVY_MACHINE_SERVER_EXTRA_VOLUME=/var/run/docker.sock:/var/run/docker.sock;
+```
 
 # SMTP
 Codenvy embeds a dummy mail server which is used only for sending out confirmation emails in the event that the system allows users to self-register. Most enterprises prefer to integrate Codenvy with their [LDAP]({{base}}{{site.links["admin-ldap"]}}) or [oAuth]({{base}}/docs/admin-guide/configuration/index.html#oauth) server.

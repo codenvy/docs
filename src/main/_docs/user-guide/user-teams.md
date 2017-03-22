@@ -31,7 +31,11 @@ To create a team, use the menu in the left sidebar:
 ![team-menu.png]({{base}}/docs/assets/imgs/codenvy/team-menu.png){:style="width: 30%"}  
 
 A new page is displayed in which a team name is set and team members are added.
-![team-create.png]({{base}}/docs/assets/imgs/codenvy/team-create.png)  
+![team-create.png]({{base}}/docs/assets/imgs/codenvy/team-create.png)
+
+## Teams List
+The list of all teams are displayed on dashboard page:
+![team-list.png]({{base}}/docs/assets/imgs/codenvy/team-list.png)
 
 ## Adding Team Members
 Adding team members by clicking the "Add" button will display a new popup. You can add multiple users at the same time by separating emails with a comma but note that all users added at the same time will be given the same [role]({{base}}{{site.links["user-teams"]}}#roles):
@@ -102,10 +106,18 @@ To rename a team, click in the "Name" textfield and start editing the name of th
 The name of the team is restricted to the following rules:  
 - Only alphanumeric characters or a single "-" can be used  
 - Spaces cannot be used in team names  
-- Each team name must be unique within the Codenvy install  
+- Each team name must be unique within the Codenvy install
+
+## Leave a Team
+**Action forbidden to**: Owner of the Team.
+
+![team-leave.png]({{base}}/docs/assets/imgs/codenvy/team-leave.png){:style="width: 40%"}
+
+A team member can leave team by clicking "Leave" button.
+This action can't be reverted and user will not be able to access team's workspaces.
 
 ## Delete a Team
-**Action restricted to**: Owner of the Team.
+**Action restricted to**: Owner and Admin of the Team.
 
 ![team-delete.png]({{base}}/docs/assets/imgs/codenvy/team-delete.png){:style="width: 40%"}
 

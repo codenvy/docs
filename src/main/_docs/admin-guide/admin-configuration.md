@@ -172,21 +172,26 @@ CHE_DOCKER_PRIVILEGED=true;
 CODENVY_MACHINE_SERVER_EXTRA_VOLUME=/var/run/docker.sock:/var/run/docker.sock;
 ```
 3. Configure Docker daemon to listen to listen to tcp socket and specify `DOCKER_HOST` environment variable in workspace machine. Each host environment will have different network topology/configuration so below is only to be used as general example.
+Configure your Docker daemon to listen on TCP.  First, add the following to your Docker configuration file (on Ubuntu it's `/etc/default/docker` - see the Docker docs for the location for your OS):
+
+Second, export `DOCKER_HOST` variable in your workspace. You can do this in the terminal or make it permanent by adding `ENV DOCKER_HOST=tcp://$IP:2375` to a workspace recipe, where `$IP` is your docker daemon machine IP.   
+
 ```shell
-# Listen using the default unix socket, and on 2 specific IP addresses on this host.
-# This will vary greatly depending on your host.
-sudo dockerd -H unix:///var/run/docker.sock -H tcp://192.168.59.106 -H tcp://10.10.10.2
+# Listen using the default unix socket, and on specific IP address on host.
+# This will vary greatly depending on your host OS.
+sudo dockerd -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375 
+# Verify that the Docker API is responding at: http://$IP:2375/containers/json
 ```
 ```shell
 # In workspace machine
-docker -H tcp://0.0.0.0:2375 ps
+docker -H tcp://$IP:2375 ps
 
 # Shorter form
-export DOCKER_HOST="tcp://0.0.0.0:2375"
-$ docker ps
+export DOCKER_HOST="tcp://$IP:2375"
+docker ps
 ```
 
-These two tactics will allow user workspaces to perform `docker` commands from within their workspace to create and work with Docker containers that will be outside the workspace. In other words, this makes your user's workspace feel like their laptop where they would normally be performing `docker build` and `docker run` commands.
+These three tactics will allow user workspaces to perform `docker` commands from within their workspace to create and work with Docker containers that will be outside the workspace. In other words, this makes your user's workspace feel like their laptop where they would normally be performing `docker build` and `docker run` commands.
 
 You will need to make sure that your user's workspaces are powered from a stack that has Docker installed inside of it. Che's default images do not have Docker installed, but there is a sample docker image eclipse/alpine_jdk8 created from our [dockerfile](https://github.com/eclipse/che-dockerfiles/blob/master/recipes/alpine_jdk8/Dockerfile) that includes docker which can be used as new stack's base image. Refer to the [che-in-che tutorial]({{ base }}({{base}}{{site.links["tutorial-che-in-che"]}}) for additional information.
 

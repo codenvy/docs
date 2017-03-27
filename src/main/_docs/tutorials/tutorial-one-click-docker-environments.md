@@ -25,22 +25,23 @@ If you are installing Eclipse Che behind a proxy and you want your users to crea
 When users create a workspace in Eclipse Che, they must select a Docker image to power the workspace. We provide ready-to-go stacks which reference images hosted at the public Docker Hub. You can provide your own images that are stored in a local private registry or at Docker Hub. The images may be publicly or privately visible, even if they are part of a private registry.
 
 ### Accessing Private Images
-You can configure Che to access private images in a public or private registry. Modify the `che.properties` to configure your private registry:
+You can configure Che to access private images in a public or private registry. Modify the `codenvy.env` to configure your private registry:
 
 
 ```shell  
 # Docker registry configuration.
 # Note that you can configure many registries with different names.
-docker.registry.auth.your_registry_name.url=https://index.docker.io/v1/
-docker.registry.auth.your_registry_name.username=user-name
-docker.registry.auth.your_registry_name.password=user-password
-# You can add as many registries as you need, e.g.:
-docker.registry.auth.registry1.url
-docker.registry.auth.registry2.url
+CHE_DOCKER_REGISTRY_AUTH_<insert-name>_URL=https://index.docker.io/v1/
+CHE_DOCKER_REGISTRY_AUTH_<insert-name>_USERNAME=<username>
+CHE_DOCKER_REGISTRY_AUTH_<insert-name>_PASSWORD=<password>
+CHE_DOCKER_REGISTRY_AWS_REGISTRY1_ID=id1
+CHE_DOCKER_REGISTRY_AWS_REGISTRY1_REGION=region1
+CHE_DOCKER_REGISTRY_AWS_REGISTRY1_ACCESS__KEY__ID=key_id1
+CHE_DOCKER_REGISTRY_AWS_REGISTRY1_SECRET__ACCESS__KEY=secret1
 ```  
 
 
-Registries added in User Dashboard override registries added to `che.properties`.
+Registries added in User Dashboard override registries added to `codenvy.env`.
 
 
 ## Private Docker Registries

@@ -46,10 +46,10 @@ Adding team members by clicking the "Add" button will display a new popup. You c
 You can change a team member's role or remove them from the team at any time.
 ![team-create-invite-members.png]({{base}}/docs/assets/imgs/codenvy/team-create-invite-members.png)
 
-Note: Users with the green checkmark beside their name already have a Codenvy account and will be invited to join the team. Users without a checkmark are not found in the Codenvy system, and will receive email invitations to register and join the team automatically.
+Note: Users with the green checkmark beside their name already have a Codenvy account and will be invited to join the team. Users without a checkmark do not have a Codenvy account and will receive email invitations to signup for a new account. Once users signs up for a new account they will join the team automatically.
 
 ## Team Workspaces
-Members of the team are able to browse certain team's workspaces, create new workspaces and manage them under the "Workspaces" tab of the team's page.
+Members of the team are able to browse certain team workspaces, create new workspaces and manage workspaces under the "Workspaces" tab of the team's page.
 
 ![team-workspaces.png]({{base}}/docs/assets/imgs/codenvy/team-workspaces.png)
 

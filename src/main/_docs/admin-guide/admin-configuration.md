@@ -171,7 +171,7 @@ CHE_DOCKER_PRIVILEGED=true;
 # Update your codenvy.env to allow all Codenvy workspaces to volume mount their host Daemon when starting:
 CODENVY_MACHINE_SERVER_EXTRA_VOLUME=/var/run/docker.sock:/var/run/docker.sock;
 ```
-3. Configure Docker daemon to listen to listen to tcp socket and specify `DOCKER_HOST` environment variable in workspace machine. Each host environment will have different network topology/configuration so below is only to be used as general example.
+3. Configure Docker daemon to listen to tcp socket and specify `DOCKER_HOST` environment variable in workspace machine. Each host environment will have different network topology/configuration so below is only to be used as general example.
 Configure your Docker daemon to listen on TCP.  First, add the following to your Docker configuration file (on Ubuntu it's `/etc/default/docker` - see the Docker docs for the location for your OS):
 
 Second, export `DOCKER_HOST` variable in your workspace. You can do this in the terminal or make it permanent by adding `ENV DOCKER_HOST=tcp://$IP:2375` to a workspace recipe, where `$IP` is your docker daemon machine IP.   

@@ -30,7 +30,7 @@ The Codenvy agile workflow with Atlassian JIRA requires:
 
 - Codenvy 5.0+.
 - Atlassian JIRA issue management system 7.x.
-- Codenvy Plug-in for Atlassian JIRA 1.3+.
+- Codenvy Plug-in for Atlassian JIRA 1.0.5+.
 - GitHub or BitBucket Server repo.
 ![jira-github-jenkins-integration.png]({{base}}/docs/assets/imgs/codenvy/jira-github-jenkins-integration.png)
 

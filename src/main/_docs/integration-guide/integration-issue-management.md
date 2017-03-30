@@ -42,7 +42,7 @@ The Codenvy plug-in for JIRA is available from the [Atlassian Marketplace](https
 ## Configuring the Plug-In for JIRA   
 ### Defining the Parent Factory  
 1. In Codenvy create a new generic user account that will house the factories created by the plug-in for JIRA (e.g. `jira-user@some-email.com`).
-2. Each project in JIRA that you want to be [Factory-enabled]({{base}}/docs/integration-guide/workspace-automation/index.html) must have a "parent Factory" configured in Codenvy. The parent Factory defines the workspace needed by developers working with the project and must be named identically to the Key of the JIRA Project it is associated with (e.g. if JIRA Key is "SPRING" then the parent Factory must be called "SPRING").
+2. Each project in JIRA that you want to be [Factory-enabled]({{base}}/docs/integration-guide/workspace-automation/index.html) must have a "parent Factory" configured in Codenvy. The parent Factory defines the workspace needed by developers working with the project and must be named identically to the Key of the JIRA Project it is associated with (e.g. if JIRA Key is "SPRING" then the parent Factory must be called "spring"). The "parent Factory" name should be always LOWERCASE.
 
 ### Connecting Codenvy to JIRA
 1. Log into your JIRA instance as an admin.

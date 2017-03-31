@@ -46,10 +46,10 @@ Adding team members by clicking the "Add" button will display a new popup. You c
 You can change a team member's role or remove them from the team at any time.
 ![team-create-invite-members.png]({{base}}/docs/assets/imgs/codenvy/team-create-invite-members.png)
 
-Note: Users with the green checkmark beside their name already have a Codenvy account and will be invited to join the team. Users without a checkmark are not found in the Codenvy system. Team owners should contact those users separately to have them create a Codenvy account so that they can be added to the team.
+Note: Users with the green checkmark beside their name already have a Codenvy account and will be invited to join the team. Users without a checkmark do not have a Codenvy account and will receive email invitations to signup for a new account. Once users signs up for a new account they will join the team automatically.
 
 ## Team Workspaces
-Members of the team are able to browse certain team's workspaces, create new workspaces and manage them under the "Workspaces" tab of the team's page.
+Members of the team are able to browse certain team workspaces, create new workspaces and manage workspaces under the "Workspaces" tab of the team's page.
 
 ![team-workspaces.png]({{base}}/docs/assets/imgs/codenvy/team-workspaces.png)
 
@@ -145,6 +145,7 @@ You'll get a popup where you can update the role of the selected member:
 
 Click "Save" to confirm the update.
 
+
 ## Remove Team Members
 **Action restricted to**: Owner and Admins of the team.
 
@@ -157,3 +158,6 @@ You can also select multiple members from the team, using the checkboxes. A dele
 ![team-remove-members.png]({{base}}/docs/assets/imgs/codenvy/team-remove-members.png)
 
 The members that are removed from the team will receive an email notification.
+
+The invited unregistered users have an "Pending invitation" value in the INFO column and can also be updated and removed as common members:
+![team-invited-users.png]({{base}}/docs/assets/imgs/codenvy/team-invited-users.png)

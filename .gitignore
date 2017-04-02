@@ -5,3 +5,13 @@ pkg/
 test/
 .jekyll-metadata
 .sass-cache/
+src/main/_docs/che
+src/main/_docs/assets/imgs/*.png
+src/main/_docs/assets/imgs/*.svg
+src/main/_docs/assets/imgs/*.jpg
+src/main/_docs/assets/imgs/*.gif
+src/main/_docs/assets/imgs/*.PNG
+src/main/_docs/assets/imgs/*.SVG
+src/main/_docs/assets/imgs/*.JPG
+src/main/_docs/assets/imgs/*.GIF
+src/main/_docs/assets/imgs/*.ico

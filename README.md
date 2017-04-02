@@ -18,7 +18,10 @@ Because the docs are generated into static HTML linking to docs and images is a 
 # Building Docs
 Docs are built using a Docker image with Jekyll inside it. You will need Docker running on your machine to build the Codenvy docs.
 
-Navigate to the repo on your filesystem and type:
+
+You can use codenvy.io factory to easily compile and view documentation. Just click [here](https://codenvy.io/f?name=che-codenvy-docs&user=jdrummond).
+
+You can also use the following locally. Navigate to the repo on your filesystem and type:
 
 `./docs.sh --run`
 

@@ -10,8 +10,8 @@ layout: default
       <div class="unit four-fifths">
         <article>
           <div class="improve right hide-on-mobiles">
-            {% if page.tags[1] != null %} 
-            <a href="https://github.com/codenvy/docs/blob/master/src/main/{{ page.path | replace_first:'/che','' }}"><i class="fa fa-pencil"></i> &nbsp;Improve this page</a>
+            {% if page.tags[0] == "eclipse" %} 
+            <a href="https://github.com/eclipse/che-docs/blob/master/src/main/{{ page.path | replace_first:'/che','' }}"><i class="fa fa-pencil"></i> &nbsp;Improve this page</a>
             {% else %} 
             <a href="https://github.com/{{ page.tags[0] }}/docs/blob/master/src/main/{{ page.path }}"><i class="fa fa-pencil"></i> &nbsp;Improve this page</a>
             {% endif %}

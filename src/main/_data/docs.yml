@@ -52,10 +52,10 @@
   - user-sharing-permissions
 - title: Portable Workspaces
   docs:
-  - factory-getting-started
-  - factory-creating
-  - factory-json-reference
-  - factory-glossary
+  - factory-getting-started # Che factory-portable-workspace
+  - factory-creating # Che factory-portable-workspace
+  - factory-json-reference # Che factory-portable-workspace
+  - factory-glossary # Che factory-portable-workspace
 - title: Integration Guide
   docs:
   - integration-issue-management

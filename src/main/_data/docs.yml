@@ -50,9 +50,14 @@
   - ide-sync # Che use-che-as-an-ide
   - ide-ssh # Che use-che-as-an-ide
   - user-sharing-permissions
+- title: Portable Workspaces
+  docs:
+  - factory-getting-started
+  - factory-creating
+  - factory-json-reference
+  - factory-glossary
 - title: Integration Guide
   docs:
-  - integration-workspace-automation
   - integration-issue-management
   - integration-continuous-integration
 - title: White Label Guide

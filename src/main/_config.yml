@@ -62,7 +62,7 @@ exclude:
   - _docs/che/artik-ide-plugin
   - _docs/che/assets
   - _docs/che/intro.md
-  
+
 # The following are used to define markdown permalinks
 defaults:
   -
@@ -105,6 +105,11 @@ defaults:
       path: "_docs/che/workspace-administration"
     values:
       categories: [ "docs" , "getting-started" ]
+  -
+    scope:
+      path: "_docs/che/factory-portable-workspaces"
+    values:
+      categories: [ "docs" , "factory" ]
   -
     scope:
       path: "_docs/che/use-che-as-an-ide"

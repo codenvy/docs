@@ -5,3 +5,5 @@ pkg/
 test/
 .jekyll-metadata
 .sass-cache/
+src/main/_docs/che
+src/main/_docs/assets/imgs/*.*

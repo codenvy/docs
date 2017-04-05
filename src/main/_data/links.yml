@@ -37,6 +37,10 @@ ws-recipes: /docs/getting-started/recipes/index.html
 ws-samples: /docs/getting-started/samples/index.html
 ws-stacks: /docs/getting-started/stacks/index.html
 ws-volume-mounts: /docs/getting-started/volume-mounts/index.html
+factory-getting-started: /docs/factory/getting-started/index.html
+factory-creating: /docs/factory/creating/index.html
+factory-json-reference: /docs/factory/json-reference/index.html
+factory-glossary: /docs/factory/glossary/index.html
 setup-configuration: /docs/admin-guide/configuration/index.html
 plugins-create-and-build-extensions: https://www.eclipse.org/che/docs/plugins/create-and-build-extensions/index.html
 server-stack: https://www.eclipse.org/che/docs/server/stack/index.html

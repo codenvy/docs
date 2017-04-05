@@ -10,7 +10,7 @@ permalink: /:categories/continuous-integration/
 Codenvy is connected to your repo so any change made to the repo that would normally trigger a CI job will continue to trigger a CI job when the change is made in Codenvy.
 
 # Integrating Codenvy and Jenkins
-Codenvy can also use [Factories]({{base}}/docs/integration-guide/workspace-automation/index.html) with your CI system to generate developer workspaces pre-configured with the context of the CI job. For example, a failed CI build email can be customized to include a link to a Codenvy Factory that will generate a workspace already tied to the repo, branch and commit ID that broke the build, simplifying diagnosis.
+Codenvy can also use [Factories]({{base}}{{site.links["factory-getting-started"]}}) with your CI system to generate developer workspaces pre-configured with the context of the CI job. For example, a failed CI build email can be customized to include a link to a Codenvy Factory that will generate a workspace already tied to the repo, branch and commit ID that broke the build, simplifying diagnosis.
 
 Because configuring this integration requires system-level property settings it can only be used by customer with [on-premises Codenvy]({{base}}{{site.links["admin-installation"]}}).
 
@@ -35,8 +35,8 @@ In your Jenkins job configuration, define the message content as:
 ![postbuild.png]({{base}}/docs/assets/imgs/codenvy/postbuild.png)
 
 ### Create a Codenvy Factory  
-You need a Codenvy Factory configured to use the project you want associated with your Jenkins job. This Factory will be modified by the plugin and injected into Jenkins job emails. See: [Factories]({{base}}/docs/integration-guide/workspace-automation/index.html).
-This Factory should import your target project. You should also specify a branch:
+
+You need a Codenvy Factory configured to use the project you want associated with your Jenkins job. This Factory will be modified by the plugin and injected into Jenkins job emails. See: [Factories]({{base}}{{site.links["factory-creating"]}}).
 
 ```
   "source": {
@@ -51,6 +51,7 @@ This Factory should import your target project. You should also specify a branch
 ### Set Codenvy Environment Variables
 
 #### Credentials
+
 Update the `codenvy.env` with the username and password of the user who created the Factory in Codenvy. There can be just one user for all Factories used in the integration flow:
 
 ```text
@@ -90,10 +91,12 @@ One webhook can update more than one Factory which can be added to configuration
 CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_FACTORY2_ID=hfdhfd749347hd64
 ```
 
+
 In this case, webhook with ID `WEBHOOK_WEBHOOK1` will update 2 Factories - `FACTORY1_ID` and `FACTORY2_ID`.
 
 #### Jenkins Connector
 Update the `codenvy.env` with connectors properties. Note that you can rename "CONNETOR1" with any identifier. The system will match Git and Jenkins Connector variables by Factory IDs. The can be n connectors, i.e. integration for several Jenkins jobs can be set up: CONNECTOR2, CONNECTORx etc.:
+
 
 ```text  
 CODENVY_JENKINS_CONNECTOR_CONNECTOR1_FACTORY_ID=r6p0l1sfnwm99k94
@@ -102,6 +105,7 @@ CODENVY_JENKINS_CONNECTOR_CONNECTOR1_JOB_NAME=new_job
 ```
 
 A Jenkins user should have write access to a targeted Jenkins job, i.e. update it.
+
 
 ### Configure Repo Webhooks
 

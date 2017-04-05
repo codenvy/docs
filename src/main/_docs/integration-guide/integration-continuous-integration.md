@@ -35,52 +35,77 @@ In your Jenkins job configuration, define the message content as:
 ![postbuild.png]({{base}}/docs/assets/imgs/codenvy/postbuild.png)
 
 ### Create a Codenvy Factory  
+
 You need a Codenvy Factory configured to use the project you want associated with your Jenkins job. This Factory will be modified by the plugin and injected into Jenkins job emails. See: [Factories]({{base}}{{site.links["factory-creating"]}}).
 
-### Add Factory URL to Job
-In the job in Jenkins replace the description with the Factory link. It should look something like:
-
-`<a href="https://codenvy.io/f?id=factoryp6ewi838lux62bo1">Open Project in Codenvy</a>`
-
-where the URL in quotes is the Factory URL to be used with the Jenkins job.
+```
+  "source": {
+          "location": "https://github.com/che-samples/console-ruby-simple.git",
+          "type": "git",
+          "parameters": {
+            "branch": "TEST-1"
+          }
+        }
+```
 
 ### Set Codenvy Environment Variables
 
 #### Credentials
-Update the `codenvy.env` with the username and password of the user who created the Factory in Codenvy:
+
+Update the `codenvy.env` with the username and password of the user who created the Factory in Codenvy. There can be just one user for all Factories used in the integration flow:
 
 ```text
-CODENVY_INTEGRATION_FACTORY_OWNER_USERNAME=omebody@somemail.com
+CODENVY_INTEGRATION_FACTORY_OWNER_USERNAME=somebody@somemail.com
 CODENVY_INTEGRATION_FACTORY_OWNER_PASSWORD=password
 ```
 
 #### Git
 **For GitHub**
-Update the `codenvy.env` with `GitHub` webhooks properties. Note that you can rename "WEBHOOK1" with any identifer. The system will treat Git and Jenkins Connector variables with the same name as related so ensure you have both identically named for each install:
+Update the `codenvy.env` with `GitHub` webhooks properties. Note that you can rename "WEBHOOK1" with any identifier. Webhooks are tied to connectors through Factory IDs. There can be multiple webhooks (if you need to receive webhooks from multiple repositories), i.e. a new group of webhook properties can be created. In this case, change identifier WEBHOOKID and FACTORY1_ID, which can be any strings.
 
 ```text  
-CODENVY_GITHUB_WEBHOOK_WEBHOOK1_REPOSITORY_URL=https://github.com/testrepo.git
+CODENVY_GITHUB_WEBHOOK_WEBHOOK1_REPOSITORY_URL=https://github.com/example/testrepo.git
 CODENVY_GITHUB_WEBHOOK_WEBHOOK1_FACTORY1_ID=factory1Id
+```
+
+One webhook can update more than one Factory which can be added to configuration with a different Factory identifier, for example `FACTORY2_ID`:
+
+```text
 CODENVY_GITHUB_WEBHOOK_WEBHOOK1_FACTORY2_ID=factory2Id
 ```
+In this case, webhook with ID `WEBHOOK_WEBHOOK1` will update 2 Factories - `FACTORY1_ID` and `FACTORY2_ID`.
 
 **For BitBucket Server**
-Update the `codenvy.env` with `Bitbucket Server` webhooks properties:
+Update the `codenvy.env` with `Bitbucket Server` webhooks properties. Webhooks are tied to connectors through Factory IDs. There can be multiple webhooks, i.e. a new group of webhook properties can be created. In this case, change identifier WEBHOOKID, which can be any string.
 
 ```text  
-CODENVY_BITBUCKET_SERVER_WEBHOOK1_REPOSITORY_URL=https://github.com/testrepo.git
-CODENVY_BITBUCKET_SERVER_WEBHOOK1_WEBHOOK1_FACTORY1_ID=factory1Id
-CODENVY_BITBUCKET_SERVER_WEBHOOK1_WEBHOOK1_FACTORY2_ID=factory2Id
+CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_REPOSITORY_URL=https://github.com/eclipse/che
+CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_FACTORY1_ID=hfdhfd749347hd64
+
 ```
+
+One webhook can update more than one Factory which can be added to configuration with a different Factory identifier, for example `FACTORY2_ID`:
+
+
+```text
+CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_FACTORY2_ID=hfdhfd749347hd64
+```
+
+
+In this case, webhook with ID `WEBHOOK_WEBHOOK1` will update 2 Factories - `FACTORY1_ID` and `FACTORY2_ID`.
 
 #### Jenkins Connector
-Update the `codenvy.env` with connectors properties. Note that you can rename "WEBHOOK1" with any identifer. The system will treat Git and Jenkins Connector variables with the same name as related so ensure you have both identically named for each install:
+Update the `codenvy.env` with connectors properties. Note that you can rename "CONNETOR1" with any identifier. The system will match Git and Jenkins Connector variables by Factory IDs. The can be n connectors, i.e. integration for several Jenkins jobs can be set up: CONNECTOR2, CONNECTORx etc.:
+
 
 ```text  
-#CODENVY_JENKINS_CONNECTOR_CONNECTOR1_FACTORY_ID=<factory id>
-#CODENVY_JENKINS_CONNECTOR_CONNECTOR1_URL=<url>
-#CODENVY_JENKINS_CONNECTOR_CONNECTOR1_JOB_NAME=<job name>
+CODENVY_JENKINS_CONNECTOR_CONNECTOR1_FACTORY_ID=r6p0l1sfnwm99k94
+CODENVY_JENKINS_CONNECTOR_CONNECTOR1_URL=http://userName:password@jenkins.codenvy-dev.com:8080
+CODENVY_JENKINS_CONNECTOR_CONNECTOR1_JOB_NAME=new_job
 ```
+
+A Jenkins user should have write access to a targeted Jenkins job, i.e. update it.
+
 
 ### Configure Repo Webhooks
 

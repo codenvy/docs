@@ -55,7 +55,6 @@
   - factory-getting-started # Che factory-portable-workspace
   - factory-creating # Che factory-portable-workspace
   - factory-json-reference # Che factory-portable-workspace
-  - factory-glossary # Che factory-portable-workspace
 - title: Integration Guide
   docs:
   - integration-issue-management

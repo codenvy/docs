@@ -102,19 +102,19 @@ defaults:
       categories: [ "docs" , "white-labels" ]
   -
     scope:
-      path: "_docs/che/workspace-administration"
+      path: "_docs/che/devops"
     values:
       categories: [ "docs" , "getting-started" ]
+  -
+    scope:
+      path: "_docs/che/ide"
+    values:
+      categories: [ "docs" , "user-guide" ]
   -
     scope:
       path: "_docs/che/factory-portable-workspaces"
     values:
       categories: [ "docs" , "factory" ]
-  -
-    scope:
-      path: "_docs/che/use-che-as-an-ide"
-    values:
-      categories: [ "docs" , "user-guide" ]
   -
     scope:
       path: "_docs/che/tutorials"

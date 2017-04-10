@@ -7,13 +7,12 @@
   {% assign item_url = item_url | replace_first:'/developer-','/developer-guide/' | replace_first:'/integration-','/integration-guide/' %}
   {% assign item_url = item_url | replace_first:'/tutorial-','/tutorials/' | replace_first:'/user-','/user-guide/' %}
   {% assign item_url = item_url | replace_first:'/labels-','/white-labels/' | replace_first:'/factory-','/factory/' %}
-  {% assign item_url = item_url | replace_first:'/ws-','/getting-started/' | replace_first:'/ide-','/user-guide/' %}
+  {% assign item_url = item_url | replace_first:'/devops-','/getting-started/' | replace_first:'/ide-','/user-guide/' %}
   {% assign p = site.documents | where:"url", item_url | first %}
   {% if p != null %}
     <li class="{% if item_url == page.url %}current{% endif %}"><a href="{{ base }}{{ p.url }}index.html">{{ p.title }}</a></li>
   {% else %}
     <li class=""><a href="">Error Generating Page Link. Contact Maintainer.</a></li>
   {% endif %}
-
 {% endfor %}
 </ul>

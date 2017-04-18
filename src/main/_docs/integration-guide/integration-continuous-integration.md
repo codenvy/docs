@@ -10,7 +10,7 @@ permalink: /:categories/continuous-integration/
 Codenvy is connected to your repo so any change made to the repo that would normally trigger a CI job will continue to trigger a CI job when the change is made in Codenvy.
 
 # Integrating Codenvy and Jenkins
-Codenvy can also use [Factories]({{base}}{{site.links["factory-getting-started"]}}) with your CI system to generate developer workspaces pre-configured with the context of the CI job. For example, a failed CI build email can be customized to include a link to a Codenvy Factory that will generate a workspace already tied to the repo, branch and commit ID that broke the build, simplifying diagnosis.
+Codenvy can also use [Factories]({{base}}{{site.links["factory-getting-started"]}}) with your CI system to generate developer workspaces pre-configured with the context of the CI job. For example, a failed CI build email can be customized to include a link to a Head Codenvy Factory that will generate a workspace already tied to the repo, branch and commit ID, and a Failed Build Codenvy Factory that broke the last failed build, simplifying diagnosis.
 
 Because configuring this integration requires system-level property settings it can only be used by customer with [on-premises Codenvy]({{base}}{{site.links["admin-installation"]}}).
 
@@ -19,7 +19,7 @@ If you'd like to speak to us about an integrations between Codenvy and another C
 ## Configuring the Integration
 
 ### Set up Plugins  
-Go to **Manage Jenkins - Manage Plugins** and install GitHub and Email Extension Template Plugins.
+Go to **Manage Jenkins - Manage Plugins** and install GitHub, Post-Build Script Plug-in and Email Extension Template Plugins.
 ![plugins.png]({{base}}/docs/assets/imgs/codenvy/plugins.png)
 
 ### Create a Jenkins Job  
@@ -27,13 +27,17 @@ Go to **Manage Jenkins - Manage Plugins** and install GitHub and Email Extension
 Set up a Jenkins Job that matches your project requirements (JDK, Maven, Node.js etc). You may need to install additional plugins that your project requires.
 
 ### Configure the Jenkins Job's Post Build Actions  
-Once a Jenkins job is set up you need to make sure that an email is sent out when a job succeeds or fails. You should use a **[.jelly template](https://gist.githubusercontent.com/stour/219f30ae3c6aa260ffd5/raw/f83feec8ee08142fe1fca2d1c8c1f9edc52a0e34/html-factory.jelly)** as the default message template. Download it and save to `/var/lib/jenkins/email-templates/html-factory.jelly` on the instance where Jenkins runs.
+Once a Jenkins job is set up you need to make sure that an email is sent out when a job succeeds or fails. You should use a **[.jelly template]({{base}}/docs/integration-guide/html-factory.jelly)** as the default message template. Download it and save to `/var/lib/jenkins/email-templates/html-factory.jelly` on the instance where Jenkins runs.
 
-In your Jenkins job configuration, define the message content as:
-
+In **Post-build Actions** configuration section
+1. Add **Editablr Email Notification** task with message content as:
 `${JELLY_SCRIPT,template="html-factory"}`
-![postbuild.png]({{base}}/docs/assets/imgs/codenvy/postbuild.png)
-
+![postbuild.png]({{base}}/docs/assets/imgs/codenvy/postbuild-email-notification.png)
+2. Add **Execute a set of scripts** task and add **Execute shell** build step with command:
+```
+curl -H "Content-Type: application/json" -H "Jenkins-Event: jenkins" -X POST -d '{"jobName" : "'$JOB_NAME'", "buildId" : "'$BUILD_ID'", "jenkinsUrl" : "'$JENKINS_URL'", "repositoryUrl" : "<http(s) repository url>"}' <Codenvy url>/api/jenkins-webhook
+```
+![postbuild.png]({{base}}/docs/assets/imgs/codenvy/postbuild-script.png)
 ### Create a Codenvy Factory  
 
 You need a Codenvy Factory configured to use the project you want associated with your Jenkins job. This Factory will be modified by the plugin and injected into Jenkins job emails. See: [Factories]({{base}}{{site.links["factory-creating"]}}).

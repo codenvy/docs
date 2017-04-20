@@ -8,8 +8,8 @@ permalink: /:categories/continuous-integration/
 {% include base.html %}
 
 Codenvy can use [Factories]({{base}}{{site.links["factory-getting-started"]}}) with a Jenkins CI system to generate developer workspaces pre-configured with the context of the CI job. For example, a failed CI build email can be customized to include a link to two factories that open a workspace pre-configured to:
-* The branch and commit ID that broke the build for the project. 
-* The head of the master branch for the project.
+* The commit ID that broke the build for the project and branch being built. 
+* The head (latest commit) for the project and branch being built.
 
 These Factories are included in the Jenkins job description and in the email notifications, speeding diagnosis and resolution for failed builds and giving anyone a quick way to run or debug the latest build.
 

@@ -83,35 +83,39 @@ The Jenkins integration supports both GitHub and BitBucket Server repos.
 
 #### For GitHub
 
-Update the `codenvy.env` with `GitHub` webhooks properties. Note that you can rename "WEBHOOK1" with any identifier. Webhooks are tied to connectors through Factory IDs. There can be multiple webhooks (if you need to receive webhooks from multiple repositories) - in this case, add a new entry with a different name for WEBHOOKID and FACTORY1_ID.
+Update the `codenvy.env` with `GitHub` webhooks properties. Note that you can rename "WEBHOOK1" with any identifier. Webhooks are tied to connectors through Factory IDs. There can be multiple webhooks (if you need to receive webhooks from multiple repositories) - in this case, add a new entry with a different name for WEBHOOKID.
 
 ```text  
 CODENVY_GITHUB_WEBHOOK_WEBHOOK1_REPOSITORY_URL=https://github.com/example/testrepo.git
 CODENVY_GITHUB_WEBHOOK_WEBHOOK1_FACTORY1_ID=factory1Id
 ```
 
-One webhook can update more than one Factory. Add a different Factory identifier, for example `FACTORY2_ID`:
+Each webhook can update more than one Factory - in this case, add a new entry with a FACTORYN_ID, where N is an incremented number, for example `FACTORY2_ID`, `FACTORY3_ID`,`FACTORY4_ID`, etc...:
 
 ```text
-CODENVY_GITHUB_WEBHOOK_WEBHOOK1_FACTORY2_ID=factory2Id
+CODENVY_GITHUB_WEBHOOK_WEBHOOK1_REPOSITORY_URL=https://github.com/example/testrepo.git
+CODENVY_GITHUB_WEBHOOK_WEBHOOK1_FACTORY1_ID=hfdhfd749347hd64
+CODENVY_GITHUB_WEBHOOK_WEBHOOK1_FACTORY2_ID=hfdhfd857141fq97
 ```
 
 In this case, the webhook with ID `WEBHOOK_WEBHOOK1` will update two Factories - `FACTORY1_ID` and `FACTORY2_ID`.
 
 #### BitBucket Server
 
-Update the `codenvy.env` with `Bitbucket Server` webhooks properties. Webhooks are tied to connectors through Factory IDs. There can be multiple webhooks (if you need to receive webhooks from multiple repositories) - in this case, add a new entry with a different name for WEBHOOKID and FACTORY1_ID.
+Update the `codenvy.env` with `Bitbucket Server` webhooks properties. Webhooks are tied to connectors through Factory IDs. There can be multiple webhooks (if you need to receive webhooks from multiple repositories) - in this case, add a new entry with a different name for WEBHOOKID.
 
 ```text  
-CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_REPOSITORY_URL=https://github.com/eclipse/che
+CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_REPOSITORY_URL=https://username@bitbucket.org/teamsinspace/documentation-tests.git
 CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_FACTORY1_ID=hfdhfd749347hd64
 
 ```
 
-One webhook can update more than one Factory. Add a different Factory identifier, for example `FACTORY2_ID`:
+Each webhook can update more than one Factory - in this case, add a new entry with a FACTORYN_ID, where N is an incremented number, for example `FACTORY2_ID`, `FACTORY3_ID`,`FACTORY4_ID`, etc...:
 
 ```text
-CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_FACTORY2_ID=hfdhfd749347hd64
+CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_REPOSITORY_URL=https://username@bitbucket.org/teamsinspace/documentation-tests.git
+CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_FACTORY1_ID=hfdhfd749347hd64
+CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_FACTORY2_ID=hfdhfd857141fq97
 ```
 
 In this case, webhook with ID `WEBHOOK_WEBHOOK1` will update 2 Factories - `FACTORY1_ID` and `FACTORY2_ID`.

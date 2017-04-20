@@ -7,36 +7,55 @@ permalink: /:categories/continuous-integration/
 ---
 {% include base.html %}
 
-Codenvy is connected to your repo so any change made to the repo that would normally trigger a CI job will continue to trigger a CI job when the change is made in Codenvy.
+Codenvy can use [Factories]({{base}}{{site.links["factory-getting-started"]}}) with a Jenkins CI system to generate developer workspaces pre-configured with the context of the CI job. For example, a failed CI build email can be customized to include a link to two factories that open a workspace pre-configured to:
+* The commit ID that broke the build for the project and branch being built. 
+* The head (latest commit) for the project and branch being built.
 
-# Integrating Codenvy and Jenkins
-Codenvy can also use [Factories]({{base}}{{site.links["factory-getting-started"]}}) with your CI system to generate developer workspaces pre-configured with the context of the CI job. For example, a failed CI build email can be customized to include a link to a Codenvy Factory that will generate a workspace already tied to the repo, branch and commit ID that broke the build, simplifying diagnosis.
+These Factories are included in the Jenkins job description and in the email notifications, speeding diagnosis and resolution for failed builds and giving anyone a quick way to run or debug the latest build.
 
-Because configuring this integration requires system-level property settings it can only be used by customer with [on-premises Codenvy]({{base}}{{site.links["admin-installation"]}}).
+Because configuring this integration requires system-level property settings it can only be used by customer with Codenvy installed [on-premises]({{base}}{{site.links["admin-installation"]}}).
 
 If you'd like to speak to us about an integrations between Codenvy and another CI system, [please contact us](https://codenvy.com/contact/questions/).
 
-## Configuring the Integration
+# Configuring the Integration
 
-### Set up Plugins  
-Go to **Manage Jenkins - Manage Plugins** and install GitHub and Email Extension Template Plugins.
+## Set up Plugins  
+Go to **Manage Jenkins - Manage Plugins** and install:
+1. GitHub plug-in
+2. Post-Build script plug-in
+3. Email extension template plug-in.
+
 ![plugins.png]({{base}}/docs/assets/imgs/codenvy/plugins.png)
 
-### Create a Jenkins Job  
-(Skip this step if you have your Jenkins job already set up.)
+## Create a Jenkins Job  
+(Skip this step if you have your Jenkins job already set up).
+
 Set up a Jenkins Job that matches your project requirements (JDK, Maven, Node.js etc). You may need to install additional plugins that your project requires.
 
-### Configure the Jenkins Job's Post Build Actions  
-Once a Jenkins job is set up you need to make sure that an email is sent out when a job succeeds or fails. You should use a **[.jelly template](https://gist.githubusercontent.com/stour/219f30ae3c6aa260ffd5/raw/f83feec8ee08142fe1fca2d1c8c1f9edc52a0e34/html-factory.jelly)** as the default message template. Download it and save to `/var/lib/jenkins/email-templates/html-factory.jelly` on the instance where Jenkins runs.
+## Configure the Jenkins Job's Post Build Actions  
+Once a Jenkins job is set up you need to make sure that an email is sent out when a job succeeds or fails. You should use a [.jelly template]({{base}}/docs/integration-guide/html-factory.jelly) as the default message template. Download it and save to `/var/lib/jenkins/email-templates/html-factory.jelly` on the instance where Jenkins runs.
 
-In your Jenkins job configuration, define the message content as:
+In the **Post-build Actions** configuration section:
 
-`${JELLY_SCRIPT,template="html-factory"}`
-![postbuild.png]({{base}}/docs/assets/imgs/codenvy/postbuild.png)
+### Add an Editable Email Notification Task
+In the task add the following message content: `${JELLY_SCRIPT,template="html-factory"}`. For example:
 
-### Create a Codenvy Factory  
+![postbuild.png]({{base}}/docs/assets/imgs/codenvy/postbuild-email-notification.png)
+
+### Add an Execute a Set of Scripts Task
+Inside that panel's **Execute shell** build step insert the following command:
+
+```
+curl -H "Content-Type: application/json" -H "Jenkins-Event: jenkins" -X POST -d '{"jobName" : "'$JOB_NAME'", "buildId" : "'$BUILD_ID'", "jenkinsUrl" : "'$JENKINS_URL'", "repositoryUrl" : "<http(s) repository url>"}' <Codenvy url>/api/jenkins-webhook
+```
+
+![postbuild.png]({{base}}/docs/assets/imgs/codenvy/postbuild-script.png)
+
+## Create a Codenvy Factory  
 
 You need a Codenvy Factory configured to use the project you want associated with your Jenkins job. This Factory will be modified by the plugin and injected into Jenkins job emails. See: [Factories]({{base}}{{site.links["factory-creating"]}}).
+
+Your Factory will need to outline the location of the git repo associated with the job and the default branch.
 
 ```
   "source": {
@@ -48,55 +67,61 @@ You need a Codenvy Factory configured to use the project you want associated wit
         }
 ```
 
-### Set Codenvy Environment Variables
+## Set Codenvy Environment Variables
 
-#### Credentials
+### Credentials
 
-Update the `codenvy.env` with the username and password of the user who created the Factory in Codenvy. There can be just one user for all Factories used in the integration flow:
+Update the `codenvy.env` with the username and password of the user who created the Factory in Codenvy. You only need one user for all the Factories used by your Jenkins integration:
 
 ```text
 CODENVY_INTEGRATION_FACTORY_OWNER_USERNAME=somebody@somemail.com
 CODENVY_INTEGRATION_FACTORY_OWNER_PASSWORD=password
 ```
 
-#### Git
-**For GitHub**
-Update the `codenvy.env` with `GitHub` webhooks properties. Note that you can rename "WEBHOOK1" with any identifier. Webhooks are tied to connectors through Factory IDs. There can be multiple webhooks (if you need to receive webhooks from multiple repositories), i.e. a new group of webhook properties can be created. In this case, change identifier WEBHOOKID and FACTORY1_ID, which can be any strings.
+### Git
+The Jenkins integration supports both GitHub and BitBucket Server repos.
+
+#### For GitHub
+
+Update the `codenvy.env` with `GitHub` webhooks properties. Note that you can rename "WEBHOOK1" with any identifier. Webhooks are tied to connectors through Factory IDs. There can be multiple webhooks (if you need to receive webhooks from multiple repositories) - in this case, add a new entry with a different name for WEBHOOKID.
 
 ```text  
 CODENVY_GITHUB_WEBHOOK_WEBHOOK1_REPOSITORY_URL=https://github.com/example/testrepo.git
 CODENVY_GITHUB_WEBHOOK_WEBHOOK1_FACTORY1_ID=factory1Id
 ```
 
-One webhook can update more than one Factory which can be added to configuration with a different Factory identifier, for example `FACTORY2_ID`:
+Each webhook can update more than one Factory - in this case, add a new entry with a FACTORYN_ID, where N is an incremented number, for example `FACTORY2_ID`, `FACTORY3_ID`,`FACTORY4_ID`, etc...:
 
 ```text
-CODENVY_GITHUB_WEBHOOK_WEBHOOK1_FACTORY2_ID=factory2Id
+CODENVY_GITHUB_WEBHOOK_WEBHOOK1_REPOSITORY_URL=https://github.com/example/testrepo.git
+CODENVY_GITHUB_WEBHOOK_WEBHOOK1_FACTORY1_ID=hfdhfd749347hd64
+CODENVY_GITHUB_WEBHOOK_WEBHOOK1_FACTORY2_ID=hfdhfd857141fq97
 ```
-In this case, webhook with ID `WEBHOOK_WEBHOOK1` will update 2 Factories - `FACTORY1_ID` and `FACTORY2_ID`.
 
-**For BitBucket Server**
-Update the `codenvy.env` with `Bitbucket Server` webhooks properties. Webhooks are tied to connectors through Factory IDs. There can be multiple webhooks, i.e. a new group of webhook properties can be created. In this case, change identifier WEBHOOKID, which can be any string.
+In this case, the webhook with ID `WEBHOOK_WEBHOOK1` will update two Factories - `FACTORY1_ID` and `FACTORY2_ID`.
+
+#### BitBucket Server
+
+Update the `codenvy.env` with `Bitbucket Server` webhooks properties. Webhooks are tied to connectors through Factory IDs. There can be multiple webhooks (if you need to receive webhooks from multiple repositories) - in this case, add a new entry with a different name for WEBHOOKID.
 
 ```text  
-CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_REPOSITORY_URL=https://github.com/eclipse/che
+CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_REPOSITORY_URL=https://username@bitbucket.org/teamsinspace/documentation-tests.git
 CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_FACTORY1_ID=hfdhfd749347hd64
 
 ```
 
-One webhook can update more than one Factory which can be added to configuration with a different Factory identifier, for example `FACTORY2_ID`:
-
+Each webhook can update more than one Factory - in this case, add a new entry with a FACTORYN_ID, where N is an incremented number, for example `FACTORY2_ID`, `FACTORY3_ID`,`FACTORY4_ID`, etc...:
 
 ```text
-CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_FACTORY2_ID=hfdhfd749347hd64
+CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_REPOSITORY_URL=https://username@bitbucket.org/teamsinspace/documentation-tests.git
+CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_FACTORY1_ID=hfdhfd749347hd64
+CODENVY_BITBUCKET_SERVER_WEBHOOK_WEBHOOKID_FACTORY2_ID=hfdhfd857141fq97
 ```
-
 
 In this case, webhook with ID `WEBHOOK_WEBHOOK1` will update 2 Factories - `FACTORY1_ID` and `FACTORY2_ID`.
 
-#### Jenkins Connector
-Update the `codenvy.env` with connectors properties. Note that you can rename "CONNETOR1" with any identifier. The system will match Git and Jenkins Connector variables by Factory IDs. The can be n connectors, i.e. integration for several Jenkins jobs can be set up: CONNECTOR2, CONNECTORx etc.:
-
+### Jenkins Connector
+Update the `codenvy.env` with the connectors properties. Note that you can rename "CONNECTOR1" to anything you want. The system will match the Git and Jenkins Connector variables using the Factory IDs. You can setup as many connectors as you need: CONNECTOR1, CONNECTOR2, CONNECTORx, etc...:
 
 ```text  
 CODENVY_JENKINS_CONNECTOR_CONNECTOR1_FACTORY_ID=r6p0l1sfnwm99k94
@@ -104,10 +129,10 @@ CODENVY_JENKINS_CONNECTOR_CONNECTOR1_URL=http://userName:password@jenkins.codenv
 CODENVY_JENKINS_CONNECTOR_CONNECTOR1_JOB_NAME=new_job
 ```
 
-A Jenkins user should have write access to a targeted Jenkins job, i.e. update it.
-
+A Jenkins user should have write access to a targeted Jenkins job in order to update it.
 
 ### Configure Repo Webhooks
+The Jenkins integration supports both GitHub and BitBucket Server repos.
 
 #### For GitHub
 

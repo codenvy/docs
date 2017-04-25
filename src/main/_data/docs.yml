@@ -25,17 +25,19 @@
   - admin-runbook
 - title: Workspace Guide
   docs:
-  - ws-admin-intro # Che workspace-administration
-  - ws-stacks # Che workspace-administration
-  - ws-recipes # Che workspace-administration
-  - ws-samples # Che workspace-administration
-  - ws-machines # Che workspace-administration
-  - ws-volume-mounts # Che workspace-administration
-  - ws-agents # Che workspace-administration
+  - devops-intro # Che workspace-administration
+  - devops-runtime-stacks # Che workspace-administration
+  - devops-runtime-recipes # Che workspace-administration
+  - devops-project-samples # Che workspace-administration
+  - devops-runtime-machines # Che workspace-administration
+  - devops-volume-mounts # Che workspace-administration
+  - devops-ws-agents # Che workspace-administration
+  - devops-runtime-stacks-data-model # Che workspace-administration
+  - devops-project-samples-data-model # Che workspace-administration
 - title: User Guide
   docs:
-  - ws-admin-intro # Che workspace-administration
-  - ide-projects # Che use-che-as-an-ide
+  - devops-intro # Che workspace-administration
+  - ide-import-a-project # Che use-che-as-an-ide
   - user-import
   - user-teams
   - user-subscriptions

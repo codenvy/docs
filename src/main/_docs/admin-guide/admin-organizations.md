@@ -11,55 +11,63 @@ permalink: /:categories/organizations/
 Organization allow to regroup developers on Codenvy and allocate resources. Resources and permissions are controlled and allocated within Codenvy admin dashboard by system administrator.
 
 ## Roles
-There are three different roles in an organization:  
+There are two main different roles in an organization:  
 
 - **Admin**: Organization's admins are able to manage the organization. Admins can edit settings, manage members, resources and sub-organization.  
 - **Members**: Organization's members are able create workspace, manage own workspaces and use any other workspaces they have permissions for.  
+
+Alternatively there is **System Admin** role, on Codenvy System, who is able to create root organizations, manage all the resources, members and sub-organizations.
 
 ## Organization Workspaces
 Workspaces created in an organization use organization resources granted and allocated by the system administrator.
 
 ## Organization Workspace Resources
-Resources for team are taken from the owner's resource pool. Owners can control whether all, or a portion of their resources are shared with the team.  
+Resources for organization are taken from the parent one. Admins can control whether all, or a portion of the resources, that are shared with the sub-organization.  
 
-## Root Organization
-(to be detailled)
+## Organization Structure
+Organizations can have sub-organizations.
+Root organizations are the starting point of each group of developers. Multiple root organizations are allowed onto your system. Root organizations can be created only be the System Admin. The management of the root organization's resources is also allowed only to the System Admin of your Codenvy installation.
 
 # Creating an Organization
-Codenvy system administrator are able to create organizations.   
+Codenvy system administrator is able to create organizations.   
 
-To create an organization, use the menu in the left sidebar to display the list of organizations:  
+To create an organization, use the menu in the left sidebar, which leads to the list of organizations:  
 ![organization-menu.png]({{base}}/docs/assets/imgs/codenvy/organization-menu.png){:style="width: 30%"}  
 
-A new page is displayed with all current organizations in your system. Click on the top-left button to create a new organization.
+A new page is displayed with all organizations in your system. Click on the top-left button to create a new organization.
 ![organization-list.png]({{base}}/docs/assets/imgs/codenvy/organization-list.png)
 
-A new page is displayed in which an organization name is set and organization members are added.
+A new page is displayed in which an organization name should set and organization members may be added.
 ![organization-create.png]({{base}}/docs/assets/imgs/codenvy/organization-create.png)
 
 ## Organization List
-The list of all organizations are displayed on dashboard page:
+The list of all organizations are displayed on organizations page:
 ![organization-list2.png]({{base}}/docs/assets/imgs/codenvy/organization-list2.png)
+
+The list contains the general information for each organization: number of members, total and available RAM and number of sub-organizations.
 
 ## Adding Organization Members
 Adding organization members by clicking the "Add" button will display a new popup. You can add multiple users at the same time by separating emails with a comma but note that all users added at the same time will be given the same [role]({{base}}{{site.links["admin-organizations"]}}#roles):
 
 ![organization-multiple-invites.png]({{base}}/docs/assets/imgs/codenvy/organization-multiple-invites.png)
 
-
-You can change a organization member's role or remove them from the organization at any time.
+You can change an organization member's role or remove them from the organization at any time.
 ![organization-create-invite-members.png]({{base}}/docs/assets/imgs/codenvy/organization-create-invite-members.png)
 
 Note: Users with the green checkmark beside their name already have an account on your Codenvy system and will be added to the organization. Users without a checkmark do not have an account and will not be added into the organization.
 
 ## Workspaces in Organization
-(to be detailled)
+Workspace is created inside of an organization and uses the resources of this very organization. Workspace creator has to choose the organization on workspace creation page:
+![organization-create-workspace.png]({{base}}/docs/assets/imgs/codenvy/organization-create-workspace.png)
 
 ## Create Sub-Organization
-(to be detailled)
+The creation of sub-organization can be done from organization details page by selecting Sub-Organizations tab and clicking "Add Sub-Organization" button.
+The flow of sub-organization creation is the same as for [organization]({{base}}{{site.links["admin-organizations"]}}#creating-an-organization).
 
 ### Add members to Sub-Organization
+The sub-organization members can be added only from the list of parent organization's members:
 
+![sub-organization-add-members.png]({{base}}/docs/assets/imgs/codenvy/sub-organization-add-members.png)
 
 # Organization and Sub-Organization Administration
 
@@ -69,7 +77,8 @@ Organization settings are visible to all members of the organization, but only t
 
 ## Rename an Organization or Sub-Organization
 **Action restricted to**: Codenvy system administrator and admins of the organization.
-To rename an Organization, click in the "Name" textfield and start editing the name of the organization. Once edited, the organization name will automatically be saved and applied. When a organization is renamed all members of the organization will receive an email notification with the new organization name.
+
+To rename an Organization, click in the "Name" textfield and start editing the name of the organization. Once edited, the save mode will appear - click on "Save" button to update the name.
 
 The name of the organization is restricted to the following rules:  
 - Only alphanumeric characters or a single "-" can be used  
@@ -92,11 +101,11 @@ All members of the organization will receive an email notification to inform abo
 
 ## Manage Organization and Sub-Organization Limits
 **Action restricted to**: Codenvy system administrator and admins of the organization.
-(to be defined: where the organization default caps are taken from)
-By default, there are resource limits applied to the organization so all members can benefit from all the allocated resources. If an organization admin wishes to set limits they have three options:  
+The organization default caps are taken from the system configuration. The admin of the organization can manage only the limits of it's sub-organizations.
+By default, there are no resource limits applied to the organization so all members can benefit from all the allocated resources. If an organization admin wishes to set limits they have three options:  
 - **Workspace Cap**: The maximum number of workspaces that can exist in the organization.  
 - **Running Workspace Cap**: The maximum number of workspaces which can run simultaneously in the organization.  
-- **Workspace RAM Cap**: The maximum RAM each single workspace can use in GB.  
+- **Workspace RAM Cap**: The maximum total RAM organization workspaces can use in GB.  
 
 ## Update Organization and Sub-Organization Member Roles
 **Action restricted to**: Codenvy system administrator and admins of the organization.
@@ -116,7 +125,7 @@ Click "Save" to confirm the update.
 To remove a member from the organization, you can click on the "Delete" button in the "Actions" column:
 ![organization-remove-single-member.png]({{base}}/docs/assets/imgs/codenvy/organization-remove-single-member.png)
 
-You'll get a confirmation popup, where you can validate or cancel your action.
+You'll get a confirmation popup, where you can confirm or cancel your action.
 
 You can also select multiple members from the organization, using the checkboxes. A delete button will appear in the header of the table:
 ![organization-remove-members.png]({{base}}/docs/assets/imgs/codenvy/organization-remove-members.png)

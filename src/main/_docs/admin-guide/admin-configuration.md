@@ -215,6 +215,15 @@ CODENVY_MAIL_SMTP_SOCKETFACTORY_FALLBACK=false
 ```
 If you want to use your Gmail as Codenvy mail server, make sure your account is configured to [allow less secure apps]( https://support.google.com/accounts/answer/6010255?hl=en).
 
+Also it is possible to customize email notifications subjects. To achieve this just set following properties in `codenvy.env` file with desired values (here defaults is set):
+
+```
+CODENVY_ACCOUNT_VERIFY_MAIL_SUBJECT=Verify Your Codenvy Account
+CODENVY_ACCOUNT_PASSWORD_RECOVERY_MAIL_SUBJECT=Codenvy Password Recovery
+CODENVY_ACCOUNT_CREATED_BYADMIN_MAIL_SUBJECT=Welcome To Codenvy
+CODENVY_ACCOUNT_CREATED_BYUSER_MAIL_SUBJECT=Welcome To Codenvy
+```
+
 # Development Mode
 **Note**: While Codenvy's source code is publicly available on GitHub it is not an open-source project and requires a license from Codenvy to make any changes to the source code.
 

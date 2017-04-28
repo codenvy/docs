@@ -144,7 +144,7 @@ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock
                     -v <local-path>:/data
                     -v <a-different-path>:/data/instance
                     -v <another-path>:/data/backup
-                       codenvy/cli:<version> [COMMAND]    
+                       codenvy/cli:<version> [COMMAND]
 
 ```
 
@@ -158,7 +158,7 @@ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock
                        codenvy/cli:<version> [COMMAND]
 ```
 
-Alternatively, you can edit the `CODENVY_HOST` value in `codenvy.env`. 
+Alternatively, you can edit the `CODENVY_HOST` value in `codenvy.env`.
 
 ## Proxy Installation
 Codenvy can be installed and operated from behind a proxy:
@@ -172,7 +172,7 @@ Before starting Codenvy, configure [Docker's daemon for proxy access](https://do
 
 If you configure `HTTP_PROXY` or `HTTPS_PROXY` in your Docker daemon, Codenvy automatically adds `localhost,127.0.0.1,codenvy-swarm,CODENVY_HOST` to your `NO_PROXY` value where `CODENVY_HOST` is the DNS or IP address. We recommend that you check these values in your `codenvy.env` and add the short and long form DNS entry to your Docker's `NO_PROXY` setting if it is not already set.
 
-This is the full set of proxy-related values in the `codenvy.env`. You can optionally modify these with different values:
+This is the full set of proxy-related values in the `codenvy.env`. You can optionally modify these with different values.
 
 ```
 CODENVY_HTTP_PROXY_FOR_CODENVY=<YOUR_PROXY_FROM_DOCKER>
@@ -181,13 +181,15 @@ CODENVY_NO_PROXY_FOR_CODENVY=localhost,127.0.0.1,codenvy-swarm,<YOUR_CODENVY_HOS
 
 CODENVY_HTTP_PROXY_FOR_CODENVY_WORKSPACES=<YOUR_PROXY_FROM_DOCKER>
 CODENVY_HTTPS_PROXY_FOR_CODENVY_WORKSPACES=<YOUR_PROXY_FROM_DOCKER>
-CODENVY_NO_PROXY_FOR_CODENVY_WORKSPACES=localhost,127.0.0.1,<YOUR_CODENVY_HOST>
+CODENVY_NO_PROXY_FOR_CODENVY_WORKSPACES=localhost,127.0.0.1,<YOUR_CODENVY_HOST>,<YOUR_MAVEN_REPO>,<YOUR_YUM_REPO>
 ```
 
-The last three entries are injected into workspaces created by your users. This gives your users access to the Internet from within their workspaces. You can comment out these entries to disable access. However, if that access is turned off, then the default templates with source code will fail to be created in workspaces as those projects are cloned from GitHub.com. Your workspaces are still functional, we just prevent the template cloning.
+The last three entries are injected into workspaces created by your users. This gives your users access to the Internet from within their workspaces. You can comment out these entries to disable access. However, if that access is turned off, then the default templates with source code will fail to be created in workspaces as those projects are cloned from GitHub.com. Your workspaces are still functional, we just prevent the template cloning. If you use any custom yum or Maven repos in workspaces you may need to add them no_proxy for Codenvy workspaces.
+
+If you create a workspace from a custom recipe, and there are any sudo commands being executed as part of Dockerfile instructions, make sure you use `sudo -E`, for example `sudo -E apt-get install python -y`
 
 #### DNS Resolution
-The default behavior is for Codenvy and its workspaces to inherit DNS resolver servers from the host. You can override these resolvers by setting `CODENVY_DNS_RESOLVERS` in the `codenvy.env` file and restarting Codenvy. DNS resolvers allow programs and services that are deployed within a user workspace to perform DNS lookups with public or internal resolver servers. In some environments, custom resolution of DNS entries (usually to an internal DNS provider) is required to enable the Codenvy server and the workspace runtimes to have lookup ability for internal services. 
+The default behavior is for Codenvy and its workspaces to inherit DNS resolver servers from the host. You can override these resolvers by setting `CODENVY_DNS_RESOLVERS` in the `codenvy.env` file and restarting Codenvy. DNS resolvers allow programs and services that are deployed within a user workspace to perform DNS lookups with public or internal resolver servers. In some environments, custom resolution of DNS entries (usually to an internal DNS provider) is required to enable the Codenvy server and the workspace runtimes to have lookup ability for internal services.
 
 ```shell
 # Update your codenvy.env with comma separated list of resolvers:
@@ -231,7 +233,7 @@ There are many third party firewall services. Different versions of Windows OS a
 
 1. In the left pane, right-click `Inbound Rules`, and then click `New Rule` in the action pane.
 2. In the `Rule Type` dialog box, select `Port`, and then click `Next`.
-3. In the `Protocol and Ports` dialog box, select `TCP`. 
+3. In the `Protocol and Ports` dialog box, select `TCP`.
 4. Select speicfic local ports, enter the port number to be opened and click `Next`.
 5. In the `Action` dialog box, select `Allow the Connection`, and then click `Next`.
 6. In the `Name` dialog box, type a name and description for this rule, and then click `Finish`.
@@ -251,7 +253,7 @@ The CLI will download images and save them to `/backup/*.tar` with each image sa
 The default execution will download none of the optional stack images, which are needed to launch workspaces of a particular type. There are a few dozen stacks for different programming languages and some of them are over 1GB in size. It is unlikely that your users will need all of the stacks, so you do not need to download all of them. You can get a list of available stack images by running `codenvy offline --list`. You can download a specific stack by running `codenvy offline --image:<image-name>` and the `--image` flag can be repeatedly used on a single command line.
 
 ### 2. Start Codenvy In Offline Mode
-Place the TAR files into a folder in the offline computer. If the files are in placed in a folder named `/tmp/offline`, you can run Codenvy in offline mode with: 
+Place the TAR files into a folder in the offline computer. If the files are in placed in a folder named `/tmp/offline`, you can run Codenvy in offline mode with:
 
 ```
 # Load the CLI
@@ -275,7 +277,7 @@ docker run codenvy/cli:<version> rmi
 # Delete the Codenvy CLI
 docker rmi -f codenvy/cli
 ```
- 
+
 # System Requirements
 Codenvy installs on Linux, Mac and Windows.
 
@@ -306,7 +308,7 @@ Sometimes Fedora and RHEL/CentOS users will encounter issues with SElinux. Try d
 The hostname or IP address that you give to the Codenvy master node (and any optional workspace nodes) must be externally reachable by each browser. In scalability mode, you can create a cluster of workspace nodes by connecting different Docker daemons together. Even though the cluster is an internal object, each workspace node must be listening on a publicly reachable IP address or hostname.
 
 ## Required Ports
-Codenvy's runtime launches a group of Docker containers in a compose relationship. The master node is where Codenvy is installed and running. In a [scalability mode]({{base}}/docs/admin-guide/managing/index.html), you can add additional physical "machine" nodes which runs the developer to increase system capacity. 
+Codenvy's runtime launches a group of Docker containers in a compose relationship. The master node is where Codenvy is installed and running. In a [scalability mode]({{base}}/docs/admin-guide/managing/index.html), you can add additional physical "machine" nodes which runs the developer to increase system capacity.
 
 ### Master Node
 If you have not added any additional physical workspace nodes, then the Codenvy master node runs core services and workspaces.

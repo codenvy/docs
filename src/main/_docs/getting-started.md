@@ -40,6 +40,6 @@ Your workspaces can clone Git or Subversion repositories into the project space.
 |I am a...| Check out the... |
 | --- | --- |
 | **System Administrator** | [*The Admin Guide*]({{base}}/docs/admin-guide/installation/index.html).<br> Install, configure, and operate a global Codenvy cloud servicing all your developers. |
-| **Developer** | [*The User Guide*]({{base}}/docs/getting-started/admin-intro/index.html).<br> Configure and use workspaces and the Che IDE (or any desktop IDE). |
-| **DevOps** or **Team Lead** | [*The DevOps Guide*]({{base}}/docs/integration-guide/workspace-automation/index.html).<br> Automate workspace creation with Factories and integrate Codenvy with your private toolchain including GitHub, BitBucket, JIRA and Jenkins. |
-| **Plug-in Developer** | [*Che Plugin Guide*](https://www.eclipse.org/che/docs/plugins/introduction/index.html).<br> Codenvy is based on Eclipse Che - to extend Codenvy simply build Che extensions. If you are going to place your extensions into a Codenvy On-Prem instance please [contact us for guidance](https://codenvy.com/contact/questions/). |
+| **Developer** | [*The User Guide*]({{base}}/docs/getting-started/intro/index.html).<br> Configure and use workspaces and the Che IDE (or any desktop IDE). |
+| **DevOps** or **Team Lead** | [*The Factory Guide*]({{base}}/docs/factory/getting-started/index.html).<br> Automate workspace creation with Factories and [*integrate Codenvy with your private toolchain*]({{base}}/docs/integration-guide/issue-management/index.html) including GitHub, BitBucket, JIRA and Jenkins. |
+| **Plug-in Developer** | [*Che Plugin Guide*](https://eclipse.org/che/docs/assemblies/intro/index.html).<br> Codenvy is based on Eclipse Che - to extend Codenvy simply build Che extensions. If you are going to place your extensions into a Codenvy On-Prem instance please [contact us for guidance](https://codenvy.com/contact/questions/). |

@@ -20,11 +20,11 @@
     <parent>
         <artifactId>maven-depmgt-pom</artifactId>
         <groupId>org.eclipse.che.depmgt</groupId>
-        <version>5.10.0-SNAPSHOT</version>
+        <version>5.11.0-SNAPSHOT</version>
     </parent>
     <groupId>com.codenvy.docs</groupId>
     <artifactId>codenvy-docs</artifactId>
-    <version>5.10.0-SNAPSHOT</version>
+    <version>5.11.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Codenvy :: Docs War</name>
     <scm>
@@ -33,7 +33,7 @@
         <tag>HEAD</tag>
     </scm>
     <properties>
-        <che.docs.version>5.10.0-SNAPSHOT</che.docs.version>
+        <che.docs.version>5.11.0-SNAPSHOT</che.docs.version>
         <jetty.version>9.4.0.v20161208</jetty.version>
         <maven.releases.repo.url>https://maven.codenvycorp.com/content/repositories/codenvy-private-releases/</maven.releases.repo.url>
         <maven.snapshots.repo.url>https://maven.codenvycorp.com/content/repositories/codenvy-private-snapshots/</maven.snapshots.repo.url>

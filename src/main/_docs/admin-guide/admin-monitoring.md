@@ -68,6 +68,7 @@ in short for checking use: `su zabbix -s /bin/bash -c "df -h /mnt/data"` and set
 - Template OS Linux Node
 
 `Codenvy Docker Space Template` is same as we using for Master Node
+
 `Template OS Linux Node` is modified version of `Template OS Linux`, only changed trigger value for `Too many processes on {HOST.NAME}`. We bumped it to 800. You may consider other value depending of how many containers and processes in each container You expecting on Node.
 
 # Pingdom setup

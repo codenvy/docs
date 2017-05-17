@@ -246,7 +246,7 @@ A new popup is displayed where login, e-mail and password should set and a new u
 
 ![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-add-user-popup.png){:style="width: 40%"}  
 
-## Delete the User
+## Remove the User
 
 User's item has delete widget. Click on it.  A new popup has displayed the confirmation:
 

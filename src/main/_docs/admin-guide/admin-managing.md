@@ -223,6 +223,43 @@ If new nodes are added or removed, or if existing nodes are resized, a matching 
 ## Triggering Failover
 If there is a failure with the primary system, log into the secondary system to ensure that everything is working as expected. Then re-route DNS to the secondary nodes. The secondary must have the same DNS name as the primary after switchover to ensure all functions operate correctly.
 
+# User Management
+Codenvy system administrator is able to manage users.
+
+## User List
+
+Use the menu in the left sidebar, which leads to the list of users:
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-menu.png){:style="width: 25%"}  
+
+A new page is displayed the list of users in your system:
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-user-list.png){:style="width: 100%"} 
+
+## Add a User
+
+Click on the top-left button to add a new user:
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-add-user.png){:style="width: 100%"}  
+
+A new popup is displayed where login, e-mail and password should set and a new user may be added:
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-add-user-popup.png){:style="width: 40%"}  
+
+## Delete the User
+
+User's item has delete widget. Click on it.  A new popup has displayed the confirmation:
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-delete-user-popup.png){:style="width: 40%"}  
+
+## User Details
+
+Click on the user list item. A new page is displayed details:
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-user-profile.png){:style="width: 100%"}
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-user-organizations.png){:style="width: 100%"}
+
 # User Administration
 
 ## Configure Account Limits

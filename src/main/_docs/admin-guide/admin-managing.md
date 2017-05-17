@@ -223,7 +223,45 @@ If new nodes are added or removed, or if existing nodes are resized, a matching 
 ## Triggering Failover
 If there is a failure with the primary system, log into the secondary system to ensure that everything is working as expected. Then re-route DNS to the secondary nodes. The secondary must have the same DNS name as the primary after switchover to ensure all functions operate correctly.
 
+
 # User Administration
+
+As Codenvy system administrator, you can manage the users from the Dashboard.
+You can also configure certain set of limits and permissions by using the API.
+
+## List of users
+
+As Codenvy system administrator, use the menu in the left sidebar to open the list of users:
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-menu.png){:style="width: 25%"}  
+
+A new page is displayed, which list all the users registered into your system:
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-user-list.png){:style="width: 100%"}
+
+## Add a User
+
+Click on the top-left button to add a new user:
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-add-user.png){:style="width: 100%"}  
+
+A new popup is displayed where login, e-mail and password have to be defined in order to create a new user into the system:
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-add-user-popup.png){:style="width: 40%"}  
+
+## Remove a User
+
+You can remove a user by clicking on the "delete" icon. A new popup will be displayed and ask for confirmation:
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-delete-user-popup.png){:style="width: 40%"}  
+
+## User Details
+
+Click on a user in the list to modify the user's details.
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-user-profile.png){:style="width: 100%"}
+
+![admin-menu.png]({{base}}/docs/assets/imgs/codenvy/user-management-user-organizations.png){:style="width: 100%"}
 
 ## Configure Account Limits
 By default each user is able to use resources that are set in the system [configuration]({{base}}{{site.links["setup-configuration"]}}#workspace-limits). These limits affect all users but if needed the Codenvy admin can override the default values for a particular user via the Resource API.

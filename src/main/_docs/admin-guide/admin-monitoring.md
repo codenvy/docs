@@ -1,7 +1,7 @@
 ---
 tag: [ "codenvy" ]
 title: Monitoring
-excerpt: "Monitoring of codenvy using Zabbix and Pingdom"
+excerpt: "Monitoring Codenvy"
 layout: docs
 permalink: /:categories/monitoring/
 ---

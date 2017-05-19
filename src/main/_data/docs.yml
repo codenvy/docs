@@ -23,6 +23,7 @@
   - admin-organizations
   - admin-cli
   - admin-runbook
+  - admin-monitoring
 - title: Workspace Guide
   docs:
   - devops-intro # Che workspace-administration

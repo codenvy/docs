@@ -104,14 +104,6 @@
         "type": "custom"
       },
       {
-        "commandLine": "sudo apt-get update && sudo apt-get install libcurl3 && sudo gem install html-proofer && mkdir -p /projects/link-checker && cd /projects/che-docs/target/_site/docs && htmlproofer --assume-extension . &> /projects/link-checker/che-docs-errors.log && cd /projects/codenvy-docs/target/_site/docs && htmlproofer  --assume-extension . &> /projects/link-checker/codenvy-docs-errors.log",
-        "name": "HTMLProofer",
-        "attributes": {
-          "previewUrl": ""
-        },
-        "type": "custom"
-      },
-      {
         "commandLine": "sudo apt-get update && sudo apt-get install libcurl3 && sudo gem install html-proofer && mkdir -p /projects/link-checker && cd /projects/codenvy-docs/target/docs && (htmlproofer  --assume-extension . &> /projects/link-checker/codenvy-docs-errors.log)",
         "name": "HTMLProofer Codenvy",
         "attributes": {

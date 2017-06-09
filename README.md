@@ -1,4 +1,4 @@
-[![Workspace](https://codenvy.io/factory/resources/codenvy-contribute.svg)](https://codenvy.io/f?name=che-codenvy-docs&user=jdrummond)
+[![Workspace](https://codenvy.io/factory/resources/codenvy-contribute.svg)](https://codenvy.io/f?url=https://github.com/codenvy/docs)
 
 # codenvy-docs
 
@@ -18,14 +18,14 @@ Because the docs are generated into static HTML linking to docs and images is a 
 - Link to an image: `![mypic.png]({{base}}/docs/assets/imgs/mypic.png)`
 
 # Editing Docs
-[![Workspace](https://codenvy.io/factory/resources/codenvy-contribute.svg)](https://codenvy.io/f?name=che-codenvy-docs&user=jdrummond)
+[![Workspace](https://codenvy.io/factory/resources/codenvy-contribute.svg)](https://codenvy.io/f?url=https://github.com/codenvy/docs)
   
 Get a workpsace on `codenvy.io` which include all dependencies to edit and preview your changes by clicking on the image above.
 
 # Building Docs
 Docs are built using a Docker image with Jekyll inside it. You will need Docker running on your machine to build the Codenvy docs.
 
-You can use codenvy.io factory to easily compile and view documentation. Just click [here](https://codenvy.io/f?name=che-codenvy-docs&user=jdrummond).
+You can use codenvy.io factory to easily compile and view documentation. Just click [here](https://codenvy.io/f?url=https://github.com/codenvy/docs).
 
 You can also use the following locally. Navigate to the repo on your filesystem and type:
 

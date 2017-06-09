@@ -1,0 +1,150 @@
+{
+  "v": "4.0",
+  "name": "che-codenvy-docs",
+  "workspace": {
+    "defaultEnv": "default",
+    "environments": {
+      "default": {
+        "machines": {
+          "dev-machine": {
+            "attributes": {
+              "memoryLimitBytes": "3221225472"
+            },
+            "servers": {},
+            "agents": [
+              "org.eclipse.che.terminal",
+              "org.eclipse.che.ws-agent",
+              "org.eclipse.che.ssh"
+            ]
+          }
+        },
+        "recipe": {
+          "type": "compose",
+          "content": "services:\n  dev-machine:\n    image: jdrummond/ubuntu_jekyll\n",
+          "contentType": "application/x-yaml"
+        }
+      }
+    },
+    "projects": [
+      {
+        "links": [],
+        "name": "che-docs",
+        "attributes": {},
+        "type": "blank",
+        "source": {
+          "location": "https://github.com/eclipse/che-docs.git",
+          "type": "git",
+          "parameters": {}
+        },
+        "path": "/che-docs",
+        "description": "Che documentation generated via jekyll.",
+        "problems": [],
+        "mixins": [
+          "pullrequest"
+        ]
+      },
+      {
+        "links": [],
+        "name": "codenvy-docs",
+        "attributes": {},
+        "type": "blank",
+        "source": {
+          "location": "https://github.com/codenvy/docs.git",
+          "type": "git",
+          "parameters": {}
+        },
+        "path": "/codenvy-docs",
+        "description": "Codenvy documentation generated via jekyll.",
+        "problems": [],
+        "mixins": [
+          "pullrequest"
+        ]
+      }
+    ],
+    "name": "che-codenvy-docs",
+    "commands": [
+      {
+        "commandLine": "mkdir -p /projects/che-docs/target; cd /projects/che-docs/target ; jekyll serve -s /projects/che-docs/src/main --force_polling --host $(/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2)",
+        "name": "Che Jekyll Serve Full",
+        "attributes": {
+          "previewUrl": "http://${server.port.4000}/docs/"
+        },
+        "type": "custom"
+      },
+      {
+        "commandLine": "mkdir -p /projects/che-docs/target; cd /projects/che-docs/target ; jekyll serve -s /projects/che-docs/src/main --force_polling --incremental --host $(/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2)",
+        "name": "Che Jekyll Serve Incremental",
+        "attributes": {
+          "previewUrl": "http://${server.port.4000}/docs/"
+        },
+        "type": "custom"
+      },
+      {
+        "commandLine": "while true; do unison -auto=true -log=false -retry 10 -silent=true -watch=true -force /projects/che-docs/src/main/_docs/ /projects/che-docs/src/main/_docs/ /projects/codenvy-docs/src/main/_docs/che/ > /dev/null 2>&1; unison -auto=true -log=false -retry 10 -silent=true -watch=true -ignore 'Path codenvy' -force /projects/che-docs/src/main/_docs/assets/imgs /projects/che-docs/src/main/_docs/assets/imgs /projects/codenvy-docs/src/main/_docs/assets/imgs> /dev/null 2>&1; echo 'Synced. Sleeping for 2 seconds.'; sleep 2;done;",
+        "name": "Codenvy Unison OneWay",
+        "attributes": {
+          "previewUrl": ""
+        },
+        "type": "custom"
+      },
+      {
+        "commandLine": "mkdir -p /projects/codenvy-docs/target/docs/che; sleep 2; jekyll serve -s /projects/codenvy-docs/src/main -d /projects/codenvy-docs/target/ --force_polling --incremental --port 8080 --host $(/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2)",
+        "name": "Codenvy Jekyll Serve Incremental",
+        "attributes": {
+          "previewUrl": "http://${server.port.8080}/docs/"
+        },
+        "type": "custom"
+      },
+      {
+        "commandLine": "mkdir -p /projects/codenvy-docs/target/docs/che; sleep 2; jekyll serve -s /projects/codenvy-docs/src/main -d /projects/codenvy-docs/target/ --force_polling  --port 8080 --host $(/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2)",
+        "name": "Codenvy Jekyll Serve Full",
+        "attributes": {
+          "previewUrl": "http://${/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2}/docs/"
+        },
+        "type": "custom"
+      },
+      {
+        "commandLine": "sudo apt-get update && sudo apt-get install libcurl3 && sudo gem install html-proofer && mkdir -p /projects/link-checker && cd /projects/codenvy-docs/target/docs && (htmlproofer  --assume-extension . &> /projects/link-checker/codenvy-docs-errors.log)",
+        "name": "HTMLProofer Codenvy",
+        "attributes": {
+          "previewUrl": ""
+        },
+        "type": "custom"
+      },
+      {
+        "commandLine": "sudo apt-get update && sudo apt-get install libcurl3 && sudo gem install html-proofer && mkdir -p /projects/link-checker && cd /projects/che-docs/target/_site/docs && (htmlproofer  --assume-extension . &> /projects/link-checker/che-docs-errors.log)",
+        "name": "HTMLProofer Che",
+        "attributes": {
+          "previewUrl": ""
+        },
+        "type": "custom"
+      }
+    ],
+    "links": []
+  },
+  "id": "49bxtfztv73y9fwm",
+  "ide": {
+    "onProjectsLoaded": {
+      "actions": [
+        {
+          "properties": {
+            "name": "Codenvy Unison OneWay"
+          },
+          "id": "runCommand"
+        },
+        {
+          "properties": {
+            "name": "Codenvy Jekyll Serve Incremental"
+          },
+          "id": "runCommand"
+        },
+        {
+          "properties": {
+            "name": "Che Jekyll Serve Incremental"
+          },
+          "id": "runCommand"
+        }
+      ]
+    }
+  }
+}

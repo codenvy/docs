@@ -24,13 +24,13 @@
     </parent>
     <groupId>com.codenvy.docs</groupId>
     <artifactId>codenvy-docs</artifactId>
-    <version>5.13.0</version>
+    <version>5.13.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Codenvy :: Docs War</name>
     <scm>
         <connection>scm:git:git@github.com:codenvy/codenvy-docs.git</connection>
         <developerConnection>scm:git:git@github.com:codenvy/codenvy-docs.git</developerConnection>
-        <tag>5.13.0</tag>
+        <tag>HEAD</tag>
     </scm>
     <properties>
         <che.docs.version>5.13.0</che.docs.version>

@@ -20,7 +20,7 @@
     <parent>
         <artifactId>maven-depmgt-pom</artifactId>
         <groupId>org.eclipse.che.depmgt</groupId>
-        <version>5.13.0</version>
+        <version>5.13.1-SNAPSHOT</version>
     </parent>
     <groupId>com.codenvy.docs</groupId>
     <artifactId>codenvy-docs</artifactId>

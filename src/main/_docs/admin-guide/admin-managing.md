@@ -152,7 +152,7 @@ However, when you do a `codenvy backup`, we do copy the Postgres data from the c
 It is possible to migrate your configuration and user data from a puppet-based installation of Codenvy (5.0.0-M8 and earlier) to the Dockerized version of Codenvy. Please contact our support team for instructions.
 
 # Auditing
-The Codenvy audit service provides information on historic licensing changes (moves between Fair Source and paid licenses for example) as well as the current state of the system with regards to license compliance and workspace ownership across all accounts.
+The Codenvy audit service provides information on workspace ownership across all accounts.
 
 A system administrator can generate an audit report at any time:
 
@@ -191,7 +191,6 @@ In the event of a failure of the primary, the secondary system can be powered on
 Install Codenvy on a secondary system taking care to ensure:
 
 - Version matches the primary system
-- License file is added to the secondary system.
 - Number of nodes and their resource capacity is the same as the primary system.
 - Source code repositories, artifact repositories and Docker registries are accessible from the secondary system.
 

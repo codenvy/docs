@@ -26,11 +26,6 @@ $ docker run codenvy/cli start
 
 This gives you additional instructions on how to run the Codenvy CLI while setting your hostname, configuring volume mounts, and testing your Docker setup. For full install syntax [see below]({{base}}{{site.links["admin-installation"]}}#installation).
 
-# Licensing
-Codenvy starts with a Fair Source 3 license, which allows up to three users in an organization to use Codenvy with full functionality and limited liabilities and warranties. You can request a trial license from Codenvy for more than 3 users or purchase one from our friendly sales team (sales@codenvy.com). Once you gain the license, start Codenvy and then apply the license in the admin dashboard that is accessible with your login credentials.
-
-Licenses require the host to be connected to the internet. If you require a license for a system that isn't connected to the internet please contact sales@codenvy.com.
-
 # Installation
 We abbreviate `codenvy [COMMAND]`, for the full `docker run ...` syntax for readability.
 
@@ -302,7 +297,7 @@ Given the nature of the development and release cycle it is important that you h
 
 Install the most recent version of the Docker Engine for your platform using the [official Docker releases](http://docs.docker.com/engine/installation/), including support for Mac and Windows!  If you are on Linux, you can also install with `wget -qO- https://get.docker.com/ | sh`.
 
-Sometimes Fedora and RHEL/CentOS users will encounter issues with SElinux. Try disabling selinux with `setenforce 0` and check if resolves the issue. If using the latest docker version and/or disabling selinux does not fix the issue then please file a issue request on the [issues](https://github.com/codenvy/codenvy/issues) page. If you are a licensed customer of Codenvy, you can get prioritized support with support@codenvy.com.
+Sometimes Fedora and RHEL/CentOS users will encounter issues with SElinux. Try disabling selinux with `setenforce 0` and check if resolves the issue. If using the latest docker version and/or disabling selinux does not fix the issue then please file a issue request on the [issues](https://github.com/codenvy/codenvy/issues) page.
 
 ## IP Addresses
 The hostname or IP address that you give to the Codenvy master node (and any optional workspace nodes) must be externally reachable by each browser. In scalability mode, you can create a cluster of workspace nodes by connecting different Docker daemons together. Even though the cluster is an internal object, each workspace node must be listening on a publicly reachable IP address or hostname.

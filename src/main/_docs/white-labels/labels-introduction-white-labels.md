@@ -8,9 +8,6 @@ permalink: /:categories/introduction-white-labels/
 {% include base.html %}
 A Codenvy white label is the ability to embed Codenvy within another product, or to customize Codenvy with your own extensions or brand identity. You may add extensions for the IDE or workspaces, remove default extensions (such as the Node.JS debugger), modify the user interface and create custom integrations to other tools.
 
-# OEM License
-**White labelling requires an OEM license.** The free Fair Source 3 license that ships with Codenvy and our enterprise license do not provide redistribution rights. Please [contact sales@codenvy.com](https://codenvy.com/contact/sales/) to obtain an OEM license.
-
 # Extending Codenvy 
 White label licensees often wish to add new features to Codenvy. This can be done by creating Eclipse Che extensions and plugins which will work with Codenvy or Eclipse Che. Eclipse Che docs include an extensive section on [building extensions and plugins](https://www.eclipse.org/che/docs).
 

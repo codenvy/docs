@@ -91,8 +91,6 @@ You can control the nature of how Codenvy downloads these images with command li
 | `--force` | Performs a forced removal of the local image using `docker rmi` and then pulls it again (anew) from DockerHub. You can use this as a way to clean your local cache and ensure that all images are new. |
 | `--offline` | Loads Docker images from `backup/*.tar` folder during a pre-boot mode of the CLI. Used if you are performing an installation or start while disconnected from the Internet. |
 
-The initialization of a Codenvy installation requires the acceptance of our default [Fair Source license agreement](http://codenvy.com/legal), which allows for some access to the source code and free usage for up to three people. You can auto-accept the license agreement without prompting for a response for silent installation by passing the `--accept-license` command line option.
-
 You can reinstall Codenvy on a folder that is already initialized and preserve your `/data/codenvy.env` values by passing the `--reinit` flag.
 
 -----

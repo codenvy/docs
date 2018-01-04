@@ -17,15 +17,6 @@ With Docker 1.11+ (1.12.5+ recommended) on Windows, Mac, or Linux:
 ```
 $ docker run codenvy/cli start
 ```
-You will be prompted with how to configure your hostname, volume mounts, and Docker configuration. Codenvy will launch a server that lets you create workspaces. 
-
-![multi-machine-ide.png]({{base}}/docs/assets/imgs/codenvy/multi-machine-ide.png)
-
-## Quick Install
-With Docker 1.11+ (1.12.5+ recommended) on Windows, Mac, or Linux:
-```
-$ docker run codenvy/cli start
-```
 You will be prompted with how to configure your hostname, volume mounts, and Docker configuration. Codenvy will launch a server that lets you create workspaces. *The admin guide*({{base}}/docs/admin-guide/installation/index.html) contains full installation instructions.
 
 ![multi-machine-ide.png]({{base}}/docs/assets/imgs/codenvy/multi-machine-ide.png)
@@ -35,7 +26,7 @@ We run a free, hosted cloud at http://codenvy.io. This service lets you create a
 
 Your workspaces can clone Git or Subversion repositories into the project space. To prevent bad people from doing bad stuff, we whitelist all external Git providers individually. While it would be uncommon for your Git provider to not be listed in our whitelists, new providers do sometimes miss our coverage. If you are working with a non-standard provider, please consider asking us about whitelisting it by opening an issue on our [GitHub repository](http://github.com).
 
-## Where To Go Next  
+## Where To Go Next
 
 |I am a...| Check out the... |
 | --- | --- |

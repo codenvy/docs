@@ -17,15 +17,6 @@ With Docker 1.11+ (1.12.5+ recommended) on Windows, Mac, or Linux:
 ```
 $ docker run codenvy/cli start
 ```
-You will be prompted with how to configure your hostname, volume mounts, and Docker configuration. Codenvy will launch a server that lets you create workspaces. 
-
-![multi-machine-ide.png]({{base}}/docs/assets/imgs/codenvy/multi-machine-ide.png)
-
-## Quick Install
-With Docker 1.11+ (1.12.5+ recommended) on Windows, Mac, or Linux:
-```
-$ docker run codenvy/cli start
-```
 You will be prompted with how to configure your hostname, volume mounts, and Docker configuration. Codenvy will launch a server that lets you create workspaces. *The admin guide*({{base}}/docs/admin-guide/installation/index.html) contains full installation instructions.
 
 ![multi-machine-ide.png]({{base}}/docs/assets/imgs/codenvy/multi-machine-ide.png)

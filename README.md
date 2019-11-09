@@ -2,7 +2,7 @@
 
 # codenvy-docs
 
-This repository houses documentation for Codenvy ([repo](https://github.com/codenvy/codenvy) / [site](https://codenvy.com/)). Content is held in markdown files in the `/src/main/_docs` directory. Images should be placed in `/src/main/_docs/assets/imgs`.
+This repository houses documentation for Codenvy ([repo](https://github.com/codenvy/codenvy) / [site](https://codenvy.com/)). Content is held in markdown files in the `/src/main/_docs` directory. Images should be placed in `/src/main/_docs/assets/imgs/codenvy`.
 
 Docs are built using Jekyll and the output is static HTML that is hosted at [codenvy.com/docs](https://codenvy.com/docs) and in the product at `{codenvy-domain}/docs`.
 
@@ -16,6 +16,9 @@ Because the docs are generated into static HTML linking to docs and images is a 
 - Link to a section in a docs page: `[Codenvy Factories]({{base}}/docs/integration-guide/workspace-automation/index.html#try-a-factory)`
   - `#try-a-factory` is the section heading name with spaces replaced by dashes
 - Link to an image: `![mypic.png]({{base}}/docs/assets/imgs/mypic.png)`
+  - Note: if you want to change image size do it via `style` attribute instead of `width` or `height` – in such way image sizes are not influenced by more general CSS rules. For example:
+  
+  `![mypic.png]({{base}}/docs/assets/imgs/mypic.png){:style="width:400px"}`
 
 # Editing Docs
 [![Workspace](https://codenvy.io/factory/resources/codenvy-contribute.svg)](https://codenvy.io/f?url=https://github.com/codenvy/docs)

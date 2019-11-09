@@ -9,7 +9,11 @@ permalink: /:categories/using-desktop-ides/
 # Standard SSH Connection  
 It's possible to establish SSH connection between your desktop IDE and a remote Codenvy workspace.
 
-In Codenvy create a new workspace, open it in the IDE and import any project in there. On the Consoles panel click `Connect via SSH`, you will see the following instructions:
+In Codenvy create a new workspace, open it in the IDE and import any project in there. On the Consoles panel click `Connect via SSH`:
+
+![user-using-desktop-ides-ssh.png]({{base}}/docs/assets/imgs/codenvy/user-using-desktop-ides-ssh.png){:style="width:400px"}
+
+You will see the following instr
 
 ```shell  
 You can connect your SSH client to 'default' with:
